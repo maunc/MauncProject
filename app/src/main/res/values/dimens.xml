@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_tv_margin_start">@dimen/x20</dimen>
+</resources>
