@@ -11,11 +11,11 @@ import androidx.core.widget.NestedScrollView;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.goldze.mvvmhabit.base.BaseActivity;
-import com.goldze.mvvmhabit.utils.AppUtils;
-import com.goldze.mvvmhabit.utils.ConvertUtils;
-import com.goldze.mvvmhabit.utils.DeviceUtils;
-import com.goldze.mvvmhabit.utils.LogUtils;
+import com.maunc.mvvmhabit.base.BaseActivity;
+import com.maunc.mvvmhabit.utils.AppUtils;
+import com.maunc.mvvmhabit.utils.ConvertUtils;
+import com.maunc.mvvmhabit.utils.DeviceUtils;
+import com.maunc.mvvmhabit.utils.LogUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.gyf.immersionbar.ImmersionBar;
 import com.us.mytest.BR;

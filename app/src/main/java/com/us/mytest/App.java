@@ -1,6 +1,6 @@
 package com.us.mytest;
 
-import com.goldze.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.base.BaseApp;
 
 /**
  * ClsFunction：
