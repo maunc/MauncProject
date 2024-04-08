@@ -2,13 +2,11 @@ package com.us.mytest.ui.activity.main;
 
 import android.app.Application;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
-import com.goldze.mvvmhabit.base.BaseViewModel;
-import com.goldze.mvvmhabit.utils.LogUtils;
+import com.maunc.mvvmhabit.base.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

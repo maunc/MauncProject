@@ -7,7 +7,7 @@
     android:background="@color/black"
     tools:context=".ui.activity.show_bitmap.ShowBitmapActivity">
 
-    <com.goldze.mvvmhabit.widget.ZoomImageView
+    <com.maunc.mvvmhabit.widget.ZoomImageView
         android:id="@+id/test_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

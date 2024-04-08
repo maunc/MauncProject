@@ -7,7 +7,7 @@ import androidx.databinding.Observable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.goldze.mvvmhabit.base.BaseActivity;
+import com.maunc.mvvmhabit.base.BaseActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.us.mytest.BR;
 import com.us.mytest.R;

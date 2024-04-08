@@ -27,10 +27,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/labixiaoxin" />
 
-            <Button
-                android:layout_width="@dimen/x50"
-                android:layout_height="@dimen/x100"
-                android:layout_marginStart="@dimen/main_tv_margin_start"/>
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
