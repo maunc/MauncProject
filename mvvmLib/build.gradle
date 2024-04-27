@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 android {
     namespace 'com.maunc.mvvmhabit'
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26

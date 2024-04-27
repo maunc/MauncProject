@@ -17,21 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTest"
         tools:targetApi="31">
-
         <activity
-            android:name=".ui.activity.WelcomeActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".ui.activity.speedratio.SpeedActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name=".ui.activity.show_bitmap.ShowBitmapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.main.MainActivity"
+            android:name=".ui.activity.kt.KtActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,11 +26,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.WelcomeActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.activity.speedratio.SpeedActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.show_bitmap.ShowBitmapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.main.MainActivity"
+            android:exported="true">
+
+        </activity>
+
         <provider
+            android:name=".DataProvider"
             android:authorities="com.us.mytest.DataProvider"
-            android:name="com.us.mytest.DataProvider"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>
