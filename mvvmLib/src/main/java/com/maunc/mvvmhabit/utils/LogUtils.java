@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class LogUtils {
 
     private static boolean IS_SHOW_LOG = true;
-    private static final String LOG_TAG = "LogUtils";
+    private static final String LOG_TAG = "ww";
     private static final String DEFAULT_MESSAGE = "---LogUtils---";
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private static final int JSON_INDENT = 4;

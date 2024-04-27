@@ -1,4 +1,4 @@
-package com.maunc.mvvmhabit.http;
+package com.maunc.mvvmhabit.http.base;
 
 import android.text.TextUtils;
 
@@ -9,9 +9,6 @@ import com.maunc.mvvmhabit.base.BaseApp;
 import com.maunc.mvvmhabit.http.cookie.CookieJarImpl;
 import com.maunc.mvvmhabit.http.cookie.store.PersistentCookieStore;
 import com.maunc.mvvmhabit.http.interceptor.BaseInterceptor;
-import com.maunc.mvvmhabit.http.interceptor.CacheInterceptor;
-import com.maunc.mvvmhabit.http.interceptor.logging.Level;
-import com.maunc.mvvmhabit.http.interceptor.logging.LoggingInterceptor;
 import com.maunc.mvvmhabit.utils.LogUtils;
 
 import java.io.File;
@@ -25,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
-import okhttp3.internal.platform.Platform;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by goldze on 2017/5/10.
  * RetrofitClient封装单例类, 实现网络请求
  */
-public class RetrofitManager {
+public class BaseRetrofitManager {
     //超时时间
     private static final int DEFAULT_TIMEOUT = 20;
     //缓存时间
@@ -48,63 +45,47 @@ public class RetrofitManager {
     private Cache cache;
 
     private static class SingletonHolder {
-        private static final RetrofitManager INSTANCE = new RetrofitManager();
+        private static final BaseRetrofitManager INSTANCE = new BaseRetrofitManager();
     }
 
-    public static RetrofitManager getInstance() {
+    public static BaseRetrofitManager getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
-    private RetrofitManager() {
+    private BaseRetrofitManager() {
         this(baseUrl, null);
     }
 
-    private RetrofitManager(String url, Map<String, String> headers) {
+    private BaseRetrofitManager(String url, Map<String, String> headers) {
         if (TextUtils.isEmpty(url)) {
             url = baseUrl;
         }
         if (httpCacheDirectory == null) {
-            httpCacheDirectory = new File(BaseApp.getInstance().getCacheDir(), "goldze_cache");
+            httpCacheDirectory = new File(BaseApp.getInstance().getCacheDir(), "ww_cache");
         }
         try {
             cache = new Cache(httpCacheDirectory, CACHE_TIMEOUT);
         } catch (Exception e) {
             LogUtils.e("Could not create http cache", e);
         }
-        HttpsManager.SSLParams sslParams = HttpsManager.getSslSocketFactory();
-        //构建者模式
-        //是否开启日志打印
-        //打印的等级
-        // 打印类型
-        // request的Tag
-        // Response的Tag
-        // 添加打印头, 注意 key 和 value 都不能是中文
-        // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
+        BaseSSLManager.SSLParams sslParams = BaseSSLManager.getSslSocketFactory();
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cookieJar(new CookieJarImpl(new PersistentCookieStore(BaseApp.getInstance())))
 //                .cache(cache)
                 .addInterceptor(new BaseInterceptor(headers))
-                .addInterceptor(new CacheInterceptor(BaseApp.getInstance()))
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-                .addInterceptor(new LoggingInterceptor.Builder()
-                        .setLevel(Level.BASIC) //打印的等级
-                        .log(Platform.INFO) // 打印类型
-                        .request("Request") // request的Tag
-                        .response("Response")// Response的Tag
-                        .addHeader("log-header", "I am the log request header.") // 添加打印头, 注意 key 和 value 都不能是中文
-                        .build()
-                )
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(
+                        HttpLoggingInterceptor.Level.BODY))
+//                .addInterceptor(new CacheInterceptor(BaseApp.getInstance()))
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
                 .connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
                 .build();
-        retrofit = new Retrofit.Builder()
-                .client(okHttpClient)
+        retrofit = new Retrofit.Builder().client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(url)
-                .build();
+                .baseUrl(url).build();
     }
 
     /**
@@ -128,7 +109,6 @@ public class RetrofitManager {
      * .execute(service.lgon("name", "password"), subscriber)
      * * @param subscriber
      */
-
     @Nullable
     public static <T> T execute(@NonNull Observable<T> observable, Observer<T> subscriber) {
         observable.subscribeOn(Schedulers.io())

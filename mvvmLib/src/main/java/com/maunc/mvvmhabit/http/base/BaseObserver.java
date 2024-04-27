@@ -15,7 +15,6 @@ import io.reactivex.observers.DisposableObserver;
 public abstract class BaseObserver<T> extends DisposableObserver<BaseResponse<T>> {
 
     public BaseObserver() {
-
     }
 
     @Override
@@ -25,15 +24,16 @@ public abstract class BaseObserver<T> extends DisposableObserver<BaseResponse<T>
 
     @Override
     public void onNext(BaseResponse<T> baseResponse) {
-        int errorCode = baseResponse.getCode();
-        String errMsg = baseResponse.getMessage();
-        onSuccess(baseResponse.getResult());
+        int successCode = baseResponse.getCode();
+        String successMsg = baseResponse.getMessage();
+        T successResult = baseResponse.getResult();
+        onSuccess(successResult, successCode, successMsg);
     }
 
     /**
      * 回调正常数据
      */
-    protected abstract void onSuccess(T data);
+    protected abstract void onSuccess(T data, int successCode, String successMsg);
 
     protected abstract void onError(int errCode, String errMsg);
 

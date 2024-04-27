@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.maunc.mvvmhabit.http;
+package com.maunc.mvvmhabit.http.base;
 
 import android.annotation.SuppressLint;
 
@@ -40,7 +40,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-public class HttpsManager {
+public class BaseSSLManager {
 
     public static class SSLParams {
         public SSLSocketFactory sSLSocketFactory;

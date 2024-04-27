@@ -1,6 +1,6 @@
-package com.maunc.mvvmhabit.http;
+package com.maunc.mvvmhabit.http.base;
 
-public final class HttpCode {
+public final class BaseNetCode {
 
     //请求成功, 正确的操作方式
     public static final int CODE_200 = 200;

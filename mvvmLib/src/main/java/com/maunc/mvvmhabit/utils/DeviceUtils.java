@@ -78,8 +78,8 @@ public final class DeviceUtils {
             return Build.VERSION.RELEASE;
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     /**
@@ -90,8 +90,8 @@ public final class DeviceUtils {
             return Build.VERSION.SDK_INT;
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
-        return 0;
     }
 
     /**
@@ -102,8 +102,8 @@ public final class DeviceUtils {
             return Build.MANUFACTURER;
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     /**
@@ -216,8 +216,8 @@ public final class DeviceUtils {
                     Settings.Secure.ANDROID_ID);
         } catch (Exception ex) {
             ex.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     /**
