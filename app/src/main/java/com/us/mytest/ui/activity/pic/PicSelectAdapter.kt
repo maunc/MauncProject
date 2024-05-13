@@ -26,8 +26,8 @@ import java.util.Collections
 class PicSelectAdapter(private val context: Context, private val data: MutableList<LocalMedia>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var pos:Int = -1
-    var targetPos:Int = -1
+    var pos: Int = -1
+    var targetPos: Int = -1
 
     fun notifyPicList(picList: MutableList<LocalMedia>) {
         data.addAll(picList)
@@ -86,9 +86,9 @@ class PicSelectAdapter(private val context: Context, private val data: MutableLi
         notifyItemMoved(pos, targetPos)
         this.pos = pos
         this.targetPos  = targetPos
+        //放开没有bug  有动画卡顿
 //        notifyItemRangeChanged(Math.min(pos, targetPos), Math.abs(pos - targetPos) + 1)
     }
-
     interface PicSelectEventListener {
         fun addPicEvent()
     }

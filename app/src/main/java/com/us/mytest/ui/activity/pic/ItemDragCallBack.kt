@@ -57,6 +57,4 @@ class ItemDragCallBack(val activity: Context, private val adapter: PicSelectAdap
 //            Math.abs(adapter.pos - adapter.targetPos) + 1
 //        )
     }
-
-
 }
