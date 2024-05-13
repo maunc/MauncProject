@@ -13,6 +13,9 @@ import com.us.mytest.BR;
 import com.us.mytest.R;
 import com.us.mytest.databinding.ActivitySpeedBinding;
 
+/**
+ * 滑动阻尼Activity
+ */
 public class SpeedActivity extends BaseActivity<ActivitySpeedBinding, SpeedVM> {
 
     private SpeedBgRecAdapter speedBgRecAdapter;

@@ -2,9 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    
     <uses-permission
         android:name="android.permission.CAMERA"
         tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".App"
@@ -16,9 +25,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTest"
+        tools:replace="theme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.kt.KtActivity"
+            android:name=".ui.activity.keyboard.KeyBoardActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,24 +38,18 @@
         </activity>
         <activity
             android:name=".ui.activity.WelcomeActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".ui.activity.speedratio.SpeedActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.show_bitmap.ShowBitmapActivity"
+            android:name=".ui.activity.main.ShowBitmapActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.main.MainActivity"
-            android:exported="true">
-
-        </activity>
-
-        <provider
-            android:name=".DataProvider"
-            android:authorities="com.us.mytest.DataProvider"
-            android:enabled="true"
             android:exported="true" />
     </application>
 

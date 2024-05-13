@@ -1,4 +1,4 @@
-package com.us.mytest.ui.activity.show_bitmap;
+package com.us.mytest.ui.activity.main;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

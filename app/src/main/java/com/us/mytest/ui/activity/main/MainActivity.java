@@ -21,8 +21,10 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.us.mytest.BR;
 import com.us.mytest.R;
 import com.us.mytest.databinding.ActivityMainBinding;
-import com.us.mytest.ui.activity.show_bitmap.ShowBitmapActivity;
 
+/**
+ * 滑动示例
+ */
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainVM> {
 
     private MainRecAdapter mainRecAdapter;
