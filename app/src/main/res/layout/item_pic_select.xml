@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/x10">
+
+    <ImageView
+        android:id="@+id/picImageView"
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/x300"
+        android:scaleType="center" />
+
+    <ImageView
+        android:id="@+id/picDelBtu"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/x60"
+        android:layout_alignEnd="@id/picImageView"
+        android:layout_marginTop="@dimen/x4"
+        android:layout_marginEnd="@dimen/x4"
+        android:src="@drawable/del_img"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/addImageView"
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/x300"
+        android:background="#E1E1E1"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/x150"
+            android:layout_height="@dimen/x150"
+            android:layout_centerInParent="true"
+            android:src="@drawable/add_img" />
+    </RelativeLayout>
+</RelativeLayout>
