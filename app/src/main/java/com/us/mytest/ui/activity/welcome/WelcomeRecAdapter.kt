@@ -12,18 +12,17 @@ import com.us.mytest.databinding.ItemWelcomeBinding
  */
 class WelcomeRecAdapter(data: MutableList<WelcomeData>) :
     BaseQuickAdapter<WelcomeData, BaseDataBindingHolder<ItemWelcomeBinding>>(
-        R.layout.item_welcome,
-        data
+        R.layout.item_welcome, data
     ) {
 
     var isBlack: Boolean = false
 
     override fun convert(holder: BaseDataBindingHolder<ItemWelcomeBinding>, item: WelcomeData) {
         holder.dataBinding?.itemWelcomeTv?.text = item.title
-        if (isBlack){
+        if (isBlack) {
             holder.dataBinding?.itemWelcomeTv?.setTextColor(context.resources.getColor(R.color.white))
             holder.dataBinding?.itemWelcomeLine?.setBackgroundColor(context.resources.getColor(R.color.white))
-        }else{
+        } else {
             holder.dataBinding?.itemWelcomeTv?.setTextColor(context.resources.getColor(R.color.black))
             holder.dataBinding?.itemWelcomeLine?.setBackgroundColor(context.resources.getColor(R.color.black))
         }

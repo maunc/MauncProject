@@ -1,4 +1,4 @@
-package com.maunc.mvvmhabit.base;
+package com.maunc.mvvmhabit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,6 +12,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.maunc.mvvmhabit.base.BaseAppManager;
+import com.maunc.mvvmhabit.base.BaseCrashHandler;
 import com.maunc.mvvmhabit.message.receiver.LifeReceiver;
 import com.maunc.mvvmhabit.message.receiver.NetReceiver;
 

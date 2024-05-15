@@ -99,6 +99,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainVM> {
                 mainRecAdapter.setList(mViewModel.mainRecDataOF.get());
             }
         });
-
     }
 }

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -12,15 +11,12 @@ import android.os.storage.StorageManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.PermissionChecker;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

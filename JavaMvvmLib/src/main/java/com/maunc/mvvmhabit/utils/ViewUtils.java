@@ -4,9 +4,8 @@ import android.annotation.SuppressLint;
 import android.view.View;
 
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 
 /**
  * ClsFunction：

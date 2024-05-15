@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 import com.maunc.mvvmhabit.http.cookie.CookieJarImpl;
 import com.maunc.mvvmhabit.http.cookie.store.PersistentCookieStore;
 import com.maunc.mvvmhabit.http.interceptor.BaseInterceptor;

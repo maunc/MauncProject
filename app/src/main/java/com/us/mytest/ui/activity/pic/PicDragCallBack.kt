@@ -51,9 +51,5 @@ class PicDragCallBack(val activity: Context, private val adapter: PicSelectAdapt
     //抬起
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
-//        adapter.notifyItemRangeChanged(
-//            Math.min(adapter.pos, adapter.targetPos),
-//            Math.abs(adapter.pos - adapter.targetPos) + 1
-//        )
     }
 }

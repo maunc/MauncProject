@@ -21,7 +21,7 @@ import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 
 public class AppUtils {
 

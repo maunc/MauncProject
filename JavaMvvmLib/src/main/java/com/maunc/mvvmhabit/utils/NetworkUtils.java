@@ -7,7 +7,7 @@ import android.telephony.TelephonyManager;
 
 import androidx.annotation.Nullable;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

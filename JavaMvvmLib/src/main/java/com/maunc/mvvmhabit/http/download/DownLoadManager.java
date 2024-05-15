@@ -6,7 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 import com.maunc.mvvmhabit.message.bus.RxBus;
 import com.maunc.mvvmhabit.message.bus.RxSubscriptions;
 import com.maunc.mvvmhabit.utils.DeviceUtils;

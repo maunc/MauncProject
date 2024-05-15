@@ -10,10 +10,9 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 
-import com.maunc.mvvmhabit.base.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 
 import java.nio.ByteBuffer;
-import java.util.Locale;
 
 /**
  * Created by goldze on 2017/5/14.
