@@ -3,7 +3,6 @@ package com.us.mytest.ui.activity.pic
 import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import java.util.Collections
 
 
 /**
@@ -11,7 +10,7 @@ import java.util.Collections
  *CreateDate：2024/5/13
  *Author：TimeWillRememberUs
  */
-class ItemDragCallBack(val activity: Context, private val adapter: PicSelectAdapter) :
+class PicDragCallBack(val activity: Context, private val adapter: PicSelectAdapter) :
     ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(

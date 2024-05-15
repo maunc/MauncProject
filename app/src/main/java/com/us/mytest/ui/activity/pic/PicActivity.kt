@@ -1,11 +1,9 @@
 package com.us.mytest.ui.activity.pic
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -56,8 +54,8 @@ class PicActivity : BaseVmActivity<PicVM, ActivityPicBinding>(),
         })
         mDatabind.picRec.adapter = picSelectAdapter
         (mDatabind.picRec.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-        val itemDragCallBack = ItemDragCallBack(this, picSelectAdapter)
-        val itemTouchHelper = ItemTouchHelper(itemDragCallBack)
+        val picDragCallBack = PicDragCallBack(this, picSelectAdapter)
+        val itemTouchHelper = ItemTouchHelper(picDragCallBack)
         itemTouchHelper.attachToRecyclerView(mDatabind.picRec)
     }
 

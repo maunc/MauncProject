@@ -10,14 +10,14 @@ import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 import com.us.mytest.R;
 
-public class ShowBitmapActivity extends AppCompatActivity {
+public class MainShowBitmapActivity extends AppCompatActivity {
 
     public static Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_bitmap);
+        setContentView(R.layout.activity_main_show_bitmap);
         ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR)
                 .transparentBar().init();
         ZoomImageView imageView = findViewById(R.id.test_image);

@@ -1,12 +1,10 @@
 package com.us.mytest.ui.activity.pic
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.target.Target
 import com.luck.picture.lib.engine.ImageEngine
 import com.luck.picture.lib.utils.ActivityCompatHelper
 import com.us.mytest.R
