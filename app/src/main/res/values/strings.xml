@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Time Will Remember Us</string>
+
+    <string name="welcome_start_main_tv">仿制qq主页效果</string>
+    <string name="welcome_start_keyboard_tv">自己制作的自定义数字键盘</string>
+    <string name="welcome_start_pic_tv">仿制微信九宫格相册选择</string>
+    <string name="welcome_start_speed_ratio_tv">滑动阻尼设置的RecyclerView</string>
 </resources>

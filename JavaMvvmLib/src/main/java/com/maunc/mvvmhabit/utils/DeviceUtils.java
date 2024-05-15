@@ -2,14 +2,20 @@ package com.maunc.mvvmhabit.utils;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.PermissionChecker;
@@ -56,6 +62,24 @@ public final class DeviceUtils {
             return heightPixels + statusBarHeight;
         }
         return heightPixels;
+    }
+
+    /**
+     * 设置状态栏文字是否为黑色
+     */
+    public static void setDeviceDarkStatusBar(Activity activity, boolean bDark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = activity.getWindow().getDecorView();
+            //修改状态栏颜色只需要这行代码
+            activity.getWindow().setStatusBarColor(BaseApp.getInstance().getResources().getColor(android.R.color.white));//这里对应的是状态栏的颜色，就是style中colorPrimaryDark的颜色
+            int vis = decorView.getSystemUiVisibility();
+            if (bDark) {
+                vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            } else {
+                vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            decorView.setSystemUiVisibility(vis);
+        }
     }
 
     /**

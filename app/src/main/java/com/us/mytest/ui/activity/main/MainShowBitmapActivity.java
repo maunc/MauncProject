@@ -29,7 +29,7 @@ public class MainShowBitmapActivity extends AppCompatActivity {
 
     private void finishTest() {
         finish();
-        overridePendingTransition(R.anim.main_enter, R.anim.test_exit);
+        overridePendingTransition(R.anim.main_enter, R.anim.bitmap_exit);
     }
 
     @Override

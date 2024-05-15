@@ -8,17 +8,29 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/welcome_root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.welcome.WelcomeActivity">
-        <androidx.core.widget.NestedScrollView
+        tools:context=".ui.activity.welcome.WelcomeActivity"
+        android:fitsSystemWindows="true">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/welcomeRec"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            android:layout_height="wrap_content" />
+
+        <com.maunc.mvvmhabit.widget.RoundImageView
+            android:id="@+id/welcome_change_themes_black"
+            android:layout_width="@dimen/x1"
+            android:layout_height="@dimen/x1"
+            android:src="@drawable/welcome_style_black"
+            app:roundSize="@dimen/x35" />
+
+        <com.maunc.mvvmhabit.widget.RoundImageView
+            android:id="@+id/welcome_change_themes_white"
+            android:layout_width="@dimen/x1"
+            android:layout_height="@dimen/x1"
+            android:src="@drawable/welcome_style_white"
+            app:roundSize="@dimen/x35" />
     </RelativeLayout>
 </layout>

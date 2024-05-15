@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/item_welcome_tv"
+            style="@style/welcomeBasicTvStyle" />
+
+        <View
+            android:id="@+id/item_welcome_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x2"
+            android:background="@color/black"
+            android:layout_below="@id/item_welcome_tv"/>
+    </RelativeLayout>
+</layout>

@@ -24,7 +24,7 @@
             android:maxLength="5"
             android:layout_marginTop="@dimen/x50"/>
 
-        <com.us.mytest.ui.activity.keyboard.VirtualKeyboardView
+        <com.us.mytest.ui.activity.keyboard.KeyboardView
             android:id="@+id/virtualKeyboardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

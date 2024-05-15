@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * 虚拟键盘
  */
-public class VirtualKeyboardView extends RelativeLayout {
+public class KeyboardView extends RelativeLayout {
 
     private Context context;
 
@@ -42,11 +42,11 @@ public class VirtualKeyboardView extends RelativeLayout {
     private EditText targetEditText;
     private Vibrator vibrator;
 
-    public VirtualKeyboardView(Context context) {
+    public KeyboardView(Context context) {
         this(context, null);
     }
 
-    public VirtualKeyboardView(Context context, AttributeSet attrs) {
+    public KeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         initAnimAndVibrator();
@@ -84,8 +84,8 @@ public class VirtualKeyboardView extends RelativeLayout {
 
     //键盘的出入动画
     private void initAnimAndVibrator() {
-        enterAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_in_key_board);
-        exitAnim = AnimationUtils.loadAnimation(context, R.anim.push_bottom_out_key_board);
+        enterAnim = AnimationUtils.loadAnimation(context, R.anim.key_board_enter);
+        exitAnim = AnimationUtils.loadAnimation(context, R.anim.key_board_exit);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 

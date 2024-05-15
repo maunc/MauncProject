@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainVM> {
         mBinding.mybgShow.setOnClickListener(view -> {
             MainShowBitmapActivity.bitmap = ConvertUtils.drawable2Bitmap(mBinding.mybgShow.getDrawable());
             startActivity(new Intent(MainActivity.this, MainShowBitmapActivity.class));
-            overridePendingTransition(R.anim.test_enter, R.anim.main_exit);
+            overridePendingTransition(R.anim.bitmap_enter, R.anim.main_exit);
         });
     }
 

@@ -87,7 +87,7 @@ class PicSelectAdapter(private val context: Context, private val data: MutableLi
         this.pos = pos
         this.targetPos  = targetPos
         //放开没有bug  有动画卡顿
-//        notifyItemRangeChanged(Math.min(pos, targetPos), Math.abs(pos - targetPos) + 1)
+        notifyItemRangeChanged(Math.min(pos, targetPos), Math.abs(pos - targetPos) + 1)
     }
     interface PicSelectEventListener {
         fun addPicEvent()
