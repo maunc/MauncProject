@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.pushbox.PushBoxActivity">
+
+        <com.us.mytest.ui.activity.pushbox.PushBoxGameView
+            android:id="@+id/push_box_game_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x10" />
+
+        <RelativeLayout
+            android:id="@+id/push_box_game_btu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/x120">
+
+            <com.us.mytest.ui.activity.pushbox.PushBoxScaleView
+                android:id="@+id/top_btu"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/push_box_top_btu" />
+
+            <com.us.mytest.ui.activity.pushbox.PushBoxScaleView
+                android:id="@+id/bottom_btu"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_below="@id/top_btu"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/push_box_bottom_btu" />
+
+            <com.us.mytest.ui.activity.pushbox.PushBoxScaleView
+                android:id="@+id/left_btu"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_marginTop="@dimen/x100"
+                android:layout_toStartOf="@id/top_btu"
+                android:src="@drawable/push_box_left_btu" />
+
+            <com.us.mytest.ui.activity.pushbox.PushBoxScaleView
+                android:id="@+id/right_btu"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/x200"
+                android:layout_marginTop="@dimen/x100"
+                android:layout_toEndOf="@id/top_btu"
+                android:src="@drawable/push_box_right_btu" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/push_box_tips"
+            android:layout_width="@dimen/x400"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="@string/push_box_tips"
+            android:textColor="@color/black"
+            android:textSize="@dimen/x30"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</layout>

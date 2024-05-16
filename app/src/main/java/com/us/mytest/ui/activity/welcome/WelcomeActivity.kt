@@ -18,6 +18,7 @@ import com.us.mytest.databinding.ActivityWelcomeBinding
 import com.us.mytest.ui.activity.keyboard.KeyBoardActivity
 import com.us.mytest.ui.activity.main.MainActivity
 import com.us.mytest.ui.activity.pic.PicActivity
+import com.us.mytest.ui.activity.pushbox.PushBoxActivity
 import com.us.mytest.ui.activity.speedratio.SpeedActivity
 
 class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
@@ -40,6 +41,10 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
                     "speed_ratio" -> {
                         activityGoto(SpeedActivity::class.java)
+                    }
+
+                    "push_box" -> {
+                        activityGoto(PushBoxActivity::class.java)
                     }
                 }
             }
@@ -105,6 +110,4 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
     private fun activityGoto(clazz: Class<*>) {
         startActivity(Intent(this, clazz))
     }
-
-
 }
