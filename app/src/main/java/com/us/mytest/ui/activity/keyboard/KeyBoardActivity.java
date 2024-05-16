@@ -2,6 +2,7 @@ package com.us.mytest.ui.activity.keyboard;
 
 import android.os.Bundle;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.maunc.mvvmhabit.base.BaseActivity;
 import com.us.mytest.BR;
 import com.us.mytest.R;
@@ -24,6 +25,8 @@ public class KeyBoardActivity extends BaseActivity<ActivityKeyBoardBinding, KeyB
 
     @Override
     public void initData() {
+        ImmersionBar.with(this).statusBarColor(R.color.white)
+                .statusBarDarkFont(true).init();
         mBinding.virtualKeyboardView.changeShowEditText(this, mBinding.textAmount);
         mBinding.textAmount.setOnClickListener(v -> {
             mBinding.virtualKeyboardView.showEditText();

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.gyf.immersionbar.ImmersionBar
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.SelectMimeType
@@ -29,6 +30,8 @@ class PicActivity : BaseVmActivity<PicVM, ActivityPicBinding>(),
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        ImmersionBar.with(this).statusBarColor(R.color.white)
+            .statusBarDarkFont(true).init()
         mDatabind.picRec.layoutManager = object : GridLayoutManager(this, 3) {
             override fun canScrollHorizontally(): Boolean {
                 return false

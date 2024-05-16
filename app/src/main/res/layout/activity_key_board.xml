@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.us.mytest.ui.activity.keyboard.KeyBoardVM" />
@@ -11,18 +12,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".ui.activity.keyboard.KeyBoardActivity">
+
         <EditText
             android:id="@+id/textAmount"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="@dimen/x50"
             android:background="#FFFFFF"
             android:inputType="numberDecimal"
+            android:maxLength="5"
             android:padding="14dp"
             android:textColor="#333333"
-            android:textSize="16sp"
-            android:maxLength="5"
-            android:layout_marginTop="@dimen/x50"/>
+            android:textSize="16sp" />
 
         <com.us.mytest.ui.activity.keyboard.KeyboardView
             android:id="@+id/virtualKeyboardView"
