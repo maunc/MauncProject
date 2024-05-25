@@ -1,11 +1,12 @@
-package com.maunc.jetpackmvvm.util;
+package com.maunc.mvvmhabit.utils;
 
 import android.content.res.TypedArray;
 import android.widget.ImageView;
 
-import com.maunc.jetpackmvvm.BaseApp;
+import com.maunc.mvvmhabit.BaseApp;
 
-public class FrameAnimation {
+
+public class FrameAnimUtils {
 
     private static final int SELECTED_A = 1;
     private static final int SELECTED_B = 2;
@@ -15,7 +16,7 @@ public class FrameAnimation {
     private AnimationListener mAnimationListener;
 
     private final ImageView mImageView;
-    private final int[] mFrameRess;
+    private final int[] mFrameRes;
     private final int defRes;
     private int mDuration; //每帧动画的播放间隔
     private int[] mDurations; //每帧动画的播放间隔数组
@@ -34,12 +35,12 @@ public class FrameAnimation {
      * @param duration 每帧动画的播放间隔(毫秒)
      * @param isRepeat 是否循环播放
      */
-    public FrameAnimation(ImageView iv, int frameRes, int defRes, int duration, boolean isRepeat) {
+    public FrameAnimUtils(ImageView iv, int frameRes, int defRes, int duration, boolean isRepeat) {
         this.mImageView = iv;
-        this.mFrameRess = getRes(frameRes);
+        this.mFrameRes = getRes(frameRes);
         this.defRes = defRes;
         this.mDuration = duration;
-        this.mLastFrame = mFrameRess.length - 1;
+        this.mLastFrame = mFrameRes.length - 1;
         this.mIsRepeat = isRepeat;
         play(0);
     }
@@ -50,12 +51,12 @@ public class FrameAnimation {
      * @param durations 每帧动画的播放间隔(毫秒)
      * @param isRepeat  是否循环播放
      */
-    public FrameAnimation(ImageView iv, int frameRes, int defRes, int[] durations, boolean isRepeat) {
+    public FrameAnimUtils(ImageView iv, int frameRes, int defRes, int[] durations, boolean isRepeat) {
         this.mImageView = iv;
-        this.mFrameRess = getRes(frameRes);
+        this.mFrameRes = getRes(frameRes);
         this.defRes = defRes;
         this.mDurations = durations;
-        this.mLastFrame = mFrameRess.length - 1;
+        this.mLastFrame = mFrameRes.length - 1;
         this.mIsRepeat = isRepeat;
         playByDurations(0);
     }
@@ -68,13 +69,13 @@ public class FrameAnimation {
      * @param duration 每帧动画的播放间隔(毫秒)
      * @param delay    循环播放的时间间隔
      */
-    public FrameAnimation(ImageView iv, int frameRes, int defRes, int duration, int delay) {
+    public FrameAnimUtils(ImageView iv, int frameRes, int defRes, int duration, int delay) {
         this.mImageView = iv;
-        this.mFrameRess = getRes(frameRes);
+        this.mFrameRes = getRes(frameRes);
         this.defRes = defRes;
         this.mDuration = duration;
         this.mDelay = delay;
-        this.mLastFrame = mFrameRess.length - 1;
+        this.mLastFrame = mFrameRes.length - 1;
         playAndDelay(0);
     }
 
@@ -86,13 +87,13 @@ public class FrameAnimation {
      * @param durations 每帧动画的播放间隔(毫秒)
      * @param delay     循环播放的时间间隔
      */
-    public FrameAnimation(ImageView iv, int frameRes, int defRes, int[] durations, int delay) {
+    public FrameAnimUtils(ImageView iv, int frameRes, int defRes, int[] durations, int delay) {
         this.mImageView = iv;
-        this.mFrameRess = getRes(frameRes);
+        this.mFrameRes = getRes(frameRes);
         this.defRes = defRes;
         this.mDurations = durations;
         this.mDelay = delay;
-        this.mLastFrame = mFrameRess.length - 1;
+        this.mLastFrame = mFrameRes.length - 1;
         playByDurationsAndDelay(0);
     }
 
@@ -140,7 +141,7 @@ public class FrameAnimation {
      * 获取需要播放的动画资源
      */
     private int[] getRes(int frameRes) {
-        TypedArray typedArray = BaseApp.Companion.getInstance().getResources().obtainTypedArray(frameRes);
+        TypedArray typedArray = BaseApp.getInstance().getResources().obtainTypedArray(frameRes);
         int len = typedArray.length();
         int[] resId = new int[len];
         for (int i = 0; i < len; i++) {
@@ -165,7 +166,7 @@ public class FrameAnimation {
                     mAnimationListener.onAnimationStart();
                 }
             }
-            mImageView.setImageResource(mFrameRess[i]);
+            mImageView.setImageResource(mFrameRes[i]);
             if (i == mLastFrame) {
                 if (mIsRepeat) {
                     if (mAnimationListener != null) {
@@ -198,7 +199,7 @@ public class FrameAnimation {
                     mAnimationListener.onAnimationStart();
                 }
             }
-            mImageView.setImageResource(mFrameRess[i]);
+            mImageView.setImageResource(mFrameRes[i]);
             if (i == mLastFrame) {
                 if (mIsRepeat) {
                     if (mAnimationListener != null) {
@@ -234,7 +235,7 @@ public class FrameAnimation {
                     mAnimationListener.onAnimationStart();
                 }
             }
-            mImageView.setImageResource(mFrameRess[i]);
+            mImageView.setImageResource(mFrameRes[i]);
             if (i == mLastFrame) {
                 if (mAnimationListener != null) {
                     mAnimationListener.onAnimationRepeat();
@@ -260,7 +261,7 @@ public class FrameAnimation {
                     mAnimationListener.onAnimationStart();
                 }
             }
-            mImageView.setImageResource(mFrameRess[i]);
+            mImageView.setImageResource(mFrameRes[i]);
             if (i == mLastFrame) {
                 if (mAnimationListener != null) {
                     mAnimationListener.onAnimationRepeat();

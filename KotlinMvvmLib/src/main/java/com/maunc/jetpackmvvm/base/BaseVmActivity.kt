@@ -6,8 +6,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.maunc.jetpackmvvm.ext.getVmClazz
-import com.maunc.jetpackmvvm.network.manager.NetworkStateManager
-import com.maunc.jetpackmvvm.util.inflateBindingWithGeneric
+import com.maunc.jetpackmvvm.receive.NetStateManager
+import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
 
 abstract class BaseVmActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
 
@@ -37,7 +37,7 @@ abstract class BaseVmActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCom
         mViewModel = createViewModel()
         initView(savedInstanceState)
         createObserver()
-        NetworkStateManager.instance.mNetworkState.observeInActivity(this, Observer {
+        NetStateManager.instance.mNetworkState.observeInActivity(this, Observer {
             onNetworkStateChanged(it)
         })
     }

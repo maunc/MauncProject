@@ -3,10 +3,9 @@ package com.maunc.jetpackmvvm.ext
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.maunc.jetpackmvvm.base.BaseViewModel
-import com.maunc.jetpackmvvm.network.AppException
-import com.maunc.jetpackmvvm.network.BaseResponse
-import com.maunc.jetpackmvvm.network.ExceptionHandle
-import com.maunc.jetpackmvvm.network.manager.TokenStateManager
+import com.maunc.jetpackmvvm.http.AppException
+import com.maunc.jetpackmvvm.http.BaseResponse
+import com.maunc.jetpackmvvm.http.ExceptionHandle
 import kotlinx.coroutines.*
 
 /**
@@ -91,9 +90,6 @@ suspend fun <T> executeResponse(
                 success(response.getResponseData())
             }
             else -> {
-                if (response.getResponseCode() == 401) {
-                    TokenStateManager.instance.mTokenState.value = true
-                }
                 throw AppException(
                     response.getResponseCode(),
                     response.getResponseMsg(),

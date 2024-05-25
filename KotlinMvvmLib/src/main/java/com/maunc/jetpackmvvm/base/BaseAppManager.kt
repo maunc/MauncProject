@@ -1,14 +1,14 @@
-package com.maunc.jetpackmvvm.util
+package com.maunc.jetpackmvvm.base
 
 import android.app.Activity
 import java.util.*
 
-object ActivityManger {
+object BaseAppManager {
     //activity集合
-    val mActivityList = LinkedList<Activity>()
+    private val mActivityList = LinkedList<Activity>()
 
     //当前activity
-    val currentActivity: Activity?
+    private val currentActivity: Activity?
         get() =
             if (mActivityList.isEmpty()) null
             else mActivityList.last

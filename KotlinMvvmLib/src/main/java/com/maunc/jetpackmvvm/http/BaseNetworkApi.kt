@@ -1,4 +1,4 @@
-package com.maunc.jetpackmvvm.network
+package com.maunc.jetpackmvvm.http
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

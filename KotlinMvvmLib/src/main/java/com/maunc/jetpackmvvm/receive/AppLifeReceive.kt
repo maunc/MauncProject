@@ -1,15 +1,15 @@
-package com.maunc.jetpackmvvm.lifecycle
+package com.maunc.jetpackmvvm.receive
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-object KtxAppLifeObserver : LifecycleObserver {
+object AppLifeReceive : LifecycleObserver {
 
     private var callback: Callback? = null
 
     fun setCallback(callback: Callback) {
-        this.callback = callback
+        AppLifeReceive.callback = callback
     }
 
     //在前台

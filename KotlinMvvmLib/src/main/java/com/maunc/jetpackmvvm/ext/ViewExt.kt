@@ -1,11 +1,15 @@
 package com.maunc.jetpackmvvm.ext
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
-import android.widget.ImageView
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import java.lang.reflect.Field
 
 /**
  * 设置view显示
@@ -14,12 +18,18 @@ fun View.visible() {
     visibility = View.VISIBLE
 }
 
-
 /**
  * 设置view占位隐藏
  */
 fun View.invisible() {
     visibility = View.INVISIBLE
+}
+
+/**
+ * 设置view隐藏
+ */
+fun View.gone() {
+    visibility = View.GONE
 }
 
 /**
@@ -32,67 +42,6 @@ fun View.visibleOrGone(flag: Boolean) {
         View.GONE
     }
 }
-
-/**
- * 根据条件设置view显示隐藏 为true 显示，为false 隐藏
- */
-fun View.visibleOrInvisible(flag: Boolean) {
-    visibility = if (flag) {
-        View.VISIBLE
-    } else {
-        View.INVISIBLE
-    }
-}
-
-/**
- * 设置view隐藏
- */
-fun View.gone() {
-    visibility = View.GONE
-}
-
-/**
- * 将view转为bitmap
- */
-@Deprecated("use View.drawToBitmap()")
-fun View.toBitmap(scale: Float = 1f, config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap? {
-    if (this is ImageView) {
-        if (drawable is BitmapDrawable) return (drawable as BitmapDrawable).bitmap
-    }
-    this.clearFocus()
-    val bitmap = createBitmapSafely(
-        (width * scale).toInt(),
-        (height * scale).toInt(),
-        config,
-        1
-    )
-    if (bitmap != null) {
-        Canvas().run {
-            setBitmap(bitmap)
-            save()
-            drawColor(Color.WHITE)
-            scale(scale, scale)
-            this@toBitmap.draw(this)
-            restore()
-            setBitmap(null)
-        }
-    }
-    return bitmap
-}
-
-fun createBitmapSafely(width: Int, height: Int, config: Bitmap.Config, retryCount: Int): Bitmap? {
-    try {
-        return Bitmap.createBitmap(width, height, config)
-    } catch (e: OutOfMemoryError) {
-        e.printStackTrace()
-        if (retryCount > 0) {
-            System.gc()
-            return createBitmapSafely(width, height, config, retryCount - 1)
-        }
-        return null
-    }
-}
-
 
 /**
  * 防止重复点击事件 默认0.5秒内不可重复点击
@@ -111,11 +60,89 @@ fun View.clickNoRepeat(interval: Long = 500, action: (view: View) -> Unit) {
     }
 }
 
-
-fun Any?.notNull(notNullAction: (value: Any) -> Unit, nullAction1: () -> Unit) {
-    if (this != null) {
-        notNullAction.invoke(this)
-    } else {
-        nullAction1.invoke()
+/**
+ * 降级ViewPager2灵敏度
+ */
+fun ViewPager2.desensitization() {
+    try {
+        val recyclerViewField: Field = ViewPager2::class.java.getDeclaredField("mRecyclerView")
+        recyclerViewField.isAccessible = true
+        val recyclerView = recyclerViewField.get(this) as RecyclerView
+        val touchSlopField: Field = RecyclerView::class.java.getDeclaredField("mTouchSlop")
+        touchSlopField.isAccessible = true
+        val touchSlop = touchSlopField.get(recyclerView) as Int
+        touchSlopField.set(recyclerView, touchSlop * 4) //6 is empirical value
+    } catch (ignore: Exception) {
+        ignore.printStackTrace()
     }
+}
+
+/**
+ * 优化输入框
+ */
+fun EditText.afterTextChange(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            afterTextChanged.invoke(s.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+    })
+}
+
+/**
+ * 获取文本
+ */
+fun EditText.textString(): String {
+    return this.text.toString()
+}
+
+/**
+ * 获取去除空字符串的文本
+ */
+fun EditText.textStringTrim(): String {
+    return this.textString().trim()
+}
+
+/**
+ * 文本是否为空
+ */
+fun EditText.isEmpty(): Boolean {
+    return this.textString().isEmpty()
+}
+
+/**
+ * 去空字符串后文本是否为空
+ */
+fun EditText.isTrimEmpty(): Boolean {
+    return this.textStringTrim().isEmpty()
+}
+
+fun FragmentManager.showFragment(id: Int, fragment: Fragment) {
+    if (fragment.isAdded && !fragment.isHidden) {
+        Log.d("FragmentExt", "changeFragment: 目标fragment已处于展示状态")
+        return
+    }
+    val transaction = beginTransaction()
+    for (item in fragments) {
+        if (!item.isHidden) {
+            Log.d("FragmentExt", "changeFragment: ${item.javaClass.simpleName}进行隐藏")
+            transaction.hide(item)
+        }
+    }
+    val tag = fragment.javaClass.simpleName
+    val toFragment = findFragmentByTag(tag) ?: fragment
+    if (toFragment.isAdded) {
+        Log.d("FragmentExt", "changeFragment: 目标fragment展示")
+        transaction.show(toFragment)
+    } else {
+        Log.d("FragmentExt", "changeFragment: 目标fragment添加并展示")
+        transaction.add(id, toFragment, tag)
+    }
+    transaction.commit()
 }

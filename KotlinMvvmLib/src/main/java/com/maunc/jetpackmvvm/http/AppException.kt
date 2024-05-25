@@ -1,4 +1,4 @@
-package com.maunc.jetpackmvvm.network
+package com.maunc.jetpackmvvm.http
 
 class AppException : Exception {
 

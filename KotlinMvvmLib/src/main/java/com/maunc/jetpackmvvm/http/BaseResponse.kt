@@ -1,4 +1,4 @@
-package com.maunc.jetpackmvvm.network
+package com.maunc.jetpackmvvm.http
 
 /**
  * 描述　: 服务器返回数据的基类
