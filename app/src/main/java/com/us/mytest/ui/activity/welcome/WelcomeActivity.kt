@@ -107,6 +107,9 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
     override fun onNetworkStateChanged(netState: Boolean) {
     }
 
+    override fun onScreenStateChanged(screenState: Boolean) {
+    }
+
     private fun activityGoto(clazz: Class<*>) {
         startActivity(Intent(this, clazz))
     }

@@ -45,8 +45,6 @@ fun View.visibleOrGone(flag: Boolean) {
 
 /**
  * 防止重复点击事件 默认0.5秒内不可重复点击
- * @param interval 时间间隔 默认0.5秒
- * @param action 执行方法
  */
 var lastClickTime = 0L
 fun View.clickNoRepeat(interval: Long = 500, action: (view: View) -> Unit) {
@@ -93,34 +91,6 @@ fun EditText.afterTextChange(afterTextChanged: (String) -> Unit) {
 
         }
     })
-}
-
-/**
- * 获取文本
- */
-fun EditText.textString(): String {
-    return this.text.toString()
-}
-
-/**
- * 获取去除空字符串的文本
- */
-fun EditText.textStringTrim(): String {
-    return this.textString().trim()
-}
-
-/**
- * 文本是否为空
- */
-fun EditText.isEmpty(): Boolean {
-    return this.textString().isEmpty()
-}
-
-/**
- * 去空字符串后文本是否为空
- */
-fun EditText.isTrimEmpty(): Boolean {
-    return this.textStringTrim().isEmpty()
 }
 
 fun FragmentManager.showFragment(id: Int, fragment: Fragment) {

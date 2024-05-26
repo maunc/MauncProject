@@ -8,7 +8,6 @@ import org.json.JSONException
 import retrofit2.HttpException
 import java.net.ConnectException
 
-
 enum class Error(private val code: Int, private val err: String) {
 
     /**
@@ -43,7 +42,6 @@ enum class Error(private val code: Int, private val err: String) {
     fun getKey(): Int {
         return code
     }
-
 }
 
 object ExceptionHandle {

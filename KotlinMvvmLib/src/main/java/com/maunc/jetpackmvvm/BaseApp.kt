@@ -2,6 +2,7 @@ package com.maunc.jetpackmvvm
 
 import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import com.maunc.jetpackmvvm.base.BaseAppManager
 import com.maunc.jetpackmvvm.receive.AppLifeReceive
 import com.maunc.jetpackmvvm.receive.NetReceive
+import com.maunc.jetpackmvvm.receive.ScreenReceiver
 
 open class BaseApp : Application(), ViewModelStoreOwner {
 
@@ -32,8 +34,15 @@ open class BaseApp : Application(), ViewModelStoreOwner {
         super.onCreate()
         instance = this
         mAppViewModelStore = ViewModelStore()
-        //注册全局网络监听广播
+        initReceiver()
+    }
+
+    private fun initReceiver() {
         registerReceiver(NetReceive(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        val screenFilter = IntentFilter()
+        screenFilter.addAction(Intent.ACTION_SCREEN_OFF)
+        screenFilter.addAction(Intent.ACTION_SCREEN_ON)
+        registerReceiver(ScreenReceiver(), screenFilter)
         //注册Activity的监听
         registerActivityLifecycleCallbacks(KtxLifeCycleCallBack())
         //监听app前后台

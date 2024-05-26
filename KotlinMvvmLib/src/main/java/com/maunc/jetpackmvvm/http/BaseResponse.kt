@@ -20,7 +20,7 @@ abstract class BaseResponse<T> {
 
 data class ApiResponse<T>(val code: Int, val msg: String, val data: T) : BaseResponse<T>() {
 
-    override fun isSuccess() = code == 0
+    override fun isSuccess() = code == 200
 
     override fun getResponseCode() = code
 

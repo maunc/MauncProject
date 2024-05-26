@@ -38,4 +38,7 @@ class PushBoxActivity : BaseVmActivity<PushBoxVM, ActivityPushBoxBinding>() {
 
     override fun onNetworkStateChanged(netState: Boolean) {
     }
+
+    override fun onScreenStateChanged(screenState: Boolean) {
+    }
 }

@@ -15,7 +15,6 @@ object BaseAppManager {
 
     /**
      * activity入栈
-     * @param activity Activity
      */
     fun pushActivity(activity: Activity) {
         if (mActivityList.contains(activity)) {
@@ -30,7 +29,6 @@ object BaseAppManager {
 
     /**
      * activity出栈
-     * @param activity Activity
      */
     fun popActivity(activity: Activity) {
         mActivityList.remove(activity)
@@ -45,7 +43,6 @@ object BaseAppManager {
 
     /**
      * 关闭传入的activity
-     * @param activity Activity
      */
     fun finishActivity(activity: Activity) {
         mActivityList.remove(activity)
@@ -54,7 +51,6 @@ object BaseAppManager {
 
     /**
      * 关闭传入的activity类名
-     * @param clazz Class<*>
      */
     fun finishActivity(clazz: Class<*>) {
         for (activity in mActivityList) {

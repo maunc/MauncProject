@@ -70,6 +70,10 @@ class PicActivity : BaseVmActivity<PicVM, ActivityPicBinding>(),
 
     }
 
+    override fun onScreenStateChanged(screenState: Boolean) {
+
+    }
+
     override fun addPicEvent() {
         PictureSelector.create(this)
             .openGallery(SelectMimeType.ofImage())
