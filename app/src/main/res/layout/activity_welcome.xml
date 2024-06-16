@@ -19,14 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.maunc.mvvmhabit.widget.RoundImageView
+        <com.us.mauncview.RoundImageView
             android:id="@+id/welcome_change_themes_black"
             android:layout_width="@dimen/x1"
             android:layout_height="@dimen/x1"
             android:src="@drawable/welcome_style_black"
             app:roundSize="@dimen/x35" />
 
-        <com.maunc.mvvmhabit.widget.RoundImageView
+        <com.us.mauncview.RoundImageView
             android:id="@+id/welcome_change_themes_white"
             android:layout_width="@dimen/x1"
             android:layout_height="@dimen/x1"

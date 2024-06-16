@@ -1,4 +1,4 @@
-package com.maunc.mvvmhabit.widget;
+package com.us.mauncview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

@@ -22,3 +22,4 @@ rootProject.name = "MyTest"
 include ':app'
 include ':JavaMvvmLib'
 include ':KotlinMvvmLib'
+include ':ViewLib'

@@ -5,9 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.maunc.mvvmhabit.widget.ZoomImageView;
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
+import com.us.mauncview.ZoomImageView;
 import com.us.mytest.R;
 
 public class MainShowBitmapActivity extends AppCompatActivity {

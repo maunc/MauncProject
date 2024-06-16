@@ -1,4 +1,4 @@
-package com.maunc.mvvmhabit.widget;
+package com.us.mauncview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,8 +7,6 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatImageView;
-
-import com.maunc.mvvmhabit.R;
 
 
 public class RoundImageView extends AppCompatImageView {

@@ -167,18 +167,4 @@
     <declare-styleable name="ControlDistributeLinearLayout">
         <attr name="distribute_event" format="boolean" />
     </declare-styleable>
-
-    <declare-styleable name="RoundImageView">
-        <attr name="roundType" format="enum">
-            <enum name="all" value="0"/>
-            <enum name="left" value="1"/>
-            <enum name="top" value="2"/>
-            <enum name="right" value="3"/>
-            <enum name="bottom" value="4"/>
-            <enum name="left_falling" value="5"/>
-            <enum name="right_falling" value="6"/>
-        </attr>
-        <attr name="roundSize" format="dimension|reference"/>
-    </declare-styleable>
-
 </resources>

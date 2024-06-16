@@ -1,4 +1,4 @@
-package com.us.mytest.ui.activity.widget
+package com.us.mauncview
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -7,7 +7,6 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import com.us.mytest.R
 
 /**
  * 可设置图片大小的TextView
@@ -35,6 +34,34 @@ class DrawableTextView @JvmOverloads constructor(context: Context, attrs: Attrib
     private var drawableLeftListener: DrawableListener.DrawableLeftListener? = null
     private var drawableTopListener: DrawableListener.DrawableTopListener? = null
     private var drawableBottomListener: DrawableListener.DrawableBottomListener? = null
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.DrawableTextView, defStyleAttr, 0)
+        leftDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_leftDrawableHeight,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        leftDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_leftDrawableWidth,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        rightDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_rightDrawableHeight,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        rightDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_rightDrawableWidth,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        topDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_topDrawableHeight,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        topDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_topDrawableWidth,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        bottomDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_bottomDrawableHeight,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        bottomDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_bottomDrawableWidth,
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
+        addTail = typedArray.getBoolean(R.styleable.DrawableTextView_addTail, false)
+        typedArray.recycle()
+        val drawables = compoundDrawables
+        for (i in drawables.indices) {
+            setDrawableSize(drawables[i], i)
+        }
+        //放置图片
+        setCompoundDrawables(drawables[DRAWABLE_LEFT], drawables[DRAWABLE_TOP], drawables[DRAWABLE_RIGHT], drawables[DRAWABLE_BOTTOM])
+    }
 
     /**
      * 设置顶部图片
@@ -249,33 +276,5 @@ class DrawableTextView @JvmOverloads constructor(context: Context, attrs: Attrib
         interface DrawableBottomListener {
             fun drawableBottomListener(view: View?)
         }
-    }
-
-    init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.DrawableTextView, defStyleAttr, 0)
-        leftDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_leftDrawableHeight,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        leftDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_leftDrawableWidth,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        rightDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_rightDrawableHeight,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        rightDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_rightDrawableWidth,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        topDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_topDrawableHeight,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        topDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_topDrawableWidth,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        bottomDrawableHeight = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_bottomDrawableHeight,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        bottomDrawableWidth = typedArray.getDimensionPixelSize(R.styleable.DrawableTextView_bottomDrawableWidth,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1f, resources.displayMetrics).toInt())
-        addTail = typedArray.getBoolean(R.styleable.DrawableTextView_addTail, false)
-        typedArray.recycle()
-        val drawables = compoundDrawables
-        for (i in drawables.indices) {
-            setDrawableSize(drawables[i], i)
-        }
-        //放置图片
-        setCompoundDrawables(drawables[DRAWABLE_LEFT], drawables[DRAWABLE_TOP], drawables[DRAWABLE_RIGHT], drawables[DRAWABLE_BOTTOM])
     }
 }

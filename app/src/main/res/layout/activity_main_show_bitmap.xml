@@ -7,7 +7,7 @@
     android:background="@color/black"
     tools:context=".ui.activity.main.MainShowBitmapActivity">
 
-    <com.maunc.mvvmhabit.widget.ZoomImageView
+    <com.us.mauncview.ZoomImageView
         android:id="@+id/test_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
