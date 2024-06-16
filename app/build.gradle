@@ -50,6 +50,7 @@ dependencies {
     implementation project(':JavaMvvmLib')
     implementation project(':KotlinMvvmLib')
     implementation project(':ViewLib')
+    implementation project(':JsBridgeLib')
     //BaseAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.10'
     //状态栏
