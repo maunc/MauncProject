@@ -27,4 +27,19 @@
         <attr name="addTail" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="WaterRipplesView">
+        <!--中心圆颜色-->
+        <attr name="spreadCenterColor" format="color" />
+        <!--中心圆半径-->
+        <attr name="spreadRadius" format="integer" />
+        <!--扩散圆颜色-->
+        <attr name="spreadColor" format="color" />
+        <!--扩散间距-->
+        <attr name="spreadDistance" format="integer" />
+        <!--扩散最大半径-->
+        <attr name="spreadMaxRadius" format="integer" />
+        <!--扩散延迟间隔-->
+        <attr name="spreadDelayMilliseconds" format="integer" />
+    </declare-styleable>
+
 </resources>
