@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.util.AttributeSet
-import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 
