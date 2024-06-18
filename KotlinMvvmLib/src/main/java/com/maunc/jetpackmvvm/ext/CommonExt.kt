@@ -2,11 +2,16 @@ package com.maunc.jetpackmvvm.ext
 
 import android.content.ClipData
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.provider.Settings
 import android.text.Html
 import android.text.Spanned
 import android.text.TextUtils
 import android.view.View
+import androidx.annotation.RequiresApi
 
 /**
  * 获取屏幕宽度
@@ -77,11 +82,34 @@ fun Context.checkAccessibilityServiceEnabled(serviceName: String): Boolean {
     return result
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 fun String.toHtml(flag: Int = Html.FROM_HTML_MODE_LEGACY): Spanned {
     return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
         Html.fromHtml(this, flag)
     } else {
         Html.fromHtml(this)
+    }
+}
+
+/**
+ * 判断网络是否弱
+ */
+fun isNetworkInWeakState(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    // 获取当前活跃的网络
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val activeNetwork: Network? = connectivityManager.activeNetwork
+        // 获取当前网络的能力
+        val networkCapabilities: NetworkCapabilities? =
+            connectivityManager.getNetworkCapabilities(activeNetwork)
+        // 判断网络是否处于弱网环境
+        networkCapabilities?.let {
+            !it.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ||
+                    !it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        } ?: run { false }
+    } else {
+        false
     }
 }
 

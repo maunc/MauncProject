@@ -42,4 +42,13 @@
         <attr name="spreadDelayMilliseconds" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="GradientTextView">
+        <attr name="gradient_startColor" format="color"/>
+        <attr name="gradient_endColor" format="color"/>
+        <attr name="gradient_direction">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

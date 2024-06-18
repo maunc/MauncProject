@@ -11,8 +11,8 @@
         android:id="@+id/welcome_root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.welcome.WelcomeActivity"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.welcome.WelcomeActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/welcomeRec"

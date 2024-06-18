@@ -1,9 +1,15 @@
 package com.maunc.jetpackmvvm.ext
 
+import android.animation.Animator
+import android.animation.IntEvaluator
+import android.animation.ValueAnimator
+import android.graphics.Rect
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.TouchDelegate
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -115,4 +121,135 @@ fun FragmentManager.showFragment(id: Int, fragment: Fragment) {
         transaction.add(id, toFragment, tag)
     }
     transaction.commit()
+}
+
+/**
+ * 扩大点击区域
+ */
+fun View.expandTouchArea(size: Int) {
+    val parentView = this.parent as View
+    parentView.post {
+        val rect = Rect()
+        this.getHitRect(rect)
+        rect.top -= size
+        rect.bottom += size
+        rect.left -= size
+        rect.right += size
+        parentView.touchDelegate = TouchDelegate(rect, this)
+    }
+}
+
+/**
+ * 设置宽度，带有过渡动画
+ * @param action 动画变化中回调
+ */
+fun View.animateSetWidth(
+    targetValue: Int,
+    duration: Long = 400,
+    listener: Animator.AnimatorListener? = null,
+    action: ((Float) -> Unit)? = null
+) {
+    post {
+        ValueAnimator.ofInt(width, targetValue).apply {
+            addUpdateListener {
+                setWidth(it.animatedValue as Int)
+                action?.invoke((it.animatedFraction))
+            }
+            if (listener != null) addListener(listener)
+            setDuration(duration)
+            start()
+        }
+    }
+}
+
+/**
+ * 设置高度，带有过渡动画
+ * @param action 动画变化中回调
+ */
+fun View.animateSetHeight(
+    targetValue: Int,
+    duration: Long = 400,
+    listener: Animator.AnimatorListener? = null,
+    action: ((Float) -> Unit)? = null
+) {
+    post {
+        ValueAnimator.ofInt(height, targetValue).apply {
+            addUpdateListener {
+                setHeight(it.animatedValue as Int)
+                action?.invoke((it.animatedFraction))
+            }
+            if (listener != null) addListener(listener)
+            setDuration(duration)
+            start()
+        }
+    }
+}
+
+/**
+ * 设置宽度和高度，带有过渡动画
+ * @param action 动画变化中回调
+ */
+fun View.animateSetWidthAndHeight(
+    targetWidth: Int,
+    targetHeight: Int,
+    duration: Long = 400,
+    listener: Animator.AnimatorListener? = null,
+    action: ((Float) -> Unit)? = null
+) {
+    post {
+        val startHeight = height
+        val evaluator = IntEvaluator()
+        ValueAnimator.ofInt(width, targetWidth).apply {
+            addUpdateListener {
+                setWidthAndHeight(
+                    it.animatedValue as Int,
+                    evaluator.evaluate(it.animatedFraction, startHeight, targetHeight)
+                )
+                action?.invoke((it.animatedFraction))
+            }
+            if (listener != null) addListener(listener)
+            setDuration(duration)
+            start()
+        }
+    }
+}
+
+/**
+ * 设置View的宽度
+ */
+fun View.setWidth(width: Int): View {
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+    params.width = width
+    layoutParams = params
+    return this
+}
+
+/**
+ * 设置View的高度
+ */
+fun View.setHeight(height: Int): View {
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+    params.height = height
+    layoutParams = params
+    return this
+}
+
+/**
+ * 设置View的宽度和高度
+ */
+fun View.setWidthAndHeight(width: Int, height: Int): View {
+    val params = layoutParams ?: ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+    params.width = width
+    params.height = height
+    layoutParams = params
+    return this
 }
