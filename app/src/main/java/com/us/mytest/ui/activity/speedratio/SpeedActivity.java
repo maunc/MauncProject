@@ -7,8 +7,8 @@ import androidx.databinding.Observable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.maunc.mvvmhabit.base.BaseActivity;
 import com.gyf.immersionbar.ImmersionBar;
+import com.maunc.mvvmhabit.base.BaseActivity;
 import com.us.mytest.BR;
 import com.us.mytest.R;
 import com.us.mytest.databinding.ActivitySpeedBinding;

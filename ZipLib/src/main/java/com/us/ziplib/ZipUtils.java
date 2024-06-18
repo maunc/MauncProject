@@ -5,13 +5,17 @@ import android.util.Log;
 
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
+import org.apache.tools.zip.ZipOutputStream;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Enumeration;
 
 
@@ -23,7 +27,7 @@ public class ZipUtils {
      * 解压文件
      */
     @SuppressLint("SdCardPath")
-    public static void zipToFiles(String zipFilePath, String decompressDir, UpZipFileCallBack upZipFileCallBack) {
+    public static void zipToFiles(String zipFilePath, String decompressDir, ZipToFileCallBack callBack) {
         new Thread(() -> {
             BufferedInputStream bi = null;
             ZipFile zf = null;// 支持中文
@@ -45,7 +49,7 @@ public class ZipUtils {
                     }
                 } else {
                     //Log.d(TAG, "readByApacheZipFile:正在创建解压文件 - " + entryName);
-                    upZipFileCallBack.onProgress();
+                    callBack.onProgress();
                     String fileDir = path.substring(0, path.lastIndexOf("/"));
                     File fileDirFile = new File(fileDir);
                     if (!fileDirFile.exists()) {
@@ -86,7 +90,7 @@ public class ZipUtils {
                         bos.close();
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
-                        upZipFileCallBack.onFailed();
+                        callBack.onFailed();
                     }
                 }
             }
@@ -94,10 +98,88 @@ public class ZipUtils {
                 zf.close();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
-                upZipFileCallBack.onFailed();
+                callBack.onFailed();
             }
-            upZipFileCallBack.onSuccess();
+            callBack.onSuccess();
         }).start();
+    }
+
+    @SuppressLint("SdCardPath")
+    public static void filesToZip(String sourceFolder, String zipFilePath,FilesToZipCallBack callBack) {
+        new Thread(() -> {
+            OutputStream os = null;
+            BufferedOutputStream bos = null;
+            ZipOutputStream zos = null;
+            try {
+                os = new FileOutputStream(zipFilePath);
+                bos = new BufferedOutputStream(os);
+                zos = new ZipOutputStream(bos);
+                // 解决中文文件名乱码
+                zos.setEncoding("GBK");
+                File file = new File(sourceFolder);
+                String basePath = null;
+                if (file.isDirectory()) {//压缩文件夹
+                    basePath = file.getPath();
+                } else {
+                    basePath = file.getParent();
+                }
+                zipFile(file, basePath, zos);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callBack.onFailed();
+            } finally {
+                try {
+                    if (zos != null) {
+                        zos.closeEntry();
+                        zos.close();
+                    }
+                    if (bos != null) {
+                        bos.close();
+                    }
+                    if (os != null) {
+                        os.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            callBack.onSuccess();
+        }).start();
+    }
+
+    /**
+     * 递归压缩文件
+     */
+    private static void zipFile(File parentFile, String basePath, ZipOutputStream zos) throws Exception {
+        File[] files = new File[0];
+        if (parentFile.isDirectory()) {
+            files = parentFile.listFiles();
+        } else {
+            files = new File[1];
+            files[0] = parentFile;
+        }
+        String pathName;
+        InputStream is;
+        BufferedInputStream bis;
+        byte[] cache = new byte[1024];
+        for (File file : files) {
+            if (file.isDirectory()) {
+                pathName = file.getPath().substring(basePath.length() + 1) + File.separator;
+                zos.putNextEntry(new ZipEntry(pathName));
+                zipFile(file, basePath, zos);
+            } else {
+                pathName = file.getPath().substring(basePath.length() + 1);
+                is = new FileInputStream(file);
+                bis = new BufferedInputStream(is);
+                zos.putNextEntry(new ZipEntry(pathName));
+                int nRead = 0;
+                while ((nRead = bis.read(cache, 0, 1024)) != -1) {
+                    zos.write(cache, 0, nRead);
+                }
+                bis.close();
+                is.close();
+            }
+        }
     }
 
     /**
@@ -116,9 +198,17 @@ public class ZipUtils {
         return false;
     }
 
-    public interface UpZipFileCallBack {
+    public interface ZipToFileCallBack {
         default void onProgress() {
         }
+
+        default void onFailed() {
+        }
+
+        void onSuccess();
+    }
+
+    public interface FilesToZipCallBack {
         default void onFailed() {
         }
 
