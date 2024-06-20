@@ -2,7 +2,6 @@ package com.us.mytest.ui.activity.welcome
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -16,6 +15,7 @@ import com.maunc.mvvmhabit.utils.DeviceUtils
 import com.us.mytest.R
 import com.us.mytest.databinding.ActivityWelcomeBinding
 import com.us.mytest.ui.activity.keyboard.KeyBoardActivity
+import com.us.mytest.ui.activity.linkage.LinkAgeActivity
 import com.us.mytest.ui.activity.main.MainActivity
 import com.us.mytest.ui.activity.pic.PicActivity
 import com.us.mytest.ui.activity.pushbox.PushBoxActivity
@@ -45,6 +45,10 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
                     "push_box" -> {
                         activityGoto(PushBoxActivity::class.java)
+                    }
+
+                    "link_age" -> {
+                        activityGoto(LinkAgeActivity::class.java)
                     }
                 }
             }

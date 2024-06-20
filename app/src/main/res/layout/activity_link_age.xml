@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.linkage.LinkAgeActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tabRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/linkAgeChangeMoreTv"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x75"
+                android:layout_alignTop="@id/tabRecyclerView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/x16"
+                android:layout_marginEnd="@dimen/x5"
+                android:background="@drawable/black_corners_25"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/x8"
+                android:paddingVertical="@dimen/x8"
+                android:text="@string/link_age_more_tv"
+                android:textColor="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/contentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tabRecyclerView" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/drawerLayout_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/drawer_change_more_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/link_age_drawer_change_more_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/x45"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/changeRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drawer_change_more_title"
+                android:layout_marginTop="@dimen/x5" />
+        </RelativeLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

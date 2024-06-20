@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/x100"
+    android:layout_centerVertical="true"
+    android:layout_marginHorizontal="@dimen/x20">
+
+    <TextView
+        android:id="@+id/item_link_age_tab_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/x5" />
+</RelativeLayout>

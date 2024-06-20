@@ -26,8 +26,11 @@
         tools:replace="theme"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.linkage.LinkAgeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.jsbridge.JsBridgeActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ui.activity.pushbox.PushBoxActivity"
             android:exported="false" />

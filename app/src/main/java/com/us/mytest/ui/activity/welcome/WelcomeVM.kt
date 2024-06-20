@@ -22,5 +22,6 @@ class WelcomeVM : BaseViewModel() {
         recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_pic_tv),"pic"))
         recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_speed_ratio_tv),"speed_ratio"))
         recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_push_box_tv),"push_box"))
+        recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_link_age_tv),"link_age"))
     }
 }
