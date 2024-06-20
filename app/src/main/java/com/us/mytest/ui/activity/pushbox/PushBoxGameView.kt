@@ -7,12 +7,17 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import com.maunc.mvvmhabit.utils.AppUtils
 import com.maunc.mvvmhabit.utils.DeviceUtils
 import com.us.mytest.R
+import com.us.mytest.ui.activity.pushbox.PushBoxConstant.BOX
+import com.us.mytest.ui.activity.pushbox.PushBoxConstant.BOX_AT_GOAL
+import com.us.mytest.ui.activity.pushbox.PushBoxConstant.GOAL
+import com.us.mytest.ui.activity.pushbox.PushBoxConstant.MAN
+import com.us.mytest.ui.activity.pushbox.PushBoxConstant.ROAD
+import com.us.mytest.ui.activity.pushbox.PushBoxConstant.WALL
 import kotlin.math.floor
 
 
@@ -22,7 +27,7 @@ import kotlin.math.floor
  *Author：TimeWillRememberUs
  */
 @SuppressLint("NotConstructor")
-class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: AttributeSet?) :
+class PushBoxGameView constructor(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private var gate = 0 //当前关数
     private var map: Array<IntArray>? = null //当前地图
@@ -37,12 +42,6 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
     private var tileSize = 0 //图片大小
     private lateinit var tem: Array<IntArray>//原始地图
     private var pic: Array<Bitmap?>? = null//图片
-    private val WALL = 1 //墙
-    private val GOAL = 2 //目标
-    private val ROAD = 3 //路
-    private val BOX = 4 //箱子
-    private val BOXATGOAL = 5 //目标箱子
-    private val MAN = 6 //人
     private val paint: Paint? = null //定义画笔
 
     init {
@@ -99,7 +98,7 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
         AppUtils.getDrawable(R.drawable.push_box_goal)?.let { loadPic(GOAL, it) }
         AppUtils.getDrawable(R.drawable.push_box_lu)?.let { loadPic(ROAD, it) }
         AppUtils.getDrawable(R.drawable.push_box_xiangzi)?.let { loadPic(BOX, it) }
-        AppUtils.getDrawable(R.drawable.push_box_boxgoal)?.let { loadPic(BOXATGOAL, it) }
+        AppUtils.getDrawable(R.drawable.push_box_boxgoal)?.let { loadPic(BOX_AT_GOAL, it) }
         AppUtils.getDrawable(R.drawable.push_box_ren)?.let { loadPic(MAN, it) }
     }
 
@@ -110,16 +109,6 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
         tile.setBounds(0, 0, tileSize, tileSize)
         tile.draw(canvas)
         pic!![key] = bitmap
-    }
-
-    //用户交互处理，移动箱子
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        //判断本关是否结束
-        if (gameFinished()) {
-            nextGate()
-        }
-        this.invalidate()
-        return super.onTouchEvent(event)
     }
 
     //更换关卡
@@ -153,7 +142,7 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
     //人物向右移动→
     fun moveRight() {
         //如果人前面是箱子或者是目标区域的箱子则进行下一步
-        if (map!![manX][manY + 1] == BOX || map!![manX][manY + 1] == BOXATGOAL) {
+        if (map!![manX][manY + 1] == BOX || map!![manX][manY + 1] == BOX_AT_GOAL) {
             //看箱子或目标区域的箱子前面是不是目标或路，是，则移动
             if (map!![manX][manY + 2] == GOAL || map!![manX][manY + 2] == ROAD) {
                 /*
@@ -161,7 +150,7 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
 				 * 如果箱子前是路，则用箱子代替
 				 * 如果是目标，则用目标区域的箱子代替
 				 */
-                map!![manX][manY + 2] = if (map!![manX][manY + 2] == GOAL) BOXATGOAL else BOX
+                map!![manX][manY + 2] = if (map!![manX][manY + 2] == GOAL) BOX_AT_GOAL else BOX
                 //箱子移动后的位置由人来代替
                 map!![manX][manY + 1] = MAN
                 //人所在的位置是恢复为路还是目标区域
@@ -175,13 +164,17 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
                 manY++
             }
         }
+        //判断本关是否结束
+        if (gameFinished()) {
+            nextGate()
+        }
         this.invalidate()
     }
 
     //人物向左移动←
     fun moveLeft() {
         //如果人前面是箱子或者是目标区域的箱子则进行下一步
-        if (map!![manX][manY - 1] == BOX || map!![manX][manY - 1] == BOXATGOAL) {
+        if (map!![manX][manY - 1] == BOX || map!![manX][manY - 1] == BOX_AT_GOAL) {
             //看箱子或目标区域的箱子前面是不是目标或路，是，则移动
             if (map!![manX][manY - 2] == GOAL || map!![manX][manY - 2] == ROAD) {
                 /*
@@ -189,7 +182,7 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
 				 * 如果箱子前是路，则用箱子代替
 				 * 如果是目标，则用目标区域的箱子代替
 				 */
-                map!![manX][manY - 2] = if (map!![manX][manY - 2] == GOAL) BOXATGOAL else BOX
+                map!![manX][manY - 2] = if (map!![manX][manY - 2] == GOAL) BOX_AT_GOAL else BOX
                 //箱子移动后的位置由人来代替
                 map!![manX][manY - 1] = MAN
                 //人所在的位置是恢复为路还是目标区域
@@ -203,13 +196,17 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
                 manY--
             }
         }
+        //判断本关是否结束
+        if (gameFinished()) {
+            nextGate()
+        }
         this.invalidate()
     }
 
     //人物向上移动↑
     fun moveUp() {
         //如果人前面是箱子或者是目标区域的箱子则进行下一步
-        if (map!![manX - 1][manY] == BOX || map!![manX - 1][manY] == BOXATGOAL) {
+        if (map!![manX - 1][manY] == BOX || map!![manX - 1][manY] == BOX_AT_GOAL) {
             //看箱子或目标区域的箱子前面是不是目标或路，是，则移动
             if (map!![manX - 2][manY] == GOAL || map!![manX - 2][manY] == ROAD) {
                 /*
@@ -217,7 +214,7 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
 				 * 如果箱子前是路，则用箱子代替
 				 * 如果是目标，则用目标区域的箱子代替
 				 */
-                map!![manX - 2][manY] = if (map!![manX - 2][manY] == GOAL) BOXATGOAL else BOX
+                map!![manX - 2][manY] = if (map!![manX - 2][manY] == GOAL) BOX_AT_GOAL else BOX
                 //箱子移动后的位置由人来代替
                 map!![manX - 1][manY] = MAN
                 //人所在的位置是恢复为路还是目标区域
@@ -231,13 +228,17 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
                 manX--
             }
         }
+        //判断本关是否结束
+        if (gameFinished()) {
+            nextGate()
+        }
         this.invalidate()
     }
 
     //人物向下移动↓
     fun moveDown() {
         //如果人前面是箱子或者是目标区域的箱子则进行下一步
-        if (map!![manX + 1][manY] == BOX || map!![manX + 1][manY] == BOXATGOAL) {
+        if (map!![manX + 1][manY] == BOX || map!![manX + 1][manY] == BOX_AT_GOAL) {
             //看箱子或目标区域的箱子前面是不是目标或路，是，则移动
             if (map!![manX + 2][manY] == GOAL || map!![manX + 2][manY] == ROAD) {
                 /*
@@ -245,7 +246,7 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
                  * 如果箱子前是路，则用箱子代替
                  * 如果是目标，则用目标区域的箱子代替
                  */
-                map!![manX + 2][manY] = if (map!![manX + 2][manY] == GOAL) BOXATGOAL else BOX
+                map!![manX + 2][manY] = if (map!![manX + 2][manY] == GOAL) BOX_AT_GOAL else BOX
                 //箱子移动后的位置由人来代替
                 map!![manX + 1][manY] = MAN
                 //人所在的位置是恢复为路还是目标区域
@@ -258,6 +259,10 @@ class PushBoxGameView @JvmOverloads constructor(context: Context?, attrs: Attrib
                 map!![manX][manY] = roadOrGoal(manX, manY)
                 manX++
             }
+        }
+        //判断本关是否结束
+        if (gameFinished()) {
+            nextGate()
         }
         this.invalidate()
     }

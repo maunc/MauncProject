@@ -10,27 +10,18 @@ class PushBoxActivity : BaseVmActivity<PushBoxVM, ActivityPushBoxBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         ImmersionBar.with(this).statusBarColor(R.color.white)
             .statusBarDarkFont(true).init()
-        mDatabind.pushBoxTips.isSelected = true
-        mDatabind.topBtu.setClickListener(object : PushBoxScaleView.PushBoxScaleOnClickListener {
-            override fun onClick() {
-                mDatabind.pushBoxGameView.moveUp()
-            }
-        })
-        mDatabind.bottomBtu.setClickListener(object : PushBoxScaleView.PushBoxScaleOnClickListener {
-            override fun onClick() {
-                mDatabind.pushBoxGameView.moveDown()
-            }
-        })
-        mDatabind.leftBtu.setClickListener(object : PushBoxScaleView.PushBoxScaleOnClickListener {
-            override fun onClick() {
-                mDatabind.pushBoxGameView.moveLeft()
-            }
-        })
-        mDatabind.rightBtu.setClickListener(object : PushBoxScaleView.PushBoxScaleOnClickListener {
-            override fun onClick() {
-                mDatabind.pushBoxGameView.moveRight()
-            }
-        })
+        mDatabind.topBtu.setOnClickScaleViewListener {
+            mDatabind.pushBoxGameView.moveUp()
+        }
+        mDatabind.bottomBtu.setOnClickScaleViewListener {
+            mDatabind.pushBoxGameView.moveDown()
+        }
+        mDatabind.leftBtu.setOnClickScaleViewListener {
+            mDatabind.pushBoxGameView.moveLeft()
+        }
+        mDatabind.rightBtu.setOnClickScaleViewListener {
+            mDatabind.pushBoxGameView.moveRight()
+        }
     }
 
     override fun createObserver() {
