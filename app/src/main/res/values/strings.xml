@@ -9,4 +9,6 @@
     <string name="welcome_start_link_age_tv">仿制商品软件详情页联动效果</string>
     <string name="link_age_more_tv">更多人物介绍</string>
     <string name="link_age_drawer_change_more_title">请选择要更换的人物信息</string>
+    <string name="welcome_start_second_list">二级列表</string>
+    <string name="push_box_tips">通关后触摸一下屏幕即可进入下一关</string>
 </resources>

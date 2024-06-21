@@ -19,6 +19,7 @@ import com.us.mytest.ui.activity.linkage.LinkAgeActivity
 import com.us.mytest.ui.activity.main.MainActivity
 import com.us.mytest.ui.activity.pic.PicActivity
 import com.us.mytest.ui.activity.pushbox.PushBoxActivity
+import com.us.mytest.ui.activity.secondlist.SecondListActivity
 import com.us.mytest.ui.activity.speedratio.SpeedActivity
 
 class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
@@ -49,6 +50,10 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
                     "link_age" -> {
                         activityGoto(LinkAgeActivity::class.java)
+                    }
+
+                    "second_list" -> {
+                        activityGoto(SecondListActivity::class.java)
                     }
                 }
             }

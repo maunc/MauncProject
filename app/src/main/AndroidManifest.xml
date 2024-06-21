@@ -59,6 +59,11 @@
         <activity
             android:name=".ui.activity.main.MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.activity.secondlist.SecondListActivity"
+            android:exported="true"
+            android:label="二级列表">
+        </activity>
     </application>
 
 </manifest>

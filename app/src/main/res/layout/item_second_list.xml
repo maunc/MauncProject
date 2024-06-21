@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二级内容"
+            android:paddingVertical="@dimen/y30"
+            android:layout_marginLeft="@dimen/x150"
+            />
+
+    </LinearLayout>
+</layout>
