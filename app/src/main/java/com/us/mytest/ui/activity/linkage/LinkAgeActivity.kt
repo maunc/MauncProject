@@ -1,6 +1,8 @@
 package com.us.mytest.ui.activity.linkage
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,6 +12,7 @@ import com.gyf.immersionbar.ImmersionBar
 import com.maunc.jetpackmvvm.base.BaseVmActivity
 import com.us.mytest.R
 import com.us.mytest.databinding.ActivityLinkAgeBinding
+import com.us.mytest.ui.dialog.common.CommonDialog
 
 class LinkAgeActivity : BaseVmActivity<LinkAgeVM, ActivityLinkAgeBinding>() {
 
@@ -72,20 +75,25 @@ class LinkAgeActivity : BaseVmActivity<LinkAgeVM, ActivityLinkAgeBinding>() {
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                when (drawerView.tag as String) {
-                    "黑崎一护" -> {
-                        linkAgeContentAdapter.setList(mViewModel.contentDataHeiQiYiHu)
-                    }
+                val commonDialog = CommonDialog()
+                commonDialog.show(supportFragmentManager, "tg")
+                Handler(Looper.myLooper()!!).postDelayed({
+                    commonDialog.dismissAllowingStateLoss()
+                    when (drawerView.tag as String) {
+                        "黑崎一护" -> {
+                            linkAgeContentAdapter.setList(mViewModel.contentDataHeiQiYiHu)
+                        }
 
-                    "蒙奇·D·路飞" -> {
-                        linkAgeContentAdapter.setList(mViewModel.contentDataLvFei)
-                    }
+                        "蒙奇·D·路飞" -> {
+                            linkAgeContentAdapter.setList(mViewModel.contentDataLvFei)
+                        }
 
-                    "漩涡鸣人" -> {
-                        linkAgeContentAdapter.setList(mViewModel.contentDataXanWoMingRen)
+                        "漩涡鸣人" -> {
+                            linkAgeContentAdapter.setList(mViewModel.contentDataXanWoMingRen)
+                        }
                     }
-                }
-                tabChangeEvent(0)
+                    tabChangeEvent(0)
+                }, 1000)
             }
 
             override fun onDrawerStateChanged(newState: Int) {
@@ -106,7 +114,7 @@ class LinkAgeActivity : BaseVmActivity<LinkAgeVM, ActivityLinkAgeBinding>() {
     override fun onScreenStateChanged(screenState: Boolean) {
     }
 
-    private fun tabChangeEvent(pos:Int) {
+    private fun tabChangeEvent(pos: Int) {
         linkAgeTabAdapter.setSelectedPosition(pos)
         mDatabind.contentRecyclerView.scrollToPosition(pos)
     }
