@@ -1,44 +1,33 @@
 package com.us.mytest.ui.activity.secondlist
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.GsonUtils
 import com.google.gson.Gson
 import com.maunc.jetpackmvvm.base.BaseVmActivity
 import com.us.mytest.databinding.ActivitySeconeListBinding
-import com.us.mytest.ui.activity.welcome.ListData
 import java.util.Collections
 
-class SecondListActivity : BaseVmActivity<ListViewModel,ActivitySeconeListBinding>(){
-
+class SecondListActivity : BaseVmActivity<ListViewModel, ActivitySeconeListBinding>() {
 
     private var helper: ItemTouchHelper? = null
-
-
-    private var mAdapter: FirstListAdapter ? =null
-
-
+    private var mAdapter: FirstListAdapter? = null
 
     override fun initView(savedInstanceState: Bundle?) {
         //沉浸式
         enableEdgeToEdge()
-
         val listData = Gson().fromJson(mJson, ListData::class.java)
         val firstList = listData.data.payTypes
         val secondList = listData.data.discounts
 
-
-        if(mAdapter == null){
-            mAdapter = FirstListAdapter(this,firstList,secondList)
+        if (mAdapter == null) {
+            mAdapter = FirstListAdapter(this, firstList, secondList)
         }
         mDatabind.rvFirst.layoutManager = LinearLayoutManager(this)
         mDatabind.rvFirst.adapter = mAdapter
-
 
         //设置拖拽
         helper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -54,7 +43,7 @@ class SecondListActivity : BaseVmActivity<ListViewModel,ActivitySeconeListBindin
                 } else if (recyclerView.layoutManager is LinearLayoutManager) {
                     dragFlag = ItemTouchHelper.UP or ItemTouchHelper.DOWN
                 }
-                var swipeFlags = 0;
+                val swipeFlags = 0;
                 return makeMovementFlags(dragFlag, swipeFlags);
             }
 
@@ -71,7 +60,6 @@ class SecondListActivity : BaseVmActivity<ListViewModel,ActivitySeconeListBindin
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-
                 //通过接口传递拖拽交换数据的起始位置和目标位置的ViewHolder
                 val fromPosition = viewHolder.adapterPosition
                 val toPosition = target.adapterPosition
@@ -80,9 +68,7 @@ class SecondListActivity : BaseVmActivity<ListViewModel,ActivitySeconeListBindin
                     Collections.swap(firstList, fromPosition, toPosition);
                     //刷新位置交换
                     val adapter = recyclerView.adapter as FirstListAdapter
-                    if (adapter != null) {
-                        adapter.notifyItemMoved(fromPosition, toPosition);
-                    }
+                    adapter.notifyItemMoved(fromPosition, toPosition)
                 }
                 return true
             }
@@ -102,27 +88,21 @@ class SecondListActivity : BaseVmActivity<ListViewModel,ActivitySeconeListBindin
                 }
             }
 
-            //
             override fun clearView(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
             ) {
                 super.clearView(recyclerView, viewHolder)
-                if (!recyclerView.isComputingLayout()) {
+                if (!recyclerView.isComputingLayout) {
                     //当需要清除之前在onSelectedChanged或者
                     // onChildDraw,onChildDrawOver设置的状态或者动画时通过接口返回该ViewHolder
-                    viewHolder?.itemView?.scaleX = 1.0f;
-                    viewHolder?.itemView?.scaleY = 1.0f;
+                    viewHolder.itemView.scaleX = 1.0f;
+                    viewHolder.itemView.scaleY = 1.0f;
                 }
-
             }
-
         })
         helper?.attachToRecyclerView(mDatabind.rvFirst)
-
-
     }
-
 
     override fun createObserver() {
     }
@@ -135,7 +115,7 @@ class SecondListActivity : BaseVmActivity<ListViewModel,ActivitySeconeListBindin
 
     }
 
-    companion object{
+    companion object {
         const val mJson = "{\n" +
                 "            \"success\": true,\n" +
                 "            \"code\": \"0000\",\n" +

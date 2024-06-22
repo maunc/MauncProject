@@ -1,4 +1,4 @@
-package com.us.mytest.ui.activity.welcome
+package com.us.mytest.ui.activity.secondlist
 
 data class ListData(
     val code: String,
