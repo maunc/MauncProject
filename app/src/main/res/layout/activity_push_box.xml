@@ -12,7 +12,7 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.activity.pushbox.PushBoxActivity">
 
-        <com.us.mytest.ui.activity.pushbox.PushBoxGameView
+        <com.us.maunc.ui.activity.pushbox.PushBoxGameView
             android:id="@+id/push_box_game_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

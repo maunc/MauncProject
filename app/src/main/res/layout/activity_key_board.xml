@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.us.mytest.ui.activity.keyboard.KeyBoardVM" />
+            type="com.us.maunc.ui.activity.keyboard.KeyBoardVM" />
     </data>
 
     <RelativeLayout
@@ -27,7 +27,7 @@
             android:textColor="#333333"
             android:textSize="16sp" />
 
-        <com.us.mytest.ui.activity.keyboard.KeyboardView
+        <com.us.maunc.ui.activity.keyboard.KeyboardView
             android:id="@+id/virtualKeyboardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

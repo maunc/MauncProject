@@ -7,7 +7,7 @@
 
         <variable
             name="viewMode"
-            type="com.us.mytest.ui.activity.speedratio.SpeedVM" />
+            type="com.us.maunc.ui.activity.speedratio.SpeedVM" />
     </data>
 
     <RelativeLayout

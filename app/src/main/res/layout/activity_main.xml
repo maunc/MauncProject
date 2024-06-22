@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.us.mytest.ui.activity.main.MainVM" />
+            type="com.us.maunc.ui.activity.main.MainVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

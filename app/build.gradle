@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.us.mytest'
+    namespace 'com.us.maunc'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.us.mytest"
+        applicationId "com.us.maunc"
         minSdk 21
         targetSdk 26
         versionCode 1
@@ -42,9 +42,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //mvvm
     implementation project(':JavaMvvmLib')
