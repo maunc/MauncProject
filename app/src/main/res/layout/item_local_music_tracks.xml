@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x75"
+    android:id="@+id/item_local_music_root_view">
+
+    <TextView
+        android:id="@+id/item_local_music_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginEnd="@dimen/x85"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/x35"
+        android:textStyle="bold" />
+
+    <com.us.maunc.ui.activity.localmusic.LocalMusicLineView
+        android:id="@+id/item_local_music_line"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x50"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/x35" />
+</RelativeLayout>

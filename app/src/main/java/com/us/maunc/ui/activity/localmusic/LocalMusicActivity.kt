@@ -29,6 +29,10 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
         CommonDialog()
     }
 
+    private val localMusicTracksDialog by lazy {
+        LocalMusicTracksDialog(mutableListOf())
+    }
+
     private var audioService: LocalMusicService? = null
     private var isBound = false
 
@@ -64,8 +68,15 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
             mViewModel.isPlayFlag.value = !mViewModel.isPlayFlag.value
         }
         mDatabind.localMusicShowPlayList.setOnClickListener {
-            val localMusicTracksDialog = LocalMusicTracksDialog()
+            if (audioService?.getAudioTracks()!!.isEmpty()) {
+                Log.e(TAG, "列表中没有音乐")
+                return@setOnClickListener
+            }
             localMusicTracksDialog.show(supportFragmentManager, "LocalMusicTracksDialog")
+            localMusicTracksDialog.setData(
+                audioService?.getAudioTracks()!!,
+                audioService?.getAudioPath() ?: ""
+            )
         }
         startMusicService()
     }

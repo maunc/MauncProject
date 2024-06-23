@@ -26,6 +26,7 @@ class LocalMusicService : Service() {
     private var audioChangeAction: (() -> Unit)? = null
     private var currentTrackIndex = 0
     private var currentAudioName: String = ""
+    private var currentAudioPath: String = ""
     private var currentCoverKey: String = ""
     private var tracksList = mutableListOf<LocalMusicFileData>()
 
@@ -66,8 +67,10 @@ class LocalMusicService : Service() {
             currentTrackIndex = tracksList.size - 1
             playMedia()
         } else {
-            currentTrackIndex = playIndex
-            playMedia()
+            if (data.name != currentAudioName) {
+                currentTrackIndex = playIndex
+                playMedia()
+            }
         }
     }
 
@@ -80,6 +83,7 @@ class LocalMusicService : Service() {
     fun playMedia(data: LocalMusicFileData) {
         currentAudioName = data.name
         currentCoverKey = data.coverKey
+        currentAudioPath = data.path
         prepareTrack(data.path)
         mediaPlayer.start()
         showNotification("Playing: ${getCurrentName()}")
@@ -119,6 +123,7 @@ class LocalMusicService : Service() {
         val track = tracksList[index]
         currentAudioName = track.name
         currentCoverKey = track.coverKey
+        currentAudioPath = track.path
         mediaPlayer.setDataSource(track.path)
         mediaPlayer.prepare()
         mediaPlayer.setOnCompletionListener {
@@ -149,6 +154,8 @@ class LocalMusicService : Service() {
     fun getDuration() = mediaPlayer.duration
 
     fun getAudioName() = currentAudioName
+
+    fun getAudioPath() = currentAudioPath
 
     fun getAudioCoverKey() = currentCoverKey
 
