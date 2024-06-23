@@ -10,4 +10,5 @@
     <string name="link_age_more_tv">更多人物介绍</string>
     <string name="link_age_drawer_change_more_title">请选择要更换的人物信息</string>
     <string name="welcome_start_second_list">二级列表</string>
+    <string name="welcome_start_local_music">本地音乐列表</string>
 </resources>

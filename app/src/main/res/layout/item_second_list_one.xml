@@ -26,20 +26,18 @@
                 android:layout_weight="1"
                 android:text="标题"/>
 
-
             <com.us.mauncview.DrawableTextView
                 android:id="@+id/item_tv_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/x15"
-                android:drawableRight="@drawable/home_arrow_right"
+                android:drawableEnd="@drawable/icon_jr"
                 android:drawablePadding="10dp"
                 android:text="更多明细"
                 app:rightDrawableHeight="@dimen/x20"
                 app:rightDrawableWidth="@dimen/x20" />
 
         </LinearLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/item_rv_second"

@@ -11,20 +11,21 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.maunc.jetpackmvvm.ext.gone
 import com.maunc.jetpackmvvm.ext.visible
 import com.us.maunc.R
-import com.us.maunc.databinding.ItemFirstListBinding
-import com.us.maunc.databinding.ItemSecondListBinding
+import com.us.maunc.databinding.ItemSecondListOneBinding
+import com.us.maunc.databinding.ItemSecondListTwoBinding
 import java.util.Collections
 
 class FirstListAdapter(
     private var mContext: Context,
     mData: MutableList<String>,
     private var secondListData: MutableList<Discount>?
-) : BaseQuickAdapter<String, BaseDataBindingHolder<ItemFirstListBinding>>(
-        R.layout.item_first_list, mData) {
+) : BaseQuickAdapter<String, BaseDataBindingHolder<ItemSecondListOneBinding>>(
+    R.layout.item_second_list_one, mData
+) {
 
     private var helper: ItemTouchHelper? = null
 
-    override fun convert(holder: BaseDataBindingHolder<ItemFirstListBinding>, item: String) {
+    override fun convert(holder: BaseDataBindingHolder<ItemSecondListOneBinding>, item: String) {
         holder.dataBinding?.itemTvTitle?.text = item
         val tvMore = holder.dataBinding?.itemTvMore
         val secondRv = holder.dataBinding?.itemRvSecond
@@ -37,7 +38,7 @@ class FirstListAdapter(
         tvMore?.setOnClickListener {
             if (secondRv?.visibility == View.VISIBLE) {
                 secondRv.gone()
-                tvMore.setRightDrawableWithRes(mContext, R.drawable.home_arrow_right)
+                tvMore.setRightDrawableWithRes(mContext, R.drawable.icon_jr)
             } else {
                 secondRv?.visible()
                 tvMore.setRightDrawableWithRes(mContext, R.drawable.img_arrow_down)
@@ -124,10 +125,10 @@ class FirstListAdapter(
 }
 
 class SecondListAdapter(var mContext: Context, mData: MutableList<Discount>?) :
-    BaseQuickAdapter<Discount, BaseDataBindingHolder<ItemSecondListBinding>>(
-        R.layout.item_second_list, mData
+    BaseQuickAdapter<Discount, BaseDataBindingHolder<ItemSecondListTwoBinding>>(
+        R.layout.item_second_list_two, mData
     ) {
-    override fun convert(holder: BaseDataBindingHolder<ItemSecondListBinding>, item: Discount) {
+    override fun convert(holder: BaseDataBindingHolder<ItemSecondListTwoBinding>, item: Discount) {
         holder.dataBinding?.itemTvTitle2?.text = item.discountName
     }
 }

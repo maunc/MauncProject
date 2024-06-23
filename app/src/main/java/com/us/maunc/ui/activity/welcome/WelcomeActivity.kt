@@ -16,6 +16,7 @@ import com.us.maunc.R
 import com.us.maunc.databinding.ActivityWelcomeBinding
 import com.us.maunc.ui.activity.keyboard.KeyBoardActivity
 import com.us.maunc.ui.activity.linkage.LinkAgeActivity
+import com.us.maunc.ui.activity.localmusic.LocalMusicActivity
 import com.us.maunc.ui.activity.main.MainActivity
 import com.us.maunc.ui.activity.pic.PicActivity
 import com.us.maunc.ui.activity.pushbox.PushBoxActivity
@@ -54,6 +55,10 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
                     "second_list" -> {
                         activityGoto(SecondListActivity::class.java)
+                    }
+
+                    "local_music" -> {
+                        activityGoto(LocalMusicActivity::class.java)
                     }
                 }
             }

@@ -19,7 +19,7 @@ class SecondListActivity : BaseVmActivity<SecondListVM, ActivitySeconeListBindin
     override fun initView(savedInstanceState: Bundle?) {
         //沉浸式
         enableEdgeToEdge()
-        val listData = Gson().fromJson(mJson, ListData::class.java)
+        val listData = Gson().fromJson(mViewModel.mJson, ListData::class.java)
         val firstList = listData.data.payTypes
         val secondList = listData.data.discounts
 
@@ -114,39 +114,4 @@ class SecondListActivity : BaseVmActivity<SecondListVM, ActivitySeconeListBindin
     override fun onScreenStateChanged(screenState: Boolean) {
 
     }
-
-    companion object {
-        const val mJson = "{\n" +
-                "            \"success\": true,\n" +
-                "            \"code\": \"0000\",\n" +
-                "            \"msg\": \"操作成功\",\n" +
-                "            \"data\": {\n" +
-                "            \"plugAndChargeId\": \"360\",\n" +
-                "            \"payTypes\": [\n" +
-                "            \"活动\",\n" +
-                "            \"卡\",\n" +
-                "            \"优惠券\"\n" +
-                "            ],\n" +
-                "            \"discounts\": [\n" +
-                "\n" +
-                "            {\n" +
-                "                \"plugAndChargeDiscountId\": \"46\",\n" +
-                "                \"payType\": \"CARD\",\n" +
-                "                \"position\": 3,\n" +
-                "                \"discountId\": \"1763104581236899842\",\n" +
-                "                \"discountName\": \"新充换电3000度循环发\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"plugAndChargeDiscountId\": \"47\",\n" +
-                "                \"payType\": \"CARD\",\n" +
-                "                \"position\": 4,\n" +
-                "                \"discountId\": \"1764840154096848898\",\n" +
-                "                \"discountName\": \"自动下发充换电卡\"\n" +
-                "            }\n" +
-                "            ]\n" +
-                "        },\n" +
-                "            \"timestamp\": \"1716885893759\"\n" +
-                "        }"
-    }
-
 }

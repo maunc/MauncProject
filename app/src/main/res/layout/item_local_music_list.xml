@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_local_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x170"
+    android:layout_marginTop="@dimen/x5"
+    android:layout_marginBottom="@dimen/x5"
+    android:background="@drawable/white_corners_25"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/file_icon_item"
+        android:layout_width="@dimen/x126"
+        android:layout_height="@dimen/x126"
+        android:layout_marginStart="@dimen/x34"
+        android:src="@drawable/icon_yyzt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/file_name_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x38"
+        android:layout_marginTop="@dimen/x6"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:text="春天音乐合集"
+        android:textColor="@color/black"
+        android:textSize="@dimen/x42"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/file_icon_item"
+        app:layout_constraintTop_toTopOf="@id/file_icon_item" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/duration_music_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/x6"
+        android:text="03:42"
+        android:textColor="@color/black"
+        android:textSize="@dimen/x38"
+        app:layout_constraintBottom_toBottomOf="@id/file_icon_item"
+        app:layout_constraintLeft_toLeftOf="@id/file_name_item" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,13 +18,16 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTest"
         tools:replace="theme"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activity.localmusic.LocalMusicActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.linkage.LinkAgeActivity"
             android:exported="false" />
@@ -61,9 +64,12 @@
             android:exported="true" />
         <activity
             android:name=".ui.activity.secondlist.SecondListActivity"
-            android:exported="true"
-            android:label="二级列表">
-        </activity>
+            android:exported="true" />
+
+        <service
+            android:name=".ui.activity.localmusic.LocalMusicService"
+            android:foregroundServiceType="mediaPlayback" />
+
     </application>
 
 </manifest>
