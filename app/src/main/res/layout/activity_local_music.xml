@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.us.maunc.ui.activity.localmusic.LocalMusicVM" />
     </data>
 
     <RelativeLayout
@@ -16,13 +19,49 @@
             android:id="@+id/local_music_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/x170"/>
+            android:layout_marginBottom="@dimen/x170" />
 
         <RelativeLayout
+            android:id="@+id/local_music_console_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x170"
+            android:layout_height="@dimen/x165"
             android:layout_alignParentBottom="true"
-            android:background="@color/black" />
+            android:background="@drawable/corners_gray_top_35">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/local_music_cover"
+                android:layout_width="@dimen/x145"
+                android:layout_height="@dimen/x145"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/x15"
+                android:src="@drawable/icon_fm" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/local_music_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/x30"
+                android:layout_marginEnd="@dimen/x30"
+                android:layout_toStartOf="@id/local_music_play"
+                android:layout_toEndOf="@id/local_music_cover"
+                android:ellipsize="marquee"
+                android:gravity="center_vertical"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="@{viewModel.targetAudioName}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/x45"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/local_music_play"
+                android:layout_width="@dimen/x85"
+                android:layout_height="@dimen/x85"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/x35"
+                android:src="@{viewModel.isPlayFlag()?@drawable/icon_video_play:@drawable/icon_video_stop}" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

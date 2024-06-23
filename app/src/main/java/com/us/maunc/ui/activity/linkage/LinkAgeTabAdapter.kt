@@ -23,11 +23,11 @@ class LinkAgeTabAdapter(data: MutableList<String>) :
         tabTv.text = item
         if (mCurrentPosition == holder.layoutPosition) {
             tabTv.textSize = AppUtils.getDimens(R.dimen.x23).toFloat()
-            tabTv.background = AppUtils.getDrawable(R.drawable.orange_corners_25)
+            tabTv.background = AppUtils.getDrawable(R.drawable.corners_orange_25)
             tabTv.setTextColor(Color.WHITE)
         } else {
             tabTv.textSize = AppUtils.getDimens(R.dimen.x18).toFloat()
-            tabTv.background = AppUtils.getDrawable(R.drawable.white_corners_25)
+            tabTv.background = AppUtils.getDrawable(R.drawable.corners_white_25)
             tabTv.setTextColor(Color.BLACK)
         }
     }

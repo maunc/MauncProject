@@ -34,11 +34,18 @@ class LocalMusicAdapter(data: MutableList<LocalMusicFileData>) :
                 titleTv.text = item.name
                 titleTv.isSelected = true
                 holder.setText(R.id.duration_music_item, item.duration.convertDuration())
-                val bitmap = LocalMusicBimapCache.getBitmap(item.coverKey)
-                bitmap?.let {
-                    Glide.with(this.context)
-                        .load(it).into(holder.getView(R.id.file_icon_item))
-                }
+                Glide.with(context)
+                    .load(LocalMusicBimapCache.getBitmap(item.coverKey) ?: R.drawable.icon_yyzt)
+                    .apply(
+                        LocalMusicComm.setAudioCorners(
+                            if (LocalMusicBimapCache.getBitmap(item.coverKey) == null) {
+                                0f
+                            } else {
+                                26f
+                            }
+                        )
+                    )
+                    .into(holder.getView(R.id.file_icon_item))
             }
         }
 

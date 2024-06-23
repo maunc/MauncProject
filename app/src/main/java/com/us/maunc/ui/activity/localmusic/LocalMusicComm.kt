@@ -3,6 +3,10 @@ package com.us.maunc.ui.activity.localmusic
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
+import com.bumptech.glide.request.RequestOptions
+import com.maunc.mvvmhabit.utils.ConvertUtils.dp2px
+import com.us.maunc.R
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -51,6 +55,12 @@ object LocalMusicComm {
             retriever.release()
         }
     }
+
+    fun setAudioCorners(round: Float = 0f): RequestOptions {
+        return RequestOptions.bitmapTransform(RoundedCornersTransformation(dp2px(round),
+            0, RoundedCornersTransformation.CornerType.ALL))
+            .placeholder(R.drawable.icon_fm)
+    }
 }
 
 fun String?.toMD5(): String? {
@@ -75,6 +85,7 @@ fun Long.convertDuration(): String {
         this < day -> {
             String.format("%02d:%02d", this / minute, this % 60)
         }
+
         else -> {
             String.format("%02d:%02d:%02d", this / hour, (this % hour) / minute, this % 60)
         }

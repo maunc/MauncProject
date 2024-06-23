@@ -33,7 +33,7 @@
             android:id="@+id/test_nestedView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/top_round"
+            android:background="@drawable/corners_white_top_35"
             android:overScrollMode="never"
             app:layout_behavior="@string/bottom_sheet_behavior">
 

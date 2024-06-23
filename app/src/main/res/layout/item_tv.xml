@@ -10,7 +10,7 @@
         android:layout_height="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="@drawable/round_gray" />
+        android:background="@drawable/corners_gray_30" />
 
     <TextView
         android:layout_width="match_parent"

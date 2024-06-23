@@ -6,7 +6,7 @@
     android:layout_height="@dimen/x170"
     android:layout_marginTop="@dimen/x5"
     android:layout_marginBottom="@dimen/x5"
-    android:background="@drawable/white_corners_25"
+    android:background="@drawable/corners_white_25"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground">

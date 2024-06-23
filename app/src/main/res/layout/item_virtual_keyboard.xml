@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e0e0e0">
+    android:background="#E0E0E0">
 
     <TextView
         android:id="@+id/btn_keys"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x120"
         android:layout_centerInParent="true"
-        android:background="@drawable/selector_gird_item"
+        android:background="@drawable/selector_keyboard_item"
         android:gravity="center"
         android:includeFontPadding="false"
         android:textColor="#333333"
@@ -28,6 +28,4 @@
             android:src="@drawable/keyboard_delete_img" />
 
     </RelativeLayout>
-
-
 </RelativeLayout>

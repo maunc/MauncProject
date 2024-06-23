@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.maunc.jetpackmvvm.base.BaseViewModel
 import com.maunc.jetpackmvvm.ext.launch
 import com.maunc.jetpackmvvm.livedata.BooleanLiveData
+import com.maunc.jetpackmvvm.livedata.StringLiveData
 import com.us.maunc.ui.activity.localmusic.LocalMusicComm.getAlbumCover
 import com.us.maunc.ui.activity.localmusic.LocalMusicComm.getMediaDuration
 import com.us.maunc.ui.activity.localmusic.LocalMusicComm.isAudioFile
@@ -26,6 +27,17 @@ class LocalMusicVM : BaseViewModel() {
     var pathStack = LinkedList<String>()
 
     var showDialogFlag = BooleanLiveData()
+
+    var isPlayFlag = BooleanLiveData()
+
+    var targetAudioName = StringLiveData()
+
+    var targetAudioCoverKey = StringLiveData()
+
+    init {
+        targetAudioName.value = "Local_Music_Pro"
+        targetAudioCoverKey.value = ""
+    }
 
     fun getLocalDirectory(path: String, type: LocalMusicType) {
         val localMusicFileData = localDirectory[path]
