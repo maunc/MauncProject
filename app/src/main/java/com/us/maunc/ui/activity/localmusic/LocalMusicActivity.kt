@@ -51,30 +51,23 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
                 }
 
                 LocalMusicType.AUDIO -> {
-                    setPlayList(localMusicAdapter.data)
-                    playerAudio(it)
+                    audioService?.addTrackList(it)
+                    refreshUI()
                 }
             }
         }
         mDatabind.localMusicPlay.setOnClickListener {
+            if (audioService?.getAudioTracks()?.isEmpty()!!) {
+                Log.e(TAG, "列表中没有音乐")
+                return@setOnClickListener
+            }
             mViewModel.isPlayFlag.value = !mViewModel.isPlayFlag.value
         }
-        startMusicService()
-    }
-
-    private fun setPlayList(data: List<LocalMusicFileData>?) {
-        data?.also { list ->
-            list.filter { it.type == LocalMusicType.AUDIO }.let {
-                audioService?.setTrackList(it)
-            }
+        mDatabind.localMusicShowPlayList.setOnClickListener {
+            val localMusicTracksDialog = LocalMusicTracksDialog()
+            localMusicTracksDialog.show(supportFragmentManager, "LocalMusicTracksDialog")
         }
-    }
-
-    private fun playerAudio(data: LocalMusicFileData) {
-        Log.i(TAG, "playerAudio: =======null=${audioService == null}")
-        // 设置音频列表
-        audioService?.play(data)
-        refreshUI()
+        startMusicService()
     }
 
     private fun startMusicService() {
@@ -136,9 +129,9 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
             LocalMusicAnim.refreshRotateAnim(isPlayFlag)
             audioService?.let {
                 if (isPlayFlag) {
-                    it.resume()
+                    it.resumeMedia()
                 } else {
-                    it.pause()
+                    it.pauseMedia()
                 }
             }
         }

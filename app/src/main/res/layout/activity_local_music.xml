@@ -50,17 +50,26 @@
                 android:singleLine="true"
                 android:text="@{viewModel.targetAudioName}"
                 android:textColor="@color/black"
-                android:textSize="@dimen/x45"
+                android:textSize="@dimen/x37"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/local_music_play"
                 android:layout_width="@dimen/x85"
                 android:layout_height="@dimen/x85"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/x35"
+                android:layout_toStartOf="@id/local_music_show_play_list"
+                android:src="@{viewModel.isPlayFlag()?@drawable/icon_video_play:@drawable/icon_video_stop}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/local_music_show_play_list"
+                android:layout_width="@dimen/x85"
+                android:layout_height="@dimen/x85"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/x35"
-                android:src="@{viewModel.isPlayFlag()?@drawable/icon_video_play:@drawable/icon_video_stop}" />
+                android:src="@drawable/icon_play_list" />
         </RelativeLayout>
 
     </RelativeLayout>

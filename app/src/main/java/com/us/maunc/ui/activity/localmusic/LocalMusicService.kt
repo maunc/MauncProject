@@ -25,9 +25,9 @@ class LocalMusicService : Service() {
     private val mediaPlayer by lazy { MediaPlayer() }
     private var audioChangeAction: (() -> Unit)? = null
     private var currentTrackIndex = 0
-    private var trackList = listOf<LocalMusicFileData>()
     private var currentAudioName: String = ""
     private var currentCoverKey: String = ""
+    private var tracksList = mutableListOf<LocalMusicFileData>()
 
     override fun onBind(intent: Intent?): IBinder {
         Log.i("LocalMusicService", "onBind")
@@ -47,21 +47,76 @@ class LocalMusicService : Service() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         mediaPlayer.release()
+        super.onDestroy()
     }
 
-    fun setTrackList(tracks: List<LocalMusicFileData>, position: Int = 0) {
-        trackList = tracks
-        currentTrackIndex = position
-        if (trackList.isNotEmpty()) {
-            prepareTrack(currentTrackIndex)
+    fun addTrackList(data: LocalMusicFileData) {
+        var isExist = false
+        var playIndex = 0
+        for ((index, localMusicFileData) in tracksList.withIndex()) {
+            if (localMusicFileData.name == data.name) {
+                isExist = true
+                playIndex = index
+                break
+            }
+        }
+        if (!isExist) {
+            tracksList.add(data)
+            currentTrackIndex = tracksList.size - 1
+            playMedia()
+        } else {
+            currentTrackIndex = playIndex
+            playMedia()
+        }
+    }
+
+    private fun playMedia() {
+        prepareTrack(currentTrackIndex)
+        mediaPlayer.start()
+        showNotification("Playing: ${getCurrentName()}")
+    }
+
+    fun playMedia(data: LocalMusicFileData) {
+        currentAudioName = data.name
+        currentCoverKey = data.coverKey
+        prepareTrack(data.path)
+        mediaPlayer.start()
+        showNotification("Playing: ${getCurrentName()}")
+    }
+
+    fun pauseMedia() {
+        mediaPlayer.pause()
+        showNotification("Paused: ${getCurrentName()}")
+    }
+
+    fun resumeMedia() {
+        mediaPlayer.start()
+        showNotification("Resume: ${getCurrentName()}")
+    }
+
+    fun playNext() {
+        if (tracksList.isNotEmpty()) {
+            currentTrackIndex = (currentTrackIndex + 1) % tracksList.size
+            playMedia()
+            showNotification("Playing: ${getCurrentName()}")
+            audioChange()
+        }
+    }
+
+    fun playPrevious() {
+        if (tracksList.isNotEmpty()) {
+            currentTrackIndex =
+                if (currentTrackIndex - 1 < 0) tracksList.size - 1 else currentTrackIndex - 1
+            playMedia()
+            showNotification("Playing: ${getCurrentName()}")
+            audioChange()
         }
     }
 
     private fun prepareTrack(index: Int) {
         mediaPlayer.reset()
-        val track = trackList[index]
+        val track = tracksList[index]
         currentAudioName = track.name
         currentCoverKey = track.coverKey
         mediaPlayer.setDataSource(track.path)
@@ -72,72 +127,20 @@ class LocalMusicService : Service() {
     }
 
     private fun prepareTrack(path: String) {
-        adjustIndex(path)
+        var playFlag = -1
+        for ((index, item) in tracksList.withIndex()) {
+            if (item.path == path) {
+                playFlag = index
+            }
+        }
+        if (playFlag > 0) {
+            currentTrackIndex = playFlag
+        }
         mediaPlayer.reset()
         mediaPlayer.setDataSource(path)
         mediaPlayer.prepare()
         mediaPlayer.setOnCompletionListener {
             playNext()
-        }
-    }
-
-    private fun adjustIndex(path: String) {
-        val index = findIndex(path)
-        if (index > 0) {
-            currentTrackIndex = index
-        }
-    }
-
-    private fun findIndex(path: String): Int {
-        for ((index, item) in trackList.withIndex()) {
-            if (item.path == path) return index
-        }
-        return -1
-    }
-
-    fun play() {
-        prepareTrack(currentTrackIndex)
-        mediaPlayer.start()
-        showNotification("Playing: ${getCurrentName()}")
-    }
-
-    fun play(data: LocalMusicFileData) {
-        currentAudioName = data.name
-        currentCoverKey = data.coverKey
-        prepareTrack(data.path)
-        mediaPlayer.start()
-        showNotification("Playing: ${getCurrentName()}")
-    }
-
-    fun pause() {
-        mediaPlayer.pause()
-        showNotification("Paused: ${getCurrentName()}")
-    }
-
-    fun resume() {
-        mediaPlayer.start()
-        showNotification("Resume: ${getCurrentName()}")
-    }
-
-
-    fun playNext() {
-        if (trackList.isNotEmpty()) {
-            currentTrackIndex = (currentTrackIndex + 1) % trackList.size
-            prepareTrack(currentTrackIndex)
-            mediaPlayer.start()
-            showNotification("Playing: ${getCurrentName()}")
-            audioChange()
-        }
-    }
-
-    fun playPrevious() {
-        if (trackList.isNotEmpty()) {
-            currentTrackIndex =
-                if (currentTrackIndex - 1 < 0) trackList.size - 1 else currentTrackIndex - 1
-            prepareTrack(currentTrackIndex)
-            mediaPlayer.start()
-            showNotification("Playing: ${getCurrentName()}")
-            audioChange()
         }
     }
 
@@ -148,6 +151,8 @@ class LocalMusicService : Service() {
     fun getAudioName() = currentAudioName
 
     fun getAudioCoverKey() = currentCoverKey
+
+    fun getAudioTracks() = tracksList
 
     fun getCurrentPosition() = mediaPlayer.currentPosition
 
@@ -162,8 +167,8 @@ class LocalMusicService : Service() {
     }
 
     private fun getCurrentName(): String {
-        if (trackList.isNotEmpty() && currentTrackIndex in trackList.indices) {
-            val name = trackList[currentTrackIndex].name.split("\\.".toRegex())
+        if (tracksList.isNotEmpty() && currentTrackIndex in tracksList.indices) {
+            val name = tracksList[currentTrackIndex].name.split("\\.".toRegex())
             return name[0]
         }
         return "未知艺术家"
@@ -191,7 +196,6 @@ class LocalMusicService : Service() {
             notificationManager?.createNotificationChannel(channel)
         }
     }
-
 
     inner class AudioBinder : Binder() {
         fun getService(): LocalMusicService = this@LocalMusicService
