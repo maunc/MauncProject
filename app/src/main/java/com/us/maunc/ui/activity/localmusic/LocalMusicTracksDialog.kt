@@ -31,6 +31,8 @@ class LocalMusicTracksDialog(private val data: MutableList<LocalMusicFileData>) 
         LocalMusicTracksAdapter(mutableListOf())
     }
 
+    private lateinit var recyclerView: RecyclerView
+
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -43,7 +45,7 @@ class LocalMusicTracksDialog(private val data: MutableList<LocalMusicFileData>) 
         view.layoutParams.height = DeviceUtils.getDeviceHeight(false) / 5 * 3
         behavior.isHideable = true
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.dialog_local_music_track_recycler)
+        recyclerView = view.findViewById(R.id.dialog_local_music_track_recycler)
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = localMusicTracksAdapter
@@ -95,6 +97,11 @@ class LocalMusicTracksDialog(private val data: MutableList<LocalMusicFileData>) 
         fun setLists(data: MutableList<LocalMusicFileData>, tagPos: Int) {
             this.tagPos = tagPos
             setList(data)
+        }
+
+        override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+            super.onAttachedToRecyclerView(recyclerView)
+            recyclerView.scrollToPosition(tagPos)
         }
     }
 
