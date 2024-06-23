@@ -133,7 +133,7 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
         }
         mViewModel.targetAudioCoverKey.observe(this) { coverKey ->
             Glide.with(this).load(LocalMusicBimapCache.getBitmap(coverKey) ?: R.drawable.icon_fm)
-                .apply(LocalMusicComm.setAudioCorners(100f))
+                .apply(LocalMusicComm.setAudioCorners(200f))
                 .into(mDatabind.localMusicCover)
         }
         mViewModel.isPlayFlag.observe(this) { isPlayFlag ->
