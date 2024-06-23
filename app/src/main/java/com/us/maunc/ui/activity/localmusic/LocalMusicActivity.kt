@@ -1,15 +1,25 @@
 package com.us.maunc.ui.activity.localmusic
 
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.ServiceConnection
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
+import android.os.Message
 import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.maunc.jetpackmvvm.base.BaseVmActivity
 import com.us.maunc.R
@@ -36,16 +46,29 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
     private var audioService: LocalMusicService? = null
     private var isBound = false
 
+    private val reHandler = object : Handler(Looper.myLooper()!!) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if (msg.what == 0) {
+                mViewModel.consoleFragments[msg.arg1].localMusicFileData.let {
+                    audioService?.playMedia(it)
+                }
+                refreshUI()
+            }
+        }
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         window.navigationBarColor = Color.BLACK
         mDatabind.viewModel = mViewModel
-        mDatabind.localMusicTitle.isSelected = true
         LocalMusicAnim.initRotateAnim(mDatabind.localMusicCover)
         mDatabind.localMusicRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mDatabind.localMusicRecyclerView.adapter = localMusicAdapter
+        //获取文件列表
         mViewModel.getLocalDirectory(mViewModel.lastPath, LocalMusicType.AUDIO)
+        //文件列表点击
         localMusicAdapter.setOnLocalMusicItemClickListener {
             when (it.type) {
                 LocalMusicType.FOLDER -> {
@@ -56,10 +79,10 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
 
                 LocalMusicType.AUDIO -> {
                     audioService?.addTrackList(it)
-                    refreshUI()
                 }
             }
         }
+        //播放按钮
         mDatabind.localMusicPlay.setOnClickListener {
             if (audioService?.getAudioTracks()?.isEmpty()!!) {
                 Log.e(TAG, "列表中没有音乐")
@@ -67,6 +90,7 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
             }
             mViewModel.isPlayFlag.value = !mViewModel.isPlayFlag.value
         }
+        //列表按钮
         mDatabind.localMusicShowPlayList.setOnClickListener {
             if (audioService?.getAudioTracks()!!.isEmpty()) {
                 Log.e(TAG, "列表中没有音乐")
@@ -78,7 +102,112 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
                 audioService?.getAudioPath() ?: ""
             )
         }
+        //控制台ViewPage
+        val localMusicConsoleAdapter =
+            object : FragmentStateAdapter(supportFragmentManager, lifecycle) {
+                override fun getItemCount(): Int {
+                    return mViewModel.consoleFragments.size
+                }
+
+                override fun createFragment(position: Int): Fragment {
+                    return mViewModel.consoleFragments[position]
+                }
+            }
+        mDatabind.localMusicConsoleVp.adapter = localMusicConsoleAdapter
+        mDatabind.localMusicConsoleVp.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                //防止UI线程太卡而发送Message
+                val obtain = Message.obtain()
+                obtain.what = 0
+                obtain.arg1 = position
+                reHandler.sendMessageDelayed(obtain, 650)
+            }
+        })
+        registerAddTrackReceiver()
         startMusicService()
+    }
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    private fun registerAddTrackReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.apply {
+            addAction("addTrackLocalMusic")
+            addAction("selectTrackLocalMusic")
+            addAction("nextTrackLocalMusic")
+            addAction("previousLocalMusic")
+        }
+        registerReceiver(addTrackReceiver, intentFilter)
+    }
+
+    private val addTrackReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val action = intent?.action
+            val localMusicFileData = intent?.getSerializableExtra("data") as LocalMusicFileData?
+            if (action == "addTrackLocalMusic") {
+                refreshConsoleFragment(localMusicFileData, true)
+            }
+            if (action == "selectTrackLocalMusic") {
+                refreshConsoleFragment(localMusicFileData, false)
+            }
+            if (action == "nextTrackLocalMusic") {
+                refreshConsoleFragment(localMusicFileData, false)
+            }
+            if (action == "previousLocalMusic") {
+                refreshConsoleFragment(localMusicFileData, false)
+            }
+            Log.e(TAG, "addTrackReceiver: $action")
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initConsoleFragment() {
+        if (audioService?.getAudioTracks()?.isNotEmpty()!!) {
+            goneDefaultTv()
+            for (localMusicFileData in audioService?.getAudioTracks()!!) {
+                mViewModel.consoleFragments.add(
+                    LocalMusicConsoleFragment().newInstance(
+                        localMusicFileData
+                    )
+                )
+            }
+            mDatabind.localMusicConsoleVp.adapter?.notifyDataSetChanged()
+            mDatabind.localMusicConsoleVp.currentItem = selectConsoleVpPosition()
+        }
+    }
+
+    private fun refreshConsoleFragment(data: LocalMusicFileData?, isAdd: Boolean) {
+        goneDefaultTv()
+        if (data == null) {
+            return
+        }
+        if (isAdd) {
+            mViewModel.consoleFragments.add(LocalMusicConsoleFragment().newInstance(data))
+            val selectConsoleVpPosition = selectConsoleVpPosition()
+            mDatabind.localMusicConsoleVp.adapter?.notifyItemInserted(selectConsoleVpPosition)
+            mDatabind.localMusicConsoleVp.currentItem = selectConsoleVpPosition
+        } else {
+            mDatabind.localMusicConsoleVp.currentItem = selectConsoleVpPosition()
+        }
+        Log.e(TAG, "refreshConsoleFragment")
+    }
+
+    private fun selectConsoleVpPosition(): Int {
+        var pos = 0
+        for ((index, localMusicConsoleFragment) in mViewModel.consoleFragments.withIndex()) {
+            if (localMusicConsoleFragment.localMusicFileData.name == audioService?.getAudioName()) {
+                pos = index
+                break
+            }
+        }
+        return pos
+    }
+
+    private fun goneDefaultTv() {
+        if (mDatabind.localMusicTitle.visibility == View.VISIBLE) {
+            mDatabind.localMusicTitle.visibility = View.GONE
+        }
     }
 
     private fun startMusicService() {
@@ -94,18 +223,8 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
             val binder = service as LocalMusicService.AudioBinder
             audioService = binder.getService()
             isBound = true
+            initConsoleFragment()
             Log.v(TAG, "onServiceConnected: $audioService")
-
-            audioService?.takeIf { it.isPlaying() }?.let {
-                refreshUI()
-            }
-            audioService?.setOnAudioChange {
-                audioService?.let {
-                    if (it.isPlaying()) {
-                        refreshUI()
-                    }
-                }
-            }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -160,6 +279,7 @@ class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBindin
     }
 
     override fun onDestroy() {
+        unregisterReceiver(addTrackReceiver)
         if (isBound) {
             unbindService(serviceConnection)
             isBound = false

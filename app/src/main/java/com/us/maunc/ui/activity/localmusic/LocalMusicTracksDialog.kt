@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,10 @@ class LocalMusicTracksDialog(private val data: MutableList<LocalMusicFileData>) 
         for ((index, localMusicFileData) in data.withIndex()) {
             if (tagPath == localMusicFileData.path) {
                 pos = index
+                Log.e("LocalMusicTracksDialog", "yyes ${data[index].path}+++$tagPath")
                 break
+            } else {
+                Log.e("LocalMusicTracksDialog", "not found: ${data[index].path}")
             }
         }
         localMusicTracksAdapter.setLists(data, pos)

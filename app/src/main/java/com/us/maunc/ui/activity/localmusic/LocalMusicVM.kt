@@ -24,6 +24,8 @@ class LocalMusicVM : BaseViewModel() {
 
     var localTargetDirectory = MutableLiveData<MutableList<LocalMusicFileData>>()
 
+    var consoleFragments = mutableListOf<LocalMusicConsoleFragment>()
+
     var pathStack = LinkedList<String>()
 
     var showDialogFlag = BooleanLiveData()

@@ -44,14 +44,20 @@
                 android:layout_marginEnd="@dimen/x30"
                 android:layout_toStartOf="@id/local_music_play"
                 android:layout_toEndOf="@id/local_music_cover"
-                android:ellipsize="marquee"
                 android:gravity="center_vertical"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:singleLine="true"
-                android:text="@{viewModel.targetAudioName}"
+                android:text="Local_Music_Pro"
                 android:textColor="@color/black"
                 android:textSize="@dimen/x37"
                 android:textStyle="bold" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/local_music_console_vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/x30"
+                android:layout_marginEnd="@dimen/x30"
+                android:layout_toStartOf="@id/local_music_play"
+                android:layout_toEndOf="@id/local_music_cover" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/local_music_play"
