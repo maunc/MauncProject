@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.maunc.jetpackmvvm.ext.setWidth
-import com.maunc.mvvmhabit.utils.DeviceUtils
+import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.us.maunc.App
 import com.us.maunc.R
 

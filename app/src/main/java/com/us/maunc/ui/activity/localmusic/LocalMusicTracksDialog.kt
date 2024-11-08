@@ -16,7 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.maunc.mvvmhabit.utils.DeviceUtils
+import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.us.maunc.R
 
 /**

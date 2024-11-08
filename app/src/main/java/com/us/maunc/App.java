@@ -1,6 +1,8 @@
 package com.us.maunc;
 
-import com.maunc.mvvmhabit.BaseApp;
+import android.app.Application;
+
+import com.maunc.jetpackmvvm.BaseApp;
 
 /**
  * ClsFunction：
@@ -9,10 +11,12 @@ import com.maunc.mvvmhabit.BaseApp;
  */
 public class App extends BaseApp {
 
-
     @Override
     public void onCreate() {
         super.onCreate();
+    }
 
+    public static Application getInstance() {
+        return instance;
     }
 }

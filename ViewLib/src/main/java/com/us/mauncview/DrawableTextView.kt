@@ -1,5 +1,6 @@
 package com.us.mauncview
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -10,10 +11,8 @@ import androidx.appcompat.widget.AppCompatTextView
 
 /**
  * 可设置图片大小的TextView
- *
- * @author ZengShaoHeng
- * @date 2019/5/29
  */
+@SuppressLint("UseCompatLoadingForDrawables")
 class DrawableTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr) {
     private var leftDrawableWidth: Int
     private var leftDrawableHeight: Int
@@ -85,7 +84,7 @@ class DrawableTextView @JvmOverloads constructor(context: Context, attrs: Attrib
     /**
      * 设置顶部图片
      */
-    fun setTopDrawableWithRes(context: Context, res: Int,width:Int,height:Int) {
+    fun setTopDrawableWithRes(context: Context, res: Int, width:Int, height:Int) {
         val drawable = context.resources.getDrawable(res)
         topDrawableWidth = width
         topDrawableHeight = height

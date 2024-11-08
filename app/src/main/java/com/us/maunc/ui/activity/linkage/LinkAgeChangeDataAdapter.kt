@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.maunc.mvvmhabit.utils.AppUtils
+import com.maunc.jetpackmvvm.utils.AppUtils
 import com.us.maunc.R
 
 /**

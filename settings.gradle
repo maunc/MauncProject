@@ -1,13 +1,26 @@
 pluginManagement {
     repositories {
-        google()
+//        google()
         mavenCentral()
-        jcenter()
+//        jcenter()
         maven { url 'https://jitpack.io' }
+        maven{ url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter'}
         gradlePluginPortal()
-
     }
 }
+
+//allprojects {
+//    repositories {
+//        //方式一
+//        maven{ url 'https://maven.aliyun.com/repository/google'}
+//        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+//        //方式二
+//        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+//    }
+//}
+
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,13 +28,14 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven{ url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter'}
     }
 }
 
-rootProject.name = "MyTest"
+rootProject.name = "MauncProject"
 include ':app'
-include ':JavaMvvmLib'
 include ':KotlinMvvmLib'
 include ':ViewLib'
 include ':JsBridgeLib'
-include ':ZipLib'
+include ':UtilsLib'

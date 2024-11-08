@@ -2,7 +2,7 @@ package com.us.maunc.ui.activity.welcome
 
 import com.maunc.jetpackmvvm.base.BaseViewModel
 import com.maunc.jetpackmvvm.livedata.BooleanLiveData
-import com.maunc.mvvmhabit.utils.AppUtils
+import com.maunc.jetpackmvvm.utils.AppUtils
 import com.us.maunc.R
 
 /**

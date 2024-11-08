@@ -15,7 +15,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.maunc.jetpackmvvm.base.BaseVmActivity
-import com.maunc.mvvmhabit.utils.AppUtils
+import com.maunc.jetpackmvvm.utils.AppUtils
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityPicBinding
 

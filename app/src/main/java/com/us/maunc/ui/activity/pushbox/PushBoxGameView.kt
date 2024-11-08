@@ -9,8 +9,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
-import com.maunc.mvvmhabit.utils.AppUtils
-import com.maunc.mvvmhabit.utils.DeviceUtils
+import com.maunc.jetpackmvvm.utils.AppUtils
+import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.us.maunc.R
 import com.us.maunc.ui.activity.pushbox.PushBoxConstant.BOX
 import com.us.maunc.ui.activity.pushbox.PushBoxConstant.BOX_AT_GOAL

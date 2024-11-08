@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import com.maunc.jetpackmvvm.base.BaseAppManager
+import com.maunc.jetpackmvvm.base.BaseCrashHandler
 import com.maunc.jetpackmvvm.receive.AppLifeReceive
 import com.maunc.jetpackmvvm.receive.NetReceive
 import com.maunc.jetpackmvvm.receive.ScreenReceiver
@@ -35,6 +36,7 @@ open class BaseApp : Application(), ViewModelStoreOwner {
         instance = this
         mAppViewModelStore = ViewModelStore()
         initReceiver()
+        BaseCrashHandler.getInstance().init()
     }
 
     private fun initReceiver() {
@@ -47,6 +49,10 @@ open class BaseApp : Application(), ViewModelStoreOwner {
         registerActivityLifecycleCallbacks(KtxLifeCycleCallBack())
         //监听app前后台
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifeReceive)
+    }
+
+    fun getApp(): Application {
+        return instance
     }
 
     /**

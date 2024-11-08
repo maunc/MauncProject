@@ -44,11 +44,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //mvvm
-    implementation project(':JavaMvvmLib')
     implementation project(':KotlinMvvmLib')
     implementation project(':ViewLib')
     implementation project(':JsBridgeLib')
-    implementation project(':ZipLib')
+    implementation project(':UtilsLib')
     //BaseAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.10'
     //状态栏

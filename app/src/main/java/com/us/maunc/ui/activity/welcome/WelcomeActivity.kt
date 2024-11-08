@@ -10,8 +10,8 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ImmersionBar
 import com.maunc.jetpackmvvm.base.BaseVmActivity
-import com.maunc.mvvmhabit.utils.AppUtils
-import com.maunc.mvvmhabit.utils.DeviceUtils
+import com.maunc.jetpackmvvm.utils.AppUtils
+import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityWelcomeBinding
 import com.us.maunc.ui.activity.keyboard.KeyBoardActivity

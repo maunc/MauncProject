@@ -1,78 +1,65 @@
-package com.us.maunc.ui.activity.speedratio;
+package com.us.maunc.ui.activity.speedratio
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.Observable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.gyf.immersionbar.ImmersionBar;
-import com.maunc.mvvmhabit.base.BaseActivity;
-import com.us.maunc.BR;
-import com.us.maunc.R;
-import com.us.maunc.databinding.ActivitySpeedBinding;
+import android.os.Bundle
+import androidx.annotation.NonNull
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.us.maunc.databinding.ActivitySpeedBinding
 
 /**
  * 滑动阻尼Activity
  */
-public class SpeedActivity extends BaseActivity<ActivitySpeedBinding, SpeedVM> {
+class SpeedActivity : BaseVmActivity<SpeedVM, ActivitySpeedBinding>() {
 
-    private SpeedBgRecAdapter speedBgRecAdapter;
-    private SpeedRecAdapter speedRecAdapter;
+    private lateinit var speedBgRecAdapter: SpeedBgRecAdapter
+    private lateinit var speedRecAdapter: SpeedRecAdapter
 
-    @Override
-    public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_speed;
-    }
-
-    @Override
-    public int initVariableId() {
-        return BR.viewModel;
-    }
-
-    @Override
-    public void initData() {
-        ImmersionBar.with(this).transparentBar().init();
+    override fun initView(savedInstanceState: Bundle?) {
         //背景rec
-        SpeedRatioLayoutManager speedRatioLayoutManager = new SpeedRatioLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false, 0.45f);
-        mBinding.speedBgRec.setLayoutManager(speedRatioLayoutManager);
-        speedBgRecAdapter = new SpeedBgRecAdapter();
-        mBinding.speedBgRec.setAdapter(speedBgRecAdapter);
-
+        val speedRatioLayoutManager = SpeedRatioLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL, false, 0.45
+        )
+        mDatabind.speedBgRec.setLayoutManager(speedRatioLayoutManager)
+        speedBgRecAdapter = SpeedBgRecAdapter()
+        mDatabind.speedBgRec.setAdapter(speedBgRecAdapter)
         //前置rec
-        mBinding.speedDataRec.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        speedRecAdapter = new SpeedRecAdapter();
-        mBinding.speedDataRec.setAdapter(speedRecAdapter);
-        mBinding.speedDataRec.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+        mDatabind.speedDataRec.setLayoutManager(
+            LinearLayoutManager(
+                this,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        )
+        speedRecAdapter = SpeedRecAdapter()
+        mDatabind.speedDataRec.setAdapter(speedRecAdapter)
+        mDatabind.speedDataRec.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(@NonNull recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
             }
 
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                mBinding.speedBgRec.scrollBy(dx + mBinding.speedBgRec.getScrollX(), dy);
+            override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                mDatabind.speedBgRec.scrollBy(dx + mDatabind.speedBgRec.getScrollX(), dy)
             }
-        });
+        })
+
     }
 
-    @Override
-    public void createObserver() {
-        super.createObserver();
-        mViewModel.speedBgRecDataOF.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                speedBgRecAdapter.setList(mViewModel.speedBgRecDataOF.get());
-            }
-        });
-        mViewModel.speedRecDataOF.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                speedRecAdapter.setList(mViewModel.speedRecDataOF.get());
-            }
-        });
+    override fun createObserver() {
+        mViewModel.speedBgRecData.observe(this, Observer {
+            speedBgRecAdapter.setList(it)
+        })
+        mViewModel.speedRecData.observe(this, Observer {
+            speedRecAdapter.setList(it)
+        })
+    }
+
+    override fun onNetworkStateChanged(netState: Boolean) {
+    }
+
+    override fun onScreenStateChanged(screenState: Boolean) {
     }
 }

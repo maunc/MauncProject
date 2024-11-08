@@ -1,44 +1,31 @@
-package com.us.maunc.ui.activity.keyboard;
+package com.us.maunc.ui.activity.keyboard
 
-import android.os.Bundle;
+import android.os.Bundle
+import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.us.maunc.databinding.ActivityKeyBoardBinding
 
-import com.gyf.immersionbar.ImmersionBar;
-import com.maunc.mvvmhabit.base.BaseActivity;
-import com.us.maunc.BR;
-import com.us.maunc.R;
-import com.us.maunc.databinding.ActivityKeyBoardBinding;
-
-/**
- * 键盘
- */
-public class KeyBoardActivity extends BaseActivity<ActivityKeyBoardBinding, KeyBoardVM> {
-
-    @Override
-    public int initContentView(Bundle savedInstanceState) {
-        return R.layout.activity_key_board;
+class KeyBoardActivity: BaseVmActivity<KeyBoardVM, ActivityKeyBoardBinding>() {
+    override fun initView(savedInstanceState: Bundle?) {
+        mDatabind.virtualKeyboardView.changeShowEditText(this, mDatabind.textAmount)
+        mDatabind.textAmount.setOnClickListener { _ ->
+            mDatabind.virtualKeyboardView.showEditText()
+        }
     }
 
-    @Override
-    public int initVariableId() {
-        return BR.viewModel;
+    override fun createObserver() {
     }
 
-    @Override
-    public void initData() {
-        ImmersionBar.with(this).statusBarColor(R.color.white)
-                .statusBarDarkFont(true).init();
-        mBinding.virtualKeyboardView.changeShowEditText(this, mBinding.textAmount);
-        mBinding.textAmount.setOnClickListener(v -> {
-            mBinding.virtualKeyboardView.showEditText();
-        });
+    override fun onNetworkStateChanged(netState: Boolean) {
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mBinding.virtualKeyboardView.isShow()) {
-            mBinding.virtualKeyboardView.closeEditText();
+    override fun onScreenStateChanged(screenState: Boolean) {
+    }
+
+    override fun onBackPressed() {
+        if (mDatabind.virtualKeyboardView.isShow()) {
+            mDatabind.virtualKeyboardView.closeEditText()
         } else {
-            super.onBackPressed();
+            super.onBackPressed()
         }
     }
 }

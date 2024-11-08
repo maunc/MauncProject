@@ -10,7 +10,7 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.luck.picture.lib.entity.LocalMedia
-import com.maunc.mvvmhabit.utils.LogUtils
+import com.maunc.jetpackmvvm.utils.LogUtils
 import com.us.maunc.R
 import java.util.Collections
 
