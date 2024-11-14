@@ -1,3 +1,5 @@
+package com.us.utilslib
+
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
@@ -22,7 +24,11 @@ object PixelCopyUtils {
     /**
      * 将View转换成Bitmap
      */
-    fun createBitmapFromView(window: Window, view: View, callBack: (Bitmap?, Boolean) -> Unit) {
+    fun createBitmapFromView(
+        window: Window,
+        view: View,
+        callBack: (Bitmap?, Boolean) -> Unit
+    ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888, true)
             convertLayoutToBitmap(

@@ -1,5 +1,6 @@
 package com.us.maunc.ui.activity.linkage
 
+import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 import com.maunc.jetpackmvvm.livedata.StringLiveData
 import com.us.maunc.R
@@ -9,7 +10,7 @@ import com.us.maunc.R
  *CreateDate：2024/6/20
  *Author：TimeWillRememberUs
  */
-class LinkAgeVM : BaseViewModel() {
+class LinkAgeVM : BaseViewModel<BaseModel>() {
 
     var tabData = mutableListOf<String>()
 

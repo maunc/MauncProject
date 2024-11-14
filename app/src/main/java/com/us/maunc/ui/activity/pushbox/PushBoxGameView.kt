@@ -9,8 +9,10 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
+import com.maunc.jetpackmvvm.ext.screenHeight
+import com.maunc.jetpackmvvm.ext.screenWidth
 import com.maunc.jetpackmvvm.utils.AppUtils
-import com.maunc.jetpackmvvm.utils.DeviceUtils
+import com.us.maunc.App
 import com.us.maunc.R
 import com.us.maunc.ui.activity.pushbox.PushBoxConstant.BOX
 import com.us.maunc.ui.activity.pushbox.PushBoxConstant.BOX_AT_GOAL
@@ -31,8 +33,8 @@ class PushBoxGameView constructor(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private var gate = 0 //当前关数
     private var map: Array<IntArray>? = null //当前地图
-    private var width = DeviceUtils.getDeviceWidth() //宽
-    private var height = DeviceUtils.getDeviceHeight(true) //高
+    private var width = App.getInstance().screenWidth() //宽
+    private var height = App.getInstance().screenHeight(true) //高
     private var mapRow = 0 //地图行数
     private var mapColumn = 0 //地图列数
     private var manX = 0 //人所在行

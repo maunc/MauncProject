@@ -27,7 +27,6 @@ public final class EncryptUtils {
             }
             return hex.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return "";
         }
     }
@@ -46,7 +45,6 @@ public final class EncryptUtils {
             }
             return hex.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return "";
         }
     }
@@ -62,7 +60,6 @@ public final class EncryptUtils {
             }
             return hex.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return "";
         }
     }
@@ -81,7 +78,6 @@ public final class EncryptUtils {
             }
             return hex.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return "";
         }
     }

@@ -1,4 +1,4 @@
-package com.us.utilslib;
+package com.us.utilslib.zip;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -28,7 +28,11 @@ public class ZipUtils {
      * 解压文件
      */
     @SuppressLint("SdCardPath")
-    public static void zipToFiles(String zipFilePath, String decompressDir, ZipToFileCallBack callBack) {
+    public static void zipToFiles(
+            String zipFilePath,
+            String decompressDir,
+            ZipToFileCallBack callBack
+    ) {
         new Thread(() -> {
             BufferedInputStream bi = null;
             ZipFile zf = null;// 支持中文
@@ -106,7 +110,11 @@ public class ZipUtils {
     }
 
     @SuppressLint("SdCardPath")
-    public static void filesToZip(String sourceFolder, String zipFilePath,FilesToZipCallBack callBack) {
+    public static void filesToZip(
+            String sourceFolder,
+            String zipFilePath,
+            FilesToZipCallBack callBack
+    ) {
         new Thread(() -> {
             OutputStream os = null;
             BufferedOutputStream bos = null;
@@ -151,7 +159,11 @@ public class ZipUtils {
     /**
      * 递归压缩文件
      */
-    private static void zipFile(@NonNull File parentFile, String basePath, ZipOutputStream zos) throws Exception {
+    private static void zipFile(
+            @NonNull File parentFile,
+            String basePath,
+            ZipOutputStream zos
+    ) throws Exception {
         File[] files = new File[0];
         if (parentFile.isDirectory()) {
             files = parentFile.listFiles();
@@ -197,22 +209,5 @@ public class ZipUtils {
         }
         Log.e(TAG, "dckFileExists ->" + false);
         return false;
-    }
-
-    public interface ZipToFileCallBack {
-        default void onProgress() {
-        }
-
-        default void onFailed() {
-        }
-
-        void onSuccess();
-    }
-
-    public interface FilesToZipCallBack {
-        default void onFailed() {
-        }
-
-        void onSuccess();
     }
 }

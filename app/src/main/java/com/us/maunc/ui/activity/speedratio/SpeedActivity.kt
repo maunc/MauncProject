@@ -5,13 +5,13 @@ import androidx.annotation.NonNull
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.databinding.ActivitySpeedBinding
 
 /**
  * 滑动阻尼Activity
  */
-class SpeedActivity : BaseVmActivity<SpeedVM, ActivitySpeedBinding>() {
+class SpeedActivity : BaseActivity<SpeedVM, ActivitySpeedBinding>() {
 
     private lateinit var speedBgRecAdapter: SpeedBgRecAdapter
     private lateinit var speedRecAdapter: SpeedRecAdapter

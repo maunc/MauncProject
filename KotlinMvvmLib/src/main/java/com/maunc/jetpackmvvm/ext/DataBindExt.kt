@@ -50,8 +50,8 @@ private fun <VB : ViewBinding> withGenericBindingClass(
         if (genericSuperclass is ParameterizedType) {
             try {
                 return block.invoke(genericSuperclass.actualTypeArguments[1] as Class<VB>)
-            } catch (e: NoSuchMethodException) {
-            } catch (e: ClassCastException) {
+            } catch (_: NoSuchMethodException) {
+            } catch (_: ClassCastException) {
             } catch (e: InvocationTargetException) {
                 throw e.targetException
             }

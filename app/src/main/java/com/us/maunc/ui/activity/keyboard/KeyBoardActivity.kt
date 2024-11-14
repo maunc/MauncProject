@@ -1,10 +1,10 @@
 package com.us.maunc.ui.activity.keyboard
 
 import android.os.Bundle
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.databinding.ActivityKeyBoardBinding
 
-class KeyBoardActivity: BaseVmActivity<KeyBoardVM, ActivityKeyBoardBinding>() {
+class KeyBoardActivity: BaseActivity<KeyBoardVM, ActivityKeyBoardBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         mDatabind.virtualKeyboardView.changeShowEditText(this, mDatabind.textAmount)
         mDatabind.textAmount.setOnClickListener { _ ->

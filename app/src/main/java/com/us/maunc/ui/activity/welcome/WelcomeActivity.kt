@@ -9,9 +9,9 @@ import android.view.animation.AnimationUtils
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ImmersionBar
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
+import com.maunc.jetpackmvvm.ext.screenHeight
 import com.maunc.jetpackmvvm.utils.AppUtils
-import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityWelcomeBinding
 import com.us.maunc.ui.activity.keyboard.KeyBoardActivity
@@ -23,7 +23,7 @@ import com.us.maunc.ui.activity.pushbox.PushBoxActivity
 import com.us.maunc.ui.activity.secondlist.SecondListActivity
 import com.us.maunc.ui.activity.speedratio.SpeedActivity
 
-class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
+class WelcomeActivity : BaseActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
     private val welcomeRecAdapter by lazy {
         WelcomeRecAdapter(mutableListOf()).apply {
@@ -76,7 +76,7 @@ class WelcomeActivity : BaseVmActivity<WelcomeVM, ActivityWelcomeBinding>() {
             AppUtils.getDimens(R.dimen.x150),
             AppUtils.getDimens(R.dimen.x150)
         )
-        layoutParams.topMargin = (DeviceUtils.getDeviceHeight(true) / 1.35).toInt()
+        layoutParams.topMargin = (this.screenHeight(true) / 1.35).toInt()
         layoutParams.rightMargin = AppUtils.getDimens(R.dimen.x20)
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END)
         mDatabind.welcomeChangeThemesBlack.layoutParams = layoutParams

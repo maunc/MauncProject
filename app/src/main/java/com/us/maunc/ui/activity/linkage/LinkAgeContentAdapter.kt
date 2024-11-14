@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.maunc.jetpackmvvm.ext.screenWidth
 import com.maunc.jetpackmvvm.ext.setWidth
-import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.us.maunc.App
 import com.us.maunc.R
 
@@ -57,7 +57,7 @@ class LinkAgeContentOneImageAdapter(data: MutableList<Int>) :
     BaseQuickAdapter<Int, BaseViewHolder>(R.layout.item_link_age_content_one_item, data) {
     override fun convert(holder: BaseViewHolder, item: Int) {
         val imageView = holder.getView<ImageView>(R.id.item_link_age_one_item_image)
-        imageView.setWidth(DeviceUtils.getDeviceWidth() / 3)
+        imageView.setWidth(context.screenWidth() / 3)
         imageView.setImageResource(item)
     }
 }

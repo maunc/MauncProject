@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.databinding.ActivitySeconeListBinding
 import java.util.Collections
 
-class SecondListActivity : BaseVmActivity<SecondListVM, ActivitySeconeListBinding>() {
+class SecondListActivity : BaseActivity<SecondListVM, ActivitySeconeListBinding>() {
 
     private var helper: ItemTouchHelper? = null
     private var mAdapter: FirstListAdapter? = null

@@ -1,12 +1,12 @@
 package com.us.maunc.ui.activity.localmusic
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import com.bumptech.glide.request.RequestOptions
-import com.maunc.jetpackmvvm.BaseApp
+import com.maunc.jetpackmvvm.ext.dp2px
 import com.us.maunc.App
-import com.us.utilslib.ConvertUtils.dp2px
 import com.us.maunc.R
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import java.io.File
@@ -61,7 +61,7 @@ object LocalMusicComm {
     fun setAudioCorners(round: Float = 0f): RequestOptions {
         return RequestOptions.bitmapTransform(
             RoundedCornersTransformation(
-                dp2px(App.getInstance(), round),
+                App.getInstance().dp2px(round),
                 0, RoundedCornersTransformation.CornerType.ALL
             )
         )
@@ -82,6 +82,7 @@ fun String?.toMD5(): String? {
     }
 }
 
+@SuppressLint("DefaultLocale")
 fun Long.convertDuration(): String {
     val minute = 1 * 60
     val hour = 60 * minute

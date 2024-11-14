@@ -1,6 +1,7 @@
 package com.us.maunc.ui.activity.localmusic
 
 import androidx.lifecycle.MutableLiveData
+import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 import com.maunc.jetpackmvvm.ext.launch
 import com.maunc.jetpackmvvm.livedata.BooleanLiveData
@@ -16,7 +17,7 @@ import java.util.LinkedList
  *CreateDate：2024/6/23
  *Author：TimeWillRememberUs
  */
-class LocalMusicVM : BaseViewModel() {
+class LocalMusicVM : BaseViewModel<BaseModel>() {
 
     var lastPath = LocalMusicConstant.LOCAL_MUSIC_PATH
 

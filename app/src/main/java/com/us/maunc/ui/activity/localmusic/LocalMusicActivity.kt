@@ -21,12 +21,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityLocalMusicBinding
 import com.us.maunc.ui.dialog.common.CommonDialog
 
-class LocalMusicActivity : BaseVmActivity<LocalMusicVM, ActivityLocalMusicBinding>() {
+class LocalMusicActivity : BaseActivity<LocalMusicVM, ActivityLocalMusicBinding>() {
 
     companion object {
         const val TAG = "LocalMusicActivity"

@@ -40,11 +40,14 @@ open class BaseApp : Application(), ViewModelStoreOwner {
     }
 
     private fun initReceiver() {
-        registerReceiver(NetReceive(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-        val screenFilter = IntentFilter()
-        screenFilter.addAction(Intent.ACTION_SCREEN_OFF)
-        screenFilter.addAction(Intent.ACTION_SCREEN_ON)
-        registerReceiver(ScreenReceiver(), screenFilter)
+        // 网络广播
+        registerReceiver(NetReceive(), IntentFilter().apply {
+            addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        })
+        registerReceiver(ScreenReceiver(), IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_OFF)
+            addAction(Intent.ACTION_SCREEN_ON)
+        })
         //注册Activity的监听
         registerActivityLifecycleCallbacks(KtxLifeCycleCallBack())
         //监听app前后台

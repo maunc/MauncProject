@@ -2,10 +2,10 @@ package com.us.maunc.ui.activity.jsbridge
 
 import android.os.Bundle
 import com.google.gson.Gson
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.databinding.ActivityJsBridgeBinding
 
-class JsBridgeActivity : BaseVmActivity<JsBridgeVM, ActivityJsBridgeBinding>() {
+class JsBridgeActivity : BaseActivity<JsBridgeVM, ActivityJsBridgeBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         //创建js接口

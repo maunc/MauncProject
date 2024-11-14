@@ -10,7 +10,7 @@ import com.maunc.jetpackmvvm.receive.NetStateManager
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
 import com.maunc.jetpackmvvm.receive.ScreenStateManager
 
-abstract class BaseVmActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCompatActivity() {
 
     lateinit var mViewModel: VM
 
@@ -38,6 +38,7 @@ abstract class BaseVmActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCom
         mDatabind = inflateBindingWithGeneric(layoutInflater)
         setContentView(mDatabind.root)
         mViewModel = createViewModel()
+        lifecycle.addObserver(mViewModel)
         initView(savedInstanceState)
         createObserver()
         NetStateManager.instance.mNetworkState.observeInActivity(this, Observer {

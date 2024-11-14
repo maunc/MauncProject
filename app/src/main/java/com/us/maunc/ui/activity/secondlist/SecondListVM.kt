@@ -1,8 +1,9 @@
 package com.us.maunc.ui.activity.secondlist
 
+import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 
-class SecondListVM : BaseViewModel() {
+class SecondListVM : BaseViewModel<BaseModel>() {
     val mJson = "{\n" +
             "            \"success\": true,\n" +
             "            \"code\": \"0000\",\n" +

@@ -3,11 +3,12 @@ package com.us.maunc.ui.activity.speedratio
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
+import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 import com.us.maunc.R
 
 
-class SpeedVM : BaseViewModel() {
+class SpeedVM : BaseViewModel<BaseModel>() {
 
     var speedBgRecData = MutableLiveData<List<Int>>()
     var speedRecData = MutableLiveData<List<Int>>()

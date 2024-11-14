@@ -1,58 +1,57 @@
 package com.maunc.jetpackmvvm.ext
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ClipData
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
+import android.graphics.Color
 import android.os.Build
-import android.provider.Settings
 import android.text.Html
 import android.text.Spanned
-import android.text.TextUtils
 import android.view.View
 import androidx.annotation.RequiresApi
 
 /**
  * 获取屏幕宽度
  */
-val Context.screenWidth get() = resources.displayMetrics.widthPixels
+fun Context.screenWidth() = resources.displayMetrics.widthPixels
 
 /**
  * 获取屏幕高度
+ * 可以选择是否带状态栏
  */
-val Context.screenHeight get() = resources.displayMetrics.heightPixels
-
-/**
- * dp值转换为px
- */
-fun Context.dp2px(dp: Int): Int {
-    val scale = resources.displayMetrics.density
-    return (dp * scale + 0.5f).toInt()
+@SuppressLint("InternalInsetResource")
+fun Context.screenHeight(isAddStatusBar: Boolean): Int {
+    val heightPixels = resources.displayMetrics.heightPixels
+    if (isAddStatusBar) {
+        var statusBarHeight = 0
+        val resourceId =
+            resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            statusBarHeight = resources.getDimensionPixelSize(resourceId)
+        }
+        return heightPixels + statusBarHeight
+    }
+    return heightPixels
 }
 
 /**
- * px值转换成dp
+ * 设置状态栏文字是否为黑色
  */
-fun Context.px2dp(px: Int): Int {
-    val scale = resources.displayMetrics.density
-    return (px / scale + 0.5f).toInt()
-}
-
-/**
- * dp值转换为px
- */
-fun View.dp2px(dp: Int): Int {
-    val scale = resources.displayMetrics.density
-    return (dp * scale + 0.5f).toInt()
-}
-
-/**
- * px值转换成dp
- */
-fun View.px2dp(px: Int): Int {
-    val scale = resources.displayMetrics.density
-    return (px / scale + 0.5f).toInt()
+fun Activity.setDeviceDarkStatusBar(bDark: Boolean) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val decorView = window.decorView
+        //修改状态栏颜色只需要这行代码
+        window.statusBarColor =
+            Color.parseColor("#FFFFFF")//这里对应的是状态栏的颜色，就是style中colorPrimaryDark的颜色
+        var vis = decorView.systemUiVisibility
+        vis = if (bDark) {
+            vis or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        }
+        decorView.systemUiVisibility = vis
+    }
 }
 
 /**
@@ -63,28 +62,9 @@ fun Context.copyToClipboard(text: String, label: String = "JetpackMvvm") {
     clipboardManager?.setPrimaryClip(clipData)
 }
 
-/**
- * 检查是否启用无障碍服务
- */
-fun Context.checkAccessibilityServiceEnabled(serviceName: String): Boolean {
-    val settingValue = Settings.Secure.getString(
-        applicationContext.contentResolver,
-        Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
-    )
-    var result = false
-    val splitter = TextUtils.SimpleStringSplitter(':')
-    while (splitter.hasNext()) {
-        if (splitter.next().equals(serviceName, true)) {
-            result = true
-            break
-        }
-    }
-    return result
-}
-
 @RequiresApi(Build.VERSION_CODES.N)
 fun String.toHtml(flag: Int = Html.FROM_HTML_MODE_LEGACY): Spanned {
-    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, flag)
     } else {
         Html.fromHtml(this)
@@ -92,25 +72,67 @@ fun String.toHtml(flag: Int = Html.FROM_HTML_MODE_LEGACY): Spanned {
 }
 
 /**
- * 判断网络是否弱
+ * 获取设备名称
  */
-fun isNetworkInWeakState(context: Context): Boolean {
-    val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    // 获取当前活跃的网络
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val activeNetwork: Network? = connectivityManager.activeNetwork
-        // 获取当前网络的能力
-        val networkCapabilities: NetworkCapabilities? =
-            connectivityManager.getNetworkCapabilities(activeNetwork)
-        // 判断网络是否处于弱网环境
-        networkCapabilities?.let {
-            !it.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ||
-                    !it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-        } ?: run { false }
-    } else {
-        false
+fun getDeviceName(): String {
+    return try {
+        Build.MODEL
+    } catch (e: Exception) {
+        ""
     }
+}
+
+/**
+ * 获取当前手机Android系统版本号
+ */
+fun getDeviceAndroidVersion(): String {
+    return try {
+        Build.VERSION.RELEASE
+    } catch (e: Exception) {
+        ""
+    }
+}
+
+/**
+ * 获取手机Android API等级（30、31 ...）
+ */
+fun getDeviceAndroidApiLevel(): Int {
+    return try {
+        Build.VERSION.SDK_INT
+    } catch (e: Exception) {
+        0
+    }
+}
+
+/**
+ * 获取手机厂商名
+ */
+fun getDeviceManufacturer(): String {
+    return try {
+        Build.MANUFACTURER
+    } catch (e: java.lang.Exception) {
+        ""
+    }
+}
+
+/**
+ * 获得设备序列号(sn号)
+ */
+@SuppressLint("HardwareIds", "PrivateApi")
+fun getDeviceSerialNumber(): String? {
+    var serial: String? = ""
+    try {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) { //8.0+
+            serial = Build.SERIAL
+        } else { //8.0-
+            val c = Class.forName("android.os.SystemProperties")
+            val get = c.getMethod("get", String::class.java)
+            serial = get.invoke(c, "ro.serialno") as String
+        }
+    } catch (e: java.lang.Exception) {
+        return ""
+    }
+    return serial
 }
 
 

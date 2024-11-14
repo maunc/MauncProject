@@ -8,14 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.maunc.jetpackmvvm.ext.getVmClazz
 import com.maunc.jetpackmvvm.receive.NetStateManager
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
 
-abstract class BaseVmFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment() {
+abstract class BaseDialog<VM : BaseViewModel<*>, DB : ViewDataBinding> : DialogFragment() {
 
     lateinit var mViewModel: VM
 
@@ -64,6 +65,17 @@ abstract class BaseVmFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragme
         mViewModel = createViewModel()
         initView(savedInstanceState)
         createObserver()
+    }
+
+    override fun show(manager: FragmentManager, tag: String?) {
+        try {
+            //在每个add事务前增加一个remove事务，防止连续的add
+            manager.beginTransaction().remove(this).commit()
+            super.show(manager, tag)
+        } catch (e: Exception) {
+            //同一实例使用不同的tag会异常,这里捕获一下
+            e.printStackTrace()
+        }
     }
 
     override fun onResume() {

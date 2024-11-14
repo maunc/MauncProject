@@ -2,11 +2,11 @@ package com.us.maunc.ui.activity.pushbox
 
 import android.os.Bundle
 import com.gyf.immersionbar.ImmersionBar
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityPushBoxBinding
 
-class PushBoxActivity : BaseVmActivity<PushBoxVM, ActivityPushBoxBinding>() {
+class PushBoxActivity : BaseActivity<PushBoxVM, ActivityPushBoxBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         ImmersionBar.with(this).statusBarColor(R.color.white)
             .statusBarDarkFont(true).init()

@@ -14,12 +14,12 @@ import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.entity.LocalMedia
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.maunc.jetpackmvvm.utils.AppUtils
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityPicBinding
 
-class PicActivity : BaseVmActivity<PicVM, ActivityPicBinding>(),
+class PicActivity : BaseActivity<PicVM, ActivityPicBinding>(),
     PicSelectAdapter.PicSelectEventListener {
 
     private val list = mutableListOf<LocalMedia>()

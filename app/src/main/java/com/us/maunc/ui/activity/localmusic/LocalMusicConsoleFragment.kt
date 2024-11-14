@@ -1,7 +1,7 @@
 package com.us.maunc.ui.activity.localmusic
 
 import android.os.Bundle
-import com.maunc.jetpackmvvm.base.BaseVmFragment
+import com.maunc.jetpackmvvm.base.BaseFragment
 import com.us.maunc.databinding.FragmentLocalMusicConsoleBinding
 
 /**
@@ -10,7 +10,7 @@ import com.us.maunc.databinding.FragmentLocalMusicConsoleBinding
  *Author：TimeWillRememberUs
  */
 class LocalMusicConsoleFragment :
-    BaseVmFragment<LocalMusicConsoleVM, FragmentLocalMusicConsoleBinding>() {
+    BaseFragment<LocalMusicConsoleVM, FragmentLocalMusicConsoleBinding>() {
 
     fun newInstance(data: LocalMusicFileData): LocalMusicConsoleFragment {
         val args = Bundle()

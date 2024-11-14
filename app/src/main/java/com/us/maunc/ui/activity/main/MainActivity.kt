@@ -1,5 +1,6 @@
 package com.us.maunc.ui.activity.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -7,18 +8,18 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
+import com.maunc.jetpackmvvm.ext.drawable2Bitmap
+import com.maunc.jetpackmvvm.ext.screenHeight
 import com.maunc.jetpackmvvm.utils.AppUtils
-import com.maunc.jetpackmvvm.utils.DeviceUtils
 import com.maunc.jetpackmvvm.utils.LogUtils
 
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityMainBinding
-import com.us.utilslib.ConvertUtils
 import kotlin.math.max
 
 
-class MainActivity : BaseVmActivity<MainVM, ActivityMainBinding>() {
+class MainActivity : BaseActivity<MainVM, ActivityMainBinding>() {
 
     private lateinit var mainRecAdapter: MainRecAdapter
 
@@ -30,7 +31,7 @@ class MainActivity : BaseVmActivity<MainVM, ActivityMainBinding>() {
         mDatabind.myRec.setAdapter(mainRecAdapter)
         mDatabind.mybgShow.setOnClickListener { view ->
             MainShowBitmapActivity.bitmap =
-                ConvertUtils.drawable2Bitmap(mDatabind.mybgShow.getDrawable())
+                mDatabind.mybgShow.getDrawable().drawable2Bitmap()
             startActivity(
                 Intent(
                     this@MainActivity,
@@ -54,7 +55,7 @@ class MainActivity : BaseVmActivity<MainVM, ActivityMainBinding>() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 //如果不设置模式带上状态栏的高度
                 //减去的这个值越小 bottomSheet的高度就越高，要控制高度合法
-                val targetBottomHeight = DeviceUtils.getDeviceHeight(false) - 50
+                val targetBottomHeight = (this as Context).screenHeight(false) - 50
                 val layoutParams = bottomSheet.layoutParams
                 if (layoutParams.height != targetBottomHeight) {
                     layoutParams.height = targetBottomHeight

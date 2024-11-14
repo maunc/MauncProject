@@ -10,7 +10,7 @@ import com.us.maunc.R
  *CreateDate：2024/5/15
  *Author：TimeWillRememberUs
  */
-class WelcomeVM : BaseViewModel() {
+class WelcomeVM : BaseViewModel<WelcomeM>() {
 
     var isBlack = BooleanLiveData()
     var recData = mutableListOf<WelcomeData>()

@@ -3,10 +3,10 @@ package com.us.maunc.ui.activity.main
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
+import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 
-
-class MainVM : BaseViewModel() {
+class MainVM : BaseViewModel<BaseModel>() {
 
     var mainRecData = MutableLiveData<List<String>>()
     var handler: Handler = Handler(Looper.getMainLooper())

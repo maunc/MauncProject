@@ -43,13 +43,4 @@ abstract class BaseNetworkApi {
             .writeTimeout(DEFAULT_TIME, TimeUnit.SECONDS) //超时时间 写
         return builder.build()
     }
-
-    private fun logInterceptor(): HttpLoggingInterceptor {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return loggingInterceptor
-    }
 }
-
-
-

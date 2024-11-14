@@ -16,7 +16,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.maunc.jetpackmvvm.utils.DeviceUtils
+import com.maunc.jetpackmvvm.ext.screenHeight
+import com.us.maunc.App
 import com.us.maunc.R
 
 /**
@@ -41,8 +42,8 @@ class LocalMusicTracksDialog(private val data: MutableList<LocalMusicFileData>) 
         val viewGroup = view.parent as ViewGroup
         val behavior = BottomSheetBehavior.from(viewGroup)
         //设置弹出高度
-        behavior.peekHeight = DeviceUtils.getDeviceHeight(false) / 5 * 3
-        view.layoutParams.height = DeviceUtils.getDeviceHeight(false) / 5 * 3
+        behavior.peekHeight = App.getInstance().screenHeight(false) / 5 * 3
+        view.layoutParams.height = App.getInstance().screenHeight(false) / 5 * 3
         behavior.isHideable = true
 
         recyclerView = view.findViewById(R.id.dialog_local_music_track_recycler)

@@ -1,18 +1,12 @@
 package com.maunc.jetpackmvvm.utils
 
-import android.Manifest
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.MediaRecorder
-import android.provider.Settings
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import com.maunc.jetpackmvvm.BaseApp
 
@@ -84,56 +78,5 @@ object AppUtils {
             e.printStackTrace()
         }
         return versionCode
-    }
-
-    /**
-     * 判断当前 录音设备是否可用
-     */
-    fun isRecordEnable(): Boolean {
-        var available = true
-        if (ActivityCompat.checkSelfPermission(
-                BaseApp.instance,
-                Manifest.permission.RECORD_AUDIO
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            return false
-        }
-        val recorder = AudioRecord(
-            MediaRecorder.AudioSource.MIC, 44100,
-            AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_DEFAULT, 44100
-        )
-        try {
-            if (recorder.recordingState != AudioRecord.RECORDSTATE_STOPPED) {
-                available = false
-            }
-            recorder.startRecording()
-            if (recorder.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
-                recorder.stop()
-                available = false
-            }
-            recorder.stop()
-        } finally {
-            recorder.release()
-        }
-        return available
-    }
-
-    /**
-     * 判断用户是否打开系统定位服务
-     */
-    fun isLocationEnabled(): Boolean {
-        var locationMode = 0
-        var locationProviders: String
-        try {
-            locationMode = Settings.Secure.getInt(
-                BaseApp.instance.contentResolver,
-                Settings.Secure.LOCATION_MODE
-            )
-        } catch (e: Settings.SettingNotFoundException) {
-            e.printStackTrace()
-            return false
-        }
-        return locationMode != Settings.Secure.LOCATION_MODE_OFF
     }
 }

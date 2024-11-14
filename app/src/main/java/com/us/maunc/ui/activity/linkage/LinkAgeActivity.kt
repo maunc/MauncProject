@@ -9,12 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gyf.immersionbar.ImmersionBar
-import com.maunc.jetpackmvvm.base.BaseVmActivity
+import com.maunc.jetpackmvvm.base.BaseActivity
 import com.us.maunc.R
 import com.us.maunc.databinding.ActivityLinkAgeBinding
 import com.us.maunc.ui.dialog.common.CommonDialog
 
-class LinkAgeActivity : BaseVmActivity<LinkAgeVM, ActivityLinkAgeBinding>() {
+class LinkAgeActivity : BaseActivity<LinkAgeVM, ActivityLinkAgeBinding>() {
 
     private val linkAgeTabAdapter by lazy {
         LinkAgeTabAdapter(mutableListOf()).apply {

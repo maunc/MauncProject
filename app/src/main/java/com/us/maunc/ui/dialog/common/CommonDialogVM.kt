@@ -1,5 +1,6 @@
 package com.us.maunc.ui.dialog.common
 
+import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 
 /**
@@ -7,5 +8,5 @@ import com.maunc.jetpackmvvm.base.BaseViewModel
  *CreateDate：2024/6/22
  *Author：TimeWillRememberUs
  */
-class CommonDialogVM : BaseViewModel() {
+class CommonDialogVM : BaseViewModel<BaseModel>() {
 }
