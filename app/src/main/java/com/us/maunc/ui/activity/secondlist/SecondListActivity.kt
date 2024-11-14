@@ -114,4 +114,7 @@ class SecondListActivity : BaseActivity<SecondListVM, ActivitySeconeListBinding>
     override fun onScreenStateChanged(screenState: Boolean) {
 
     }
+
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
 }

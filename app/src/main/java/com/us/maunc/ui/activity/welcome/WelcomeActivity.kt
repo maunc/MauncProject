@@ -3,6 +3,7 @@ package com.us.maunc.ui.activity.welcome
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -122,6 +123,10 @@ class WelcomeActivity : BaseActivity<WelcomeVM, ActivityWelcomeBinding>() {
     }
 
     override fun onScreenStateChanged(screenState: Boolean) {
+    }
+
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+        Log.e("ww", "Welcome  onFrontAndBackStateChanged $frontAndBackState")
     }
 
     private fun activityGoto(clazz: Class<*>) {

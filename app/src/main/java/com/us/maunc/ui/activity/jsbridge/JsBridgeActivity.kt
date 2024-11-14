@@ -27,4 +27,7 @@ class JsBridgeActivity : BaseActivity<JsBridgeVM, ActivityJsBridgeBinding>() {
 
     override fun onScreenStateChanged(screenState: Boolean) {
     }
+
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
 }

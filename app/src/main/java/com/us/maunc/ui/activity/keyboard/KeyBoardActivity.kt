@@ -21,8 +21,11 @@ class KeyBoardActivity: BaseActivity<KeyBoardVM, ActivityKeyBoardBinding>() {
     override fun onScreenStateChanged(screenState: Boolean) {
     }
 
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
+
     override fun onBackPressed() {
-        if (mDatabind.virtualKeyboardView.isShow()) {
+        if (mDatabind.virtualKeyboardView.isShow) {
             mDatabind.virtualKeyboardView.closeEditText()
         } else {
             super.onBackPressed()

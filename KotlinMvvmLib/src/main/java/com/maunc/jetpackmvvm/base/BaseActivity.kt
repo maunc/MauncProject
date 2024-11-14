@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.maunc.jetpackmvvm.ext.getVmClazz
-import com.maunc.jetpackmvvm.receive.NetStateManager
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
+import com.maunc.jetpackmvvm.receive.FrontAndBackStateManager
+import com.maunc.jetpackmvvm.receive.NetWorkStateManager
 import com.maunc.jetpackmvvm.receive.ScreenStateManager
 
 abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCompatActivity() {
@@ -31,7 +33,15 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
      */
     abstract fun onNetworkStateChanged(netState: Boolean)
 
+    /**
+     * 息屏亮屏变化监听
+     */
     abstract fun onScreenStateChanged(screenState: Boolean)
+
+    /**
+     * 前后台变化监听
+     */
+    abstract fun onFrontAndBackStateChanged(frontAndBackState: Boolean)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +51,14 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
         lifecycle.addObserver(mViewModel)
         initView(savedInstanceState)
         createObserver()
-        NetStateManager.instance.mNetworkState.observeInActivity(this, Observer {
+        NetWorkStateManager.instance.mNetworkState.observeInActivity(this, Observer {
             onNetworkStateChanged(it)
         })
         ScreenStateManager.instance.mScreenState.observeInActivity(this, Observer {
             onScreenStateChanged(it)
+        })
+        FrontAndBackStateManager.instance.mFrontAndBackState.observeInActivity(this, Observer {
+            onFrontAndBackStateChanged(it)
         })
     }
 
@@ -53,7 +66,22 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
      * 创建viewModel
      */
     private fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this)[getVmClazz(this)]
     }
 
+    /**
+     * 获取ViewModel
+     */
+//    fun <T : BaseViewModel<*>?> getQuickViewModel(quickViewModel: Class<T>?): T {
+//        val t: T = ViewModelProvider(this).get<T>(quickViewModel)
+//        lifecycle.addObserver(t)
+//        return t
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewModel.let {
+            lifecycle.removeObserver(it)
+        }
+    }
 }

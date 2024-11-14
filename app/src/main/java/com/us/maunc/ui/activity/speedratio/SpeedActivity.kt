@@ -1,6 +1,7 @@
 package com.us.maunc.ui.activity.speedratio
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.NonNull
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,5 +62,9 @@ class SpeedActivity : BaseActivity<SpeedVM, ActivitySpeedBinding>() {
     }
 
     override fun onScreenStateChanged(screenState: Boolean) {
+    }
+
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+        Log.e("ww", "Speed  onFrontAndBackStateChanged $frontAndBackState")
     }
 }

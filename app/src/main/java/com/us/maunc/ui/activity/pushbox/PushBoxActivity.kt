@@ -32,4 +32,7 @@ class PushBoxActivity : BaseActivity<PushBoxVM, ActivityPushBoxBinding>() {
 
     override fun onScreenStateChanged(screenState: Boolean) {
     }
+
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
 }

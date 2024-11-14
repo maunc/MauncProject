@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.maunc.jetpackmvvm.ext.getVmClazz
-import com.maunc.jetpackmvvm.receive.NetStateManager
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
+import com.maunc.jetpackmvvm.receive.NetWorkStateManager
 
 abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragment() {
 
@@ -53,7 +53,11 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
         mActivity = context as AppCompatActivity
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = inflateBindingWithGeneric(inflater, container, false)
         return mDatabind.root
     }
@@ -107,7 +111,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
             handler.postDelayed({
                 lazyLoadData()
                 //在Fragment中，只有懒加载过了才能开启网络变化监听
-                NetStateManager.instance.mNetworkState.observeInFragment(this) {
+                NetWorkStateManager.instance.mNetworkState.observeInFragment(this) {
                     //不是首次订阅时调用方法，防止数据第一次监听错误
                     if (!isFirst) {
                         onNetworkStateChanged(it)

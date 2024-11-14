@@ -67,11 +67,12 @@ class PicActivity : BaseActivity<PicVM, ActivityPicBinding>(),
     }
 
     override fun onNetworkStateChanged(netState: Boolean) {
-
     }
 
     override fun onScreenStateChanged(screenState: Boolean) {
+    }
 
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
     }
 
     override fun addPicEvent() {

@@ -114,6 +114,9 @@ class LinkAgeActivity : BaseActivity<LinkAgeVM, ActivityLinkAgeBinding>() {
     override fun onScreenStateChanged(screenState: Boolean) {
     }
 
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
+
     private fun tabChangeEvent(pos: Int) {
         linkAgeTabAdapter.setSelectedPosition(pos)
         mDatabind.contentRecyclerView.scrollToPosition(pos)

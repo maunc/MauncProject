@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.maunc.jetpackmvvm.ext.getVmClazz
-import com.maunc.jetpackmvvm.receive.NetStateManager
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
+import com.maunc.jetpackmvvm.receive.NetWorkStateManager
 
 abstract class BaseDialog<VM : BaseViewModel<*>, DB : ViewDataBinding> : DialogFragment() {
 
@@ -119,7 +119,7 @@ abstract class BaseDialog<VM : BaseViewModel<*>, DB : ViewDataBinding> : DialogF
             handler.postDelayed({
                 lazyLoadData()
                 //在Fragment中，只有懒加载过了才能开启网络变化监听
-                NetStateManager.instance.mNetworkState.observeInFragment(this) {
+                NetWorkStateManager.instance.mNetworkState.observeInFragment(this) {
                     //不是首次订阅时调用方法，防止数据第一次监听错误
                     if (!isFirst) {
                         onNetworkStateChanged(it)

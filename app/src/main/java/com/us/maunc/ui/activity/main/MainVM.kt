@@ -21,4 +21,6 @@ class MainVM : BaseViewModel<BaseModel>() {
             mainRecData.value = recData
         }
     }
+
+    fun testString() = "my name isMainVm"
 }

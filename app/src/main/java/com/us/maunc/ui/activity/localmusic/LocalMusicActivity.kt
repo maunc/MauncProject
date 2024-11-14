@@ -294,4 +294,7 @@ class LocalMusicActivity : BaseActivity<LocalMusicVM, ActivityLocalMusicBinding>
     override fun onScreenStateChanged(screenState: Boolean) {
     }
 
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
+
 }

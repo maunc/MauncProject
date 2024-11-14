@@ -83,4 +83,7 @@ class MainActivity : BaseActivity<MainVM, ActivityMainBinding>() {
 
     override fun onScreenStateChanged(screenState: Boolean) {
     }
+
+    override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
+    }
 }

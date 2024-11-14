@@ -7,7 +7,7 @@ import android.net.ConnectivityManager
 import com.blankj.utilcode.util.NetworkUtils
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 
-class NetReceive : BroadcastReceiver() {
+class NetWorkReceive : BroadcastReceiver() {
 
     private var isInit = true
 
@@ -19,34 +19,34 @@ class NetReceive : BroadcastReceiver() {
             }
             if (!NetworkUtils.isConnected()) {
                 //收到没有网络时判断之前的值是不是有网络，如果有网络才提示通知 ，防止重复通知
-                NetStateManager.instance.mNetworkState.value?.let {
+                NetWorkStateManager.instance.mNetworkState.value?.let {
                     if (it) {
-                        NetStateManager.instance.mNetworkState.value = false
+                        NetWorkStateManager.instance.mNetworkState.value = false
                     }
                     return
                 }
-                NetStateManager.instance.mNetworkState.value = false
+                NetWorkStateManager.instance.mNetworkState.value = false
             } else {
                 //收到有网络时判断之前的值是不是没有网络，如果没有网络才提示通知 ，防止重复通知
-                NetStateManager.instance.mNetworkState.value?.let {
+                NetWorkStateManager.instance.mNetworkState.value?.let {
                     if (!it) {
-                        NetStateManager.instance.mNetworkState.value = true
+                        NetWorkStateManager.instance.mNetworkState.value = true
                     }
                     return
                 }
-                NetStateManager.instance.mNetworkState.value = true
+                NetWorkStateManager.instance.mNetworkState.value = true
             }
         }
     }
 }
 
-class NetStateManager private constructor() {
+class NetWorkStateManager private constructor() {
 
     val mNetworkState = UnPeekLiveData<Boolean>()
 
     companion object {
-        val instance: NetStateManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            NetStateManager()
+        val instance: NetWorkStateManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            NetWorkStateManager()
         }
     }
 }
