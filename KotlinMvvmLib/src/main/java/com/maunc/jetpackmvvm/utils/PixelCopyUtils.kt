@@ -1,4 +1,4 @@
-package com.us.utilslib
+package com.maunc.jetpackmvvm.utils
 
 import android.content.ContentValues
 import android.content.Context
@@ -48,7 +48,7 @@ object PixelCopyUtils {
             view.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
             // 获取缓存的bitmap
             val cache: Bitmap = view.getDrawingCache()
-            if (cache != null && !cache.isRecycled) {
+            if (!cache.isRecycled) {
                 bitmap = Bitmap.createBitmap(cache)
             }
             // 销毁view缓存bitmap
@@ -61,7 +61,9 @@ object PixelCopyUtils {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun convertLayoutToBitmap(
-        window: Window, view: View, dest: Bitmap,
+        window: Window,
+        view: View,
+        dest: Bitmap,
         listener: PixelCopy.OnPixelCopyFinishedListener
     ) {
         // 获取layout的位置
@@ -75,7 +77,10 @@ object PixelCopyUtils {
         )
     }
 
-    fun saveBitmapGallery(context: Context, bitmap: Bitmap): Boolean {
+    fun saveBitmapGallery(
+        context: Context,
+        bitmap: Bitmap
+    ): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val insert = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,

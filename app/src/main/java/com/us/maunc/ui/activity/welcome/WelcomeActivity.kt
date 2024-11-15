@@ -126,7 +126,6 @@ class WelcomeActivity : BaseActivity<WelcomeVM, ActivityWelcomeBinding>() {
     }
 
     override fun onFrontAndBackStateChanged(frontAndBackState: Boolean) {
-        Log.e("ww", "Welcome  onFrontAndBackStateChanged $frontAndBackState")
     }
 
     private fun activityGoto(clazz: Class<*>) {

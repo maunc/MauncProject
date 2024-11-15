@@ -111,6 +111,14 @@ abstract class BaseDialog<VM : BaseViewModel<*>, DB : ViewDataBinding> : DialogF
     }
 
     /**
+     * 获取ViewModel
+     */
+    fun <T : BaseViewModel<*>> getViewModel(quickViewModel: Class<T>): T {
+        val viewModel: T = ViewModelProvider(this)[quickViewModel]
+        return viewModel
+    }
+
+    /**
      * 是否需要懒加载
      */
     private fun onVisible() {

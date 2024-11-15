@@ -103,6 +103,14 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
     }
 
     /**
+     * 获取ViewModel
+     */
+    fun <T : BaseViewModel<*>> getViewModel(quickViewModel: Class<T>): T {
+        val viewModel: T = ViewModelProvider(this)[quickViewModel]
+        return viewModel
+    }
+
+    /**
      * 是否需要懒加载
      */
     private fun onVisible() {

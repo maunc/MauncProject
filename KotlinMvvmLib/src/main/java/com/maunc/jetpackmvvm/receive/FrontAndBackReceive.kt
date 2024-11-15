@@ -2,8 +2,10 @@ package com.maunc.jetpackmvvm.receive
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
+import com.maunc.jetpackmvvm.livedata.BooleanLiveData
 
 object FrontAndBackReceive : LifecycleObserver {
 
@@ -22,7 +24,7 @@ object FrontAndBackReceive : LifecycleObserver {
 
 class FrontAndBackStateManager private constructor() {
 
-    val mFrontAndBackState = UnPeekLiveData<Boolean>()
+    val mFrontAndBackState = BooleanLiveData()
 
     companion object {
         val instance: FrontAndBackStateManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {

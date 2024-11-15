@@ -10,7 +10,6 @@ abstract class BaseViewModel<M : BaseModel?> : ViewModel(), BaseLifecycle {
     var model: M? = null
 
     init {
-        Log.e("ww", "BaseViewModel init")
         val parameterizedType = javaClass.genericSuperclass as ParameterizedType
         val actualTypeArguments = parameterizedType.actualTypeArguments
         val mClass = actualTypeArguments[0] as Class<M>

@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LogUtils {
+public final class LogUtils {
 
     private static boolean IS_SHOW_LOG = true;
     private static final String LOG_TAG = "ww";

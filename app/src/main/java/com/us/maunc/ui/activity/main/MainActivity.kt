@@ -55,7 +55,7 @@ class MainActivity : BaseActivity<MainVM, ActivityMainBinding>() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 //如果不设置模式带上状态栏的高度
                 //减去的这个值越小 bottomSheet的高度就越高，要控制高度合法
-                val targetBottomHeight = (this as Context).screenHeight(false) - 50
+                val targetBottomHeight = screenHeight(false) - 50
                 val layoutParams = bottomSheet.layoutParams
                 if (layoutParams.height != targetBottomHeight) {
                     layoutParams.height = targetBottomHeight

@@ -1,4 +1,4 @@
-package com.us.utilslib;
+package com.maunc.jetpackmvvm.utils;
 
 import androidx.annotation.NonNull;
 

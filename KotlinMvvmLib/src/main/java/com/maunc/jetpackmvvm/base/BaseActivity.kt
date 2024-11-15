@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.maunc.jetpackmvvm.ext.getVmClazz
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
 import com.maunc.jetpackmvvm.receive.FrontAndBackStateManager
@@ -18,6 +17,10 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
 
     lateinit var mDatabind: DB
 
+    var mFrontAndBackStateObserver = Observer<Boolean> {
+        onFrontAndBackStateChanged(it)
+    }
+
     /**
      * 加载view
      */
@@ -26,7 +29,8 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
     /**
      * 创建LiveData数据观察者
      */
-    abstract fun createObserver()
+    open fun createObserver() {
+    }
 
     /**
      * 网络变化监听
@@ -57,9 +61,9 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
         ScreenStateManager.instance.mScreenState.observeInActivity(this, Observer {
             onScreenStateChanged(it)
         })
-        FrontAndBackStateManager.instance.mFrontAndBackState.observeInActivity(this, Observer {
-            onFrontAndBackStateChanged(it)
-        })
+        FrontAndBackStateManager.instance.mFrontAndBackState.observeForever(
+            mFrontAndBackStateObserver
+        )
     }
 
     /**
@@ -72,16 +76,15 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
     /**
      * 获取ViewModel
      */
-//    fun <T : BaseViewModel<*>?> getQuickViewModel(quickViewModel: Class<T>?): T {
-//        val t: T = ViewModelProvider(this).get<T>(quickViewModel)
-//        lifecycle.addObserver(t)
-//        return t
-//    }
+    fun <T : BaseViewModel<*>> getViewModel(quickViewModel: Class<T>): T {
+        val viewModel: T = ViewModelProvider(this)[quickViewModel]
+        return viewModel
+    }
 
     override fun onDestroy() {
+        FrontAndBackStateManager.instance.mFrontAndBackState.removeObserver(
+            mFrontAndBackStateObserver
+        )
         super.onDestroy()
-        mViewModel.let {
-            lifecycle.removeObserver(it)
-        }
     }
 }
