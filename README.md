@@ -1,4 +1,4 @@
-1.Java和Kotlin封装的MVVM的基础框架。两者有区别，用法大致一样
+1.Kotlin封装的MVVM的基础框架。
 
 2.仿制QQ个人主页效果
 
