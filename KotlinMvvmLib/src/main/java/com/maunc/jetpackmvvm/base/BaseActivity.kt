@@ -7,9 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.maunc.jetpackmvvm.ext.getVmClazz
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
-import com.maunc.jetpackmvvm.receive.FrontAndBackStateManager
-import com.maunc.jetpackmvvm.receive.NetWorkStateManager
-import com.maunc.jetpackmvvm.receive.ScreenStateManager
+import com.maunc.jetpackmvvm.receiver.FrontAndBackStateManager
+import com.maunc.jetpackmvvm.receiver.NetWorkStateManager
+import com.maunc.jetpackmvvm.receiver.ScreenStateManager
 
 abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCompatActivity() {
 
@@ -61,6 +61,7 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
         ScreenStateManager.instance.mScreenState.observeInActivity(this, Observer {
             onScreenStateChanged(it)
         })
+        //后台也要监听 用observeForever 需要release
         FrontAndBackStateManager.instance.mFrontAndBackState.observeForever(
             mFrontAndBackStateObserver
         )
@@ -77,8 +78,7 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
      * 获取ViewModel
      */
     fun <T : BaseViewModel<*>> getViewModel(quickViewModel: Class<T>): T {
-        val viewModel: T = ViewModelProvider(this)[quickViewModel]
-        return viewModel
+        return ViewModelProvider(this)[quickViewModel]
     }
 
     override fun onDestroy() {

@@ -2,12 +2,16 @@ package com.maunc.jetpackmvvm.ext
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.maunc.jetpackmvvm.base.BaseModel
 import com.maunc.jetpackmvvm.base.BaseViewModel
 import com.maunc.jetpackmvvm.http.AppException
 import com.maunc.jetpackmvvm.http.BaseResponse
 import com.maunc.jetpackmvvm.http.ExceptionHandle
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 过滤服务器结果，失败抛异常
@@ -20,7 +24,6 @@ fun <T> BaseViewModel<*>.request(
     success: (T) -> Unit,
     error: (AppException) -> Unit = {},
 ): Job {
-    //如果需要弹窗 通知Activity/fragment弹窗
     return viewModelScope.launch {
         runCatching {
             //请求体

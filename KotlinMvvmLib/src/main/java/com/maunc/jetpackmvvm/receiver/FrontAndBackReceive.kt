@@ -1,4 +1,4 @@
-package com.maunc.jetpackmvvm.receive
+package com.maunc.jetpackmvvm.receiver
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -7,7 +7,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.maunc.jetpackmvvm.livedata.BooleanLiveData
 
-object FrontAndBackReceive : LifecycleObserver {
+object FrontAndBackReceiver : LifecycleObserver {
 
     //在前台
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

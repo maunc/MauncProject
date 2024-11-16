@@ -13,7 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.maunc.jetpackmvvm.ext.getVmClazz
 import com.maunc.jetpackmvvm.ext.inflateBindingWithGeneric
-import com.maunc.jetpackmvvm.receive.NetWorkStateManager
+import com.maunc.jetpackmvvm.receiver.NetWorkStateManager
 
 abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragment() {
 
@@ -99,15 +99,14 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
      * 创建viewModel
      */
     private fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this)[getVmClazz(this)]
     }
 
     /**
      * 获取ViewModel
      */
     fun <T : BaseViewModel<*>> getViewModel(quickViewModel: Class<T>): T {
-        val viewModel: T = ViewModelProvider(this)[quickViewModel]
-        return viewModel
+        return ViewModelProvider(this)[quickViewModel]
     }
 
     /**

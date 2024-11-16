@@ -9,7 +9,6 @@ import retrofit2.HttpException
 import java.net.ConnectException
 
 enum class Error(private val code: Int, private val err: String) {
-
     /**
      * 未知错误
      */
@@ -54,30 +53,37 @@ object ExceptionHandle {
                     ex = AppException(Error.NETWORK_ERROR, e)
                     return ex
                 }
+
                 is JsonParseException, is JSONException, is ParseException, is MalformedJsonException -> {
                     ex = AppException(Error.PARSE_ERROR, e)
                     return ex
                 }
+
                 is ConnectException -> {
                     ex = AppException(Error.NETWORK_ERROR, e)
                     return ex
                 }
+
                 is javax.net.ssl.SSLException -> {
                     ex = AppException(Error.SSL_ERROR, e)
                     return ex
                 }
+
                 is ConnectTimeoutException -> {
                     ex = AppException(Error.TIMEOUT_ERROR, e)
                     return ex
                 }
+
                 is java.net.SocketTimeoutException -> {
                     ex = AppException(Error.TIMEOUT_ERROR, e)
                     return ex
                 }
+
                 is java.net.UnknownHostException -> {
                     ex = AppException(Error.TIMEOUT_ERROR, e)
                     return ex
                 }
+
                 is AppException -> return it
 
                 else -> {
@@ -91,12 +97,47 @@ object ExceptionHandle {
     }
 }
 
+/**
+ * 错误结构体
+ */
+class AppException : Exception {
+
+    private var errorMsg: String //错误消息
+    private var errCode: Int = 0 //错误码
+    private var errorLog: String? //错误日志
+    private var throwable: Throwable? = null
+
+    constructor(
+        errCode: Int?,
+        error: String?,
+        errorLog: String? = "",
+        throwable: Throwable? = null,
+    ) : super(error) {
+        this.errorMsg = error ?: "请求失败，请稍后再试"
+        this.errCode = errCode ?: 0
+        this.errorLog = errorLog ?: this.errorMsg
+        this.throwable = throwable
+    }
+
+    constructor(
+        error: Error,
+        e: Throwable?
+    ) {
+        errCode = error.getKey()
+        errorMsg = error.getValue()
+        errorLog = e?.message
+        throwable = e
+    }
+}
+
 object BaseNetCode {
     //请求成功, 正确的操作方式
     const val CODE_200: Int = 200
 
     //请求失败，不打印Message
     const val CODE_300: Int = 300
+
+    const val CODE_302: Int = 302
 
     //认证失败
     const val CODE_401: Int = 401

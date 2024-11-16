@@ -1,4 +1,4 @@
-package com.maunc.jetpackmvvm.receive
+package com.maunc.jetpackmvvm.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,7 +7,7 @@ import android.net.ConnectivityManager
 import com.blankj.utilcode.util.NetworkUtils
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 
-class NetWorkReceive : BroadcastReceiver() {
+class NetWorkReceiver : BroadcastReceiver() {
 
     private var isInit = true
 

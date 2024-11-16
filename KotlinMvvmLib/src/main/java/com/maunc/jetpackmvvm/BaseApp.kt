@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import com.maunc.jetpackmvvm.base.BaseAppManager
 import com.maunc.jetpackmvvm.base.BaseCrashHandler
-import com.maunc.jetpackmvvm.receive.FrontAndBackReceive
-import com.maunc.jetpackmvvm.receive.NetWorkReceive
-import com.maunc.jetpackmvvm.receive.ScreenReceiver
+import com.maunc.jetpackmvvm.receiver.FrontAndBackReceiver
+import com.maunc.jetpackmvvm.receiver.NetWorkReceiver
+import com.maunc.jetpackmvvm.receiver.ScreenReceiver
 
 open class BaseApp : Application(), ViewModelStoreOwner {
 
@@ -35,23 +35,23 @@ open class BaseApp : Application(), ViewModelStoreOwner {
         super.onCreate()
         instance = this
         mAppViewModelStore = ViewModelStore()
+        // 注册Activity的监听
+        registerActivityLifecycleCallbacks(KtxLifeCycleCallBack())
         initReceiver()
         BaseCrashHandler.getInstance().init()
     }
 
     private fun initReceiver() {
         // 网络广播
-        registerReceiver(NetWorkReceive(), IntentFilter().apply {
+        registerReceiver(NetWorkReceiver(), IntentFilter().apply {
             addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         })
         registerReceiver(ScreenReceiver(), IntentFilter().apply {
             addAction(Intent.ACTION_SCREEN_OFF)
             addAction(Intent.ACTION_SCREEN_ON)
         })
-        // 注册Activity的监听
-        registerActivityLifecycleCallbacks(KtxLifeCycleCallBack())
         // 监听app前后台
-        ProcessLifecycleOwner.get().lifecycle.addObserver(FrontAndBackReceive)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(FrontAndBackReceiver)
     }
 
     fun getApp(): Application {

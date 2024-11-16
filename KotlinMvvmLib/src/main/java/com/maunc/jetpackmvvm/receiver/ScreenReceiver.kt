@@ -1,4 +1,4 @@
-package com.maunc.jetpackmvvm.receive
+package com.maunc.jetpackmvvm.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
