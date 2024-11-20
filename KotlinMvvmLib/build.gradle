@@ -30,9 +30,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    android.libraryVariants.all { variant->
+        variant.outputs.all {
+            outputFileName = "MVVMSDK_${getAppVersionName()}.aar"
+        }
+    }
 }
 
-def getAppVersionName() {
+static def getAppVersionName() {
     return new Date().format("yyyyMMdd.HH", TimeZone.getDefault())
 }
 
