@@ -39,6 +39,11 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
     abstract fun lazyLoadData()
 
     /**
+     * 加载后返回Fragment回调
+     */
+    abstract fun onRestart()
+
+    /**
      * 创建观察者
      */
     abstract fun createObserver()
@@ -56,7 +61,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = inflateBindingWithGeneric(inflater, container, false)
         return mDatabind.root
@@ -70,9 +75,30 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
         createObserver()
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (isFirst) {
+            // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
+            handler.postDelayed({
+                lazyLoadData()
+                //在Fragment中，只有懒加载过了才能开启网络变化监听
+                NetWorkStateManager.instance.mNetworkState.observeInFragment(this) {
+                    //不是首次订阅时调用方法，防止数据第一次监听错误
+                    if (!isFirst) {
+                        onNetworkStateChanged(it)
+                    }
+                }
+                isFirst = false
+            }, lazyLoadTime())
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        onVisible()
+        if (!isFirst) {
+            onRestart()
+        }
+        isFirst = false
     }
 
     override fun onDestroyView() {
@@ -82,6 +108,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
 
     override fun onDestroy() {
         super.onDestroy()
+        isFirst = true
         handler.removeCallbacksAndMessages(null)
     }
 
@@ -89,7 +116,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
      * 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿  bug
      * 这里传入你想要延迟的时间，延迟时间可以设置比转场动画时间长一点 单位： 毫秒
      * 不传默认 300毫秒
-     * @return Long
      */
     open fun lazyLoadTime(): Long {
         return 300
@@ -107,25 +133,5 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
      */
     fun <T : BaseViewModel<*>> getViewModel(quickViewModel: Class<T>): T {
         return ViewModelProvider(this)[quickViewModel]
-    }
-
-    /**
-     * 是否需要懒加载
-     */
-    private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
-            // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
-            handler.postDelayed({
-                lazyLoadData()
-                //在Fragment中，只有懒加载过了才能开启网络变化监听
-                NetWorkStateManager.instance.mNetworkState.observeInFragment(this) {
-                    //不是首次订阅时调用方法，防止数据第一次监听错误
-                    if (!isFirst) {
-                        onNetworkStateChanged(it)
-                    }
-                }
-                isFirst = false
-            }, lazyLoadTime())
-        }
     }
 }

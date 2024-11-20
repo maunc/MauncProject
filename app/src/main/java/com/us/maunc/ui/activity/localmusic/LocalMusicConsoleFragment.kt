@@ -33,6 +33,10 @@ class LocalMusicConsoleFragment :
     override fun lazyLoadData() {
     }
 
+    override fun onRestart() {
+
+    }
+
     override fun createObserver() {
     }
 
