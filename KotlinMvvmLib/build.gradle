@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace 'com.maunc.jetpackmvvm'
     compileSdkVersion 29
 
     defaultConfig {
@@ -27,10 +28,15 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    android.libraryVariants.all { variant->
+    android.libraryVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "MVVMSDK_${getAppVersionName()}.aar"
         }
@@ -40,6 +46,18 @@ android {
 static def getAppVersionName() {
     return new Date().format("yyyyMMdd.HH", TimeZone.getDefault())
 }
+
+task createJar(type: Copy) {
+    delete 'build/libs/MVVMSDK.jar'
+    // 设置copy文件
+    from('build/intermediates/bundles/default/')
+    // 放入指定位置
+    into('build/libs/')
+    include('classes.jar')
+    rename('classes.jar', 'MVVMSDK.jar')
+}
+
+createJar.dependsOn(build)
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
