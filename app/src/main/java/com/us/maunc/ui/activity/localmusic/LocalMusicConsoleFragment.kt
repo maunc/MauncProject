@@ -30,7 +30,7 @@ class LocalMusicConsoleFragment :
         mDatabind.localMusicTitle.text = localMusicFileData.name
     }
 
-    override fun lazyLoadData() {
+    override fun initData() {
     }
 
     override fun onRestart() {
