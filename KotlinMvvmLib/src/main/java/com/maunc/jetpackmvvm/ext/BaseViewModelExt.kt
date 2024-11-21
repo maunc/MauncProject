@@ -112,7 +112,7 @@ suspend fun <T> executeResponse(
  */
 fun <T> BaseViewModel<*>.launch(
     block: () -> T,
-    success: (T) -> Unit,
+    success: (T) -> Unit = {},
     error: (Throwable) -> Unit = {}
 ) {
     viewModelScope.launch {
@@ -125,5 +125,13 @@ fun <T> BaseViewModel<*>.launch(
         }.onFailure {
             error(it)
         }
+    }
+}
+
+fun BaseViewModel<*>.launch(
+    block: suspend () -> Unit,
+) {
+    viewModelScope.launch(Dispatchers.IO) {
+        block()
     }
 }
