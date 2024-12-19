@@ -4,6 +4,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("rand.qinghua")
-    suspend fun getTestNetData(): TestData
+    @GET("testJson/userList")
+    suspend fun getTestNetData(): MutableList<TestData>
 }

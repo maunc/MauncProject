@@ -6,7 +6,9 @@ import retrofit2.Retrofit
 
 
 val apiService: ApiService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-    NetworkApi.INSTANCE.getApi(ApiService::class.java, "https://api.uomg.com/api/")
+
+//    http://localhost:8080/hello
+    NetworkApi.INSTANCE.getApi(ApiService::class.java, "http://192.168.120.175:8080/")
 }
 
 class NetworkApi : BaseNetworkApi() {

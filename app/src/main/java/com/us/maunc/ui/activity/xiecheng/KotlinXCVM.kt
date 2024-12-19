@@ -12,7 +12,13 @@ class KotlinXCVM : BaseViewModel<BaseModel>() {
         requestNoCheck({
             apiService.getTestNetData()
         }, {
-            Log.e("ee", it.content)
+            it.takeIf {
+                it.isNotEmpty()
+            }?.let {
+                it.forEach {
+                    Log.e("ww", "name: ${it.name} ,address:${it.address}")
+                }
+            }
         }, {
             Log.e("ww", "${it.message}")
         })
