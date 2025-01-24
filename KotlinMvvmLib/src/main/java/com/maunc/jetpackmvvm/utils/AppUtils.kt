@@ -17,6 +17,7 @@ import com.maunc.jetpackmvvm.BaseApp
  */
 object AppUtils {
 
+    @JvmStatic
     fun getDimens(@DimenRes dimens: Int): Int {
         return try {
             BaseApp.instance.resources.getDimensionPixelOffset(dimens)
@@ -25,6 +26,7 @@ object AppUtils {
         }
     }
 
+    @JvmStatic
     fun getDrawable(@DrawableRes drawable: Int): Drawable? {
         return try {
             ResourcesCompat.getDrawable(BaseApp.instance.resources, drawable, null)
@@ -33,6 +35,7 @@ object AppUtils {
         }
     }
 
+    @JvmStatic
     fun getString(@StringRes string: Int): String {
         return try {
             BaseApp.instance.getString(string)
@@ -41,6 +44,7 @@ object AppUtils {
         }
     }
 
+    @JvmStatic
     fun getAppName(): String {
         val pm: PackageManager = BaseApp.instance.packageManager
         try {
@@ -55,6 +59,7 @@ object AppUtils {
         return ""
     }
 
+    @JvmStatic
     fun getVersionName(): String? {
         try {
             val packageManager: PackageManager = BaseApp.instance.packageManager
@@ -68,6 +73,7 @@ object AppUtils {
         return ""
     }
 
+    @JvmStatic
     fun getAppVersionCode(): Int {
         var versionCode = 0
         try {
@@ -78,5 +84,21 @@ object AppUtils {
             e.printStackTrace()
         }
         return versionCode
+    }
+
+    fun getSignatureHashCode(): List<String> {
+        val signatureList = mutableListOf<String>()
+        try {
+            val context = BaseApp.instance
+            val packageInfo = context.packageManager.getPackageInfo(
+                context.packageName, PackageManager.GET_SIGNATURES
+            )
+            for (signature in packageInfo.signatures) {
+                signatureList.add(signature.hashCode().toString())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return signatureList
     }
 }
