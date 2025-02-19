@@ -134,5 +134,3 @@ fun getDeviceSerialNumber(): String? {
     }
     return serial
 }
-
-

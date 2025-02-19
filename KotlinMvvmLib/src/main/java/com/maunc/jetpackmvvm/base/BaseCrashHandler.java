@@ -97,7 +97,7 @@ public class BaseCrashHandler implements Thread.UncaughtExceptionHandler {
     /**
      * 保存错误信息到文件中
      */
-    private void saveCrashInfoToFile(Throwable ex) {
+    private void saveCrashInfoToFile(@NonNull Throwable ex) {
         //获取错误原因
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);

@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import java.nio.ByteBuffer
 
-
 /**
  * dp转px
  */
@@ -87,3 +86,4 @@ fun ByteArray.bytes2Bitmap(): Bitmap? {
     }
     return BitmapFactory.decodeByteArray(this, 0, this.size)
 }
+

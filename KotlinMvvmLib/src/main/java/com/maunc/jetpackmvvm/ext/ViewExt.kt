@@ -5,12 +5,14 @@ import android.animation.IntEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Rect
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +49,18 @@ fun View.visibleOrGone(flag: Boolean) {
     } else {
         View.GONE
     }
+}
+
+/**
+ * 设置跑马灯
+ */
+fun TextView.marquee() {
+    ellipsize = TextUtils.TruncateAt.MARQUEE
+    marqueeRepeatLimit = -1
+    isSingleLine = true
+    isFocusable = true
+    isSelected = true
+    isFocusableInTouchMode = true
 }
 
 /**
@@ -147,7 +161,7 @@ fun View.animateSetWidth(
     targetValue: Int,
     duration: Long = 400,
     listener: Animator.AnimatorListener? = null,
-    action: ((Float) -> Unit)? = null
+    action: ((Float) -> Unit)? = null,
 ) {
     post {
         ValueAnimator.ofInt(width, targetValue).apply {
@@ -170,7 +184,7 @@ fun View.animateSetHeight(
     targetValue: Int,
     duration: Long = 400,
     listener: Animator.AnimatorListener? = null,
-    action: ((Float) -> Unit)? = null
+    action: ((Float) -> Unit)? = null,
 ) {
     post {
         ValueAnimator.ofInt(height, targetValue).apply {
@@ -194,7 +208,7 @@ fun View.animateSetWidthAndHeight(
     targetHeight: Int,
     duration: Long = 400,
     listener: Animator.AnimatorListener? = null,
-    action: ((Float) -> Unit)? = null
+    action: ((Float) -> Unit)? = null,
 ) {
     post {
         val startHeight = height

@@ -17,7 +17,7 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : AppCo
 
     lateinit var mDatabind: DB
 
-    var mFrontAndBackStateObserver = Observer<Boolean> {
+    private var mFrontAndBackStateObserver = Observer<Boolean> {
         onFrontAndBackStateChanged(it)
     }
 
