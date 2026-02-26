@@ -25,5 +25,6 @@ class WelcomeVM : BaseViewModel<WelcomeM>() {
         recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_link_age_tv),"link_age"))
         recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_second_list),"second_list"))
         recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_local_music),"local_music"))
+        recData.add(WelcomeData(AppUtils.getString(R.string.welcome_start_test_bg_interface),"test_interface"))
     }
 }

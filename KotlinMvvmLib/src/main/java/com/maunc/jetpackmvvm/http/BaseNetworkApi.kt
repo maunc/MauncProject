@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 abstract class BaseNetworkApi {
 
     companion object {
-        private const val DEFAULT_TIME = 20L
+        private const val DEFAULT_TIME = 2000L
     }
 
     /**

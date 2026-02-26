@@ -3,7 +3,6 @@ package com.us.maunc.ui.activity.welcome
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -23,6 +22,7 @@ import com.us.maunc.ui.activity.pic.PicActivity
 import com.us.maunc.ui.activity.pushbox.PushBoxActivity
 import com.us.maunc.ui.activity.secondlist.SecondListActivity
 import com.us.maunc.ui.activity.speedratio.SpeedActivity
+import com.us.maunc.ui.activity.xiecheng.KotlinXCActivity
 
 class WelcomeActivity : BaseActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
@@ -60,6 +60,10 @@ class WelcomeActivity : BaseActivity<WelcomeVM, ActivityWelcomeBinding>() {
 
                     "local_music" -> {
                         activityGoto(LocalMusicActivity::class.java)
+                    }
+
+                    "test_interface" -> {
+                        activityGoto(KotlinXCActivity::class.java)
                     }
                 }
             }
